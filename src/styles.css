@@ -1,7 +1,14 @@
 @font-face {
-  font-family: CustomFont;
-  src: url("./Custom-Font.ttf");
+  font-family: Roboto;
+  src: url("../fonts/RobotoMt/Roboto_MtavruliBold.ttf");
 }
+
+@font-face {
+  font-family: Firago;
+  src: url("../fonts/FiraGO_TTF/Roman/FiraGO-Regular.ttf");
+}
+
+
 
 html,
 body {

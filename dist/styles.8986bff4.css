@@ -1,7 +1,14 @@
 @font-face {
-  font-family: CustomFont;
-  src: url("/3ac84e704cdb88409717300b16783a90.ttf");
+  font-family: Roboto;
+  src: url("/Roboto_MtavruliBold.18d63134.ttf");
 }
+
+@font-face {
+  font-family: Firago;
+  src: url("/FiraGO-Regular.8fe460ca.ttf");
+}
+
+
 
 html,
 body {
@@ -10,5 +17,6 @@ body {
   overflow: hidden;
   height: 100%;
 }
+
 
 /*# sourceMappingURL=/styles.8986bff4.css.map */
