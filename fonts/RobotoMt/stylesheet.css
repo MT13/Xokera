@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Roboto_MtavruliBold';
+    src: url('Roboto_MtavruliBold.eot');
+    src: url('Roboto_MtavruliBold.eot?#iefix') format('embedded-opentype'),
+        url('Roboto_MtavruliBold.woff2') format('woff2'),
+        url('Roboto_MtavruliBold.woff') format('woff'),
+        url('Roboto_MtavruliBold.ttf') format('truetype'),
+        url('Roboto_MtavruliBold.svg#Roboto_MtavruliBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+

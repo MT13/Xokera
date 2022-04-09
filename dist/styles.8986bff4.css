@@ -1,0 +1,14 @@
+@font-face {
+  font-family: CustomFont;
+  src: url("/3ac84e704cdb88409717300b16783a90.ttf");
+}
+
+html,
+body {
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+  height: 100%;
+}
+
+/*# sourceMappingURL=/styles.8986bff4.css.map */
