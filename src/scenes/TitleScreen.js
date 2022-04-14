@@ -44,6 +44,7 @@ class TitleScreen extends BaseScene {
       };
     }
 
+    styleH.color = "#FFC627";
     this.aboutH = this.add.text(
       this.offset,
       currentOffset,
@@ -125,6 +126,7 @@ class TitleScreen extends BaseScene {
       styleT
     );
 
+
     currentOffset += this.offset;
     let button = new RedButton(
       this,
@@ -134,6 +136,7 @@ class TitleScreen extends BaseScene {
     );
 
     this.add.existing(button);
+
 
     button.setInteractive();
     button.on("pointerdown", () => {
