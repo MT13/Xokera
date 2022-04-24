@@ -3,6 +3,8 @@ import TitleScreen from "./scenes/TitleScreen";
 import GameScene from "./scenes/GameScene";
 import i18n from "../i18n";
 import RoundRectanglePlugin from "phaser3-rex-plugins/plugins/roundrectangle-plugin.js";
+import InstructionsScene from "./scenes/InstructionsScene";
+import UIScene from "./scenes/UIScene";
 
 const config = {
   scale: {
@@ -26,10 +28,13 @@ const config = {
 let game = new Phaser.Game(config);
 
 let titleScreen = new TitleScreen();
-let gameScene = new GameScene();
-// let gameScene = new GameScene();
+let instructionsScene = new InstructionsScene();
+let uiScene = new UIScene();
 game.scene.add("titleScreen", titleScreen);
-game.scene.add("gameScene", gameScene);
+game.scene.add("instructionsScene", instructionsScene);
+// game.scene.add("gameScene", gameScene);
+game.scene.add("uiScene", uiScene);
 
 // game.scene.add("gameScene", gameScene);
-game.scene.start("titleScreen");
+// game.scene.start("instructionsScene");
+game.scene.start("uiScene");

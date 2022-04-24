@@ -1,13 +1,13 @@
 @font-face {
   font-family: Roboto;
-  src: url("../fonts/RobotoMt/Roboto_MtavruliBold.ttf");
+  src: url("../fonts/RobotoMt/Roboto_MtavruliBold.woff2");
+
 }
 
 @font-face {
   font-family: Firago;
-  src: url("../fonts/FiraGO_TTF/Roman/FiraGO-Regular.ttf");
+  src: url("../fonts/FiraGO_WEB_1001/Roman/FiraGO-Regular.woff2");
 }
-
 
 
 html,

@@ -21,16 +21,12 @@ class TitleScreen extends BaseScene {
   }
 
   create() {
-    console.log("in create titleScreen1");
-
-    console.log("In titleScreen");
-
-    var windowWidth = window.innerWidth;
-    var windowHeight = window.innerHeight;
+    let windowWidth = window.innerWidth;
+    let windowHeight = window.innerHeight;
     this.bg = this.add.image(windowWidth / 2, windowHeight / 2, "bg");
     this.bg.setDisplaySize(windowWidth, windowHeight);
 
-    var styleH, styleT;
+    let styleH, styleT;
 
     this.offset = 50;
     let currentOffset = this.offset;
@@ -126,7 +122,6 @@ class TitleScreen extends BaseScene {
       styleT
     );
 
-
     currentOffset += this.offset;
     let button = new RedButton(
       this,
@@ -137,10 +132,9 @@ class TitleScreen extends BaseScene {
 
     this.add.existing(button);
 
-
     button.setInteractive();
     button.on("pointerdown", () => {
-      this.scene.start("gameScene");
+      this.scene.start("uiScene");
     });
   }
 }

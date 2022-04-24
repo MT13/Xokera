@@ -19,6 +19,8 @@ const resources = {
       "il name": "Zizi Nishnianidze",
       "dev name": "Maria Tarielashvili",
 
+      cyber_snake: "Cyber Snake",
+
       //rules page
 
       rules:
@@ -184,6 +186,9 @@ const resources = {
       developer: "დეველოპერი: ",
       "il name": "ზიზი ნიშნიანიძე",
       "dev name": "მარია ტარიელაშვილი",
+
+      cyber_snake: "კიბერ ხოკერა",
+
 
       //rules page
       rules:
