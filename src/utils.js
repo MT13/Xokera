@@ -6,7 +6,7 @@ export const styleHeader = {
     top: 5,
     bottom: 5,
   },
-  fontSize: "4vh",
+  fontSize: "30px",
 };
 
 export const styleText = {
@@ -17,6 +17,6 @@ export const styleText = {
     top: 5,
     bottom: 5,
   },
-  fontSize: "2.5vh",
+  fontSize: "20px",
   wordWrap: {},
 };
