@@ -1,15 +1,14 @@
 import Phaser from "phaser";
-import { SIZE } from "../constants/game.js";
 
 
 export default class ChoiceFood extends Phaser.GameObjects.Image{
  
-    constructor(scene, x, y, texture_key) {
-        super(scene, x * SIZE, y * SIZE, texture_key).setOrigin(0);
+    constructor(scene, x, y, origX, origY, cellWidth, cellHeight, texture_key) {
+        super(scene, x * cellWidth, y * cellHeight, texture_key).setOrigin(0);
 
-        this.setPosition(x*SIZE, y*SIZE)
-        this.displayWidth = SIZE
-        this.displayHeight = SIZE
+        this.setPosition(origX + x*cellWidth, origY + y*cellHeight)
+        this.displayWidth = cellWidth
+        this.displayHeight = cellHeight
         this.setOrigin(0)
         scene.children.add(this)
     }

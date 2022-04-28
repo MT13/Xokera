@@ -7,7 +7,7 @@ import body from "../../assets/first xokera body.png";
 import yesFood from "../../assets/yes.png";
 import noFood from "../../assets/no.png";
 
-import { HEIGHT, SIZE, WIDTH } from "../constants/game";
+import { GRID_HEIGHT, GRID_WIDTH } from "../constants/dimensions";
 
 class GameScene extends BaseScene {
   constructor() {
@@ -21,28 +21,38 @@ class GameScene extends BaseScene {
     this.load.image("no_food", noFood);
   }
 
-  create() {
-    this.snake = new Snake(this, 0, 0);
+  create(data) {
+    super.create()
+
+    let {origX, origY, width, height} = data
+    this.origX = origX
+    this.origY = origY
+    this.cellWidth = width/GRID_WIDTH
+    this.cellHeight = height/GRID_HEIGHT
+
+    console.log(this.cellHeight, this.cellWidth)
+    
+    this.snake = new Snake(this, 1, 1, origX, origY, this.cellWidth, this.cellHeight);
     this.generateChoices(this.snake);
     this.cursors = this.input.keyboard.createCursorKeys();
   }
 
   generateChoices(snake) {
-    this.YesFood = new ChoiceFood(this, 13, 12, "yes_food");
-    this.NoFood = new ChoiceFood(this, 19, 3, "no_food");
+    this.YesFood = new ChoiceFood(this, 13, 11, this.origX, this.origY, this.cellWidth, this.cellHeight, "yes_food");
+    this.NoFood = new ChoiceFood(this, 0, 0, this.origX, this.origY, this.cellWidth, this.cellHeight, "no_food");
   }
 
   repositionChoices(snake) {
-    const testGrid = Array.from({ length: HEIGHT }, () =>
-      Array.from({ length: WIDTH }, () => true)
+    const testGrid = Array.from({ length: GRID_HEIGHT }, () =>
+      Array.from({ length: GRID_WIDTH }, () => true)
     );
 
     snake.updateGrid(testGrid);
 
     const validLocations = [];
 
-    for (let y = 0; y < HEIGHT; y++) {
-      for (let x = 0; x < WIDTH; x++) {
+    for (let y = 0; y < GRID_HEIGHT; y++) {
+      for (let x = 0; x < GRID_WIDTH; x++) {
         if (testGrid[y][x] === true) {
           validLocations.push({ x, y });
         }
@@ -55,8 +65,8 @@ class GameScene extends BaseScene {
       let YesPosition = validLocations[0];
       let NoPosition = validLocations[1];
 
-      this.YesFood.setPosition(YesPosition.x * SIZE, YesPosition.y * SIZE);
-      this.NoFood.setPosition(NoPosition.x * SIZE, NoPosition.y * SIZE);
+      this.YesFood.setPosition(this.origX + YesPosition.x * this.cellWidth, this.origY + YesPosition.y * this.cellHeight);
+      this.NoFood.setPosition(this.origX + NoPosition.x * this.cellWidth, this.origY + NoPosition.y * this.cellHeight);
 
       return true;
     }

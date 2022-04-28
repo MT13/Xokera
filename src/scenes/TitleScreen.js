@@ -66,57 +66,19 @@ export class TitleScreen extends BaseScene {
     // );
   }
 
-  updateCamera ()
-    {
-        const camera = this.cameras.main;
-
-        const x = Math.ceil((this.parent.width - this.sizer.width) * 0.5);
-        const y = 0;
-        const scaleX = this.sizer.width / TITLE_AREA_WIDTH;
-        const scaleY = this.sizer.height / TITLE_AREA_HEIGHT;
-        camera.setViewport(x, y, this.sizer.width, this.sizer.height);
-        camera.setZoom(Math.max(scaleX, scaleY));
-        camera.centerOn(TITLE_AREA_WIDTH / 2, TITLE_AREA_HEIGHT / 2);
-
-        this.backgroundScene.updateCamera();
-    }
-
-  getZoom ()
-  {
-      return this.cameras.main.zoom;
-  }
 
   resize (gameSize, baseSize, displaySize, resolution)
   {
-      const width = gameSize.width;
-      const height = gameSize.height;
-
-      this.parent.setSize(width, height);
-      this.sizer.setSize(width, height);
-
-      this.updateCamera();
+    super.resize(gameSize, baseSize, displaySize, resolution)
+    this.backgroundScene.updateCamera();
   }
 
   
   create() {
-    console.log("in create titleScreen1");
-
-
-    const scaleWidth = this.scale.gameSize.width
-    const scaleHeight = this.scale.gameSize.height
-
-    this.parent = new Phaser.Structs.Size(scaleWidth, scaleHeight)
-    this.sizer = new Phaser.Structs.Size(TITLE_AREA_WIDTH, TITLE_AREA_HEIGHT, Phaser.Structs.Size.FIT, this.parent)
-
-
-    this.parent.setSize(scaleWidth, scaleHeight)
-    this.sizer.setSize(scaleWidth, scaleHeight)
+    super.create()
 
     this.backgroundScene = this.scene.get('backgroundScene');
-
-    this.updateCamera(this)
-    this.scale.on('resize', this.resize, this)
-
+    
     let styleH, styleT;
 
     this.offset = 50;
@@ -229,7 +191,7 @@ export class TitleScreen extends BaseScene {
     button.on("pointerdown", () => {
       this.scene.remove('backgroundScene')
       this.scale.removeListener("resize", this.resize)
-      this.scene.start("gameScene");
+      this.scene.start("uiScene");
     });
   }
 }

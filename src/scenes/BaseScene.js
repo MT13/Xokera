@@ -1,34 +1,56 @@
 import Phaser from "phaser";
 
+import {TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH} from '../constants/title';
+
 class BaseScene extends Phaser.Scene {
   constructor(key) {
     super(key);
-
-    console.log("In BaseScene");
   }
   preload() {}
 
   create() {
-    console.log("C:   In BaseScene");
-    // window.addEventListener("resize", resize);
-    // resize();
+    const scaleWidth = this.scale.gameSize.width
+    const scaleHeight = this.scale.gameSize.height
+
+    this.parent = new Phaser.Structs.Size(scaleWidth, scaleHeight)
+    this.sizer = new Phaser.Structs.Size(TITLE_AREA_WIDTH, TITLE_AREA_HEIGHT, Phaser.Structs.Size.FIT, this.parent)
+
+    this.parent.setSize(scaleWidth, scaleHeight)
+    this.sizer.setSize(scaleWidth, scaleHeight)
+
+    this.scale.on('resize', this.resize, this)
+    this.updateCamera(this)
   }
 
-  // resize() {
-  //   var canvas = game.canvas,
-  //     width =
-  //       document.getElementsByClassName("parent-container")[0].offsetWidth,
-  //     height = window.innerHeight;
-  //   var wratio = width / height,
-  //     ratio = canvas.width / canvas.height;
-  //   if (wratio < ratio) {
-  //     canvas.style.width = width + "px";
-  //     canvas.style.height = width / ratio + "px";
-  //   } else {
-  //     canvas.style.width = height * ratio + "px";
-  //     canvas.style.height = height + "px";
-  //   }
-  // }
+  updateCamera ()
+    {
+        const camera = this.cameras.main;
+
+        const x = Math.ceil((this.parent.width - this.sizer.width) * 0.5);
+        const y = 0;
+        const scaleX = this.sizer.width / TITLE_AREA_WIDTH;
+        const scaleY = this.sizer.height / TITLE_AREA_HEIGHT;
+        camera.setViewport(x, y, this.sizer.width, this.sizer.height);
+        camera.setZoom(Math.max(scaleX, scaleY));
+        camera.centerOn(TITLE_AREA_WIDTH / 2, TITLE_AREA_HEIGHT / 2);
+    }
+
+  getZoom ()
+  {
+      return this.cameras.main.zoom;
+  }
+
+  resize (gameSize, baseSize, displaySize, resolution)
+  {
+      const width = gameSize.width;
+      const height = gameSize.height;
+
+      this.parent.setSize(width, height);
+      this.sizer.setSize(width, height);
+
+      this.updateCamera();
+  }
+
 }
 
 export default BaseScene;

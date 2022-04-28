@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { WIDTH, HEIGHT, SIZE } from "../constants/game";
+import { GRID_WIDTH, GRID_HEIGHT } from "../constants/dimensions";
 
 
 const RIGHT = 0;
@@ -10,18 +10,24 @@ const UP = 3;
 
 export default class Snake  {
  
-    constructor(scene, x, y) {
+    constructor(scene, x, y, origX, origY, cellWidth, cellHeight) {
+
+      this.cellWidth = cellWidth
+      this.cellHeight = cellHeight
+      this.origX = origX
+      this.origY = origY
+
       this.body = scene.add.group({
         defaultKey: 'body',
         createCallback: o => {
             o.setOrigin(0)
-            o.displayWidth = SIZE
-            o.displayHeight = SIZE
+            o.displayWidth = cellWidth
+            o.displayHeight = cellHeight
         }
       });
 
   
-      this.head = this.body.create(x*SIZE, y*SIZE, 'head');
+      this.head = this.body.create(origX + x*cellWidth, origY + y*cellHeight, 'head');
   
       this.heading = RIGHT
       this.direction = RIGHT
@@ -79,26 +85,25 @@ export default class Snake  {
 
     move(time) {
         let new_rotation_origin = [0, 0]
-        console.log(this.headPosition)
         switch (this.heading)
         {
             case LEFT:
-                this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x - 1, 0, WIDTH);
+                this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x - 1, 0, GRID_WIDTH);
                 new_rotation_origin = [1, 1]
                 break;
 
             case RIGHT:
-                this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x + 1, 0, WIDTH);
+                this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x + 1, 0, GRID_WIDTH);
                 new_rotation_origin = [0, 0]
                 break;
 
             case UP:
-                this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y - 1, 0, HEIGHT);
+                this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y - 1, 0, GRID_HEIGHT);
                 new_rotation_origin = [1, 0]
                 break;
 
             case DOWN:
-                this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y + 1, 0, HEIGHT);
+                this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y + 1, 0, GRID_HEIGHT);
                 new_rotation_origin = [0, 1]
                 break;
         }
@@ -106,16 +111,15 @@ export default class Snake  {
         
         this.head.setAngle(90*this.direction)
         this.head.setOrigin(...new_rotation_origin)
-  
+
         Phaser.Actions.ShiftPosition(
             this.body.children.entries,
-            this.headPosition.x * SIZE,
-            this.headPosition.y * SIZE,
+            this.headPosition.x * this.cellWidth + this.origX,
+            this.headPosition.y * this.cellHeight + this.origY,
             1,
             this.tailPosition
         );
   
-     
       if (this.hitBody()) {
         //  Game Over!
         this.alive = false;
@@ -143,8 +147,8 @@ export default class Snake  {
   
     updateGrid(grid) {
       for (const segment of this.body.getChildren()) {
-        const x = segment.x / SIZE;
-        const y = segment.y / SIZE;
+        const x = (segment.x - this.origX) / this.cellWidth;
+        const y = (segment.y - this.origY) / this.cellHeight;
   
         grid[y][x] = false;
       }
