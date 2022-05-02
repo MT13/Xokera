@@ -1,15 +1,15 @@
 import Phaser from "phaser";
-import BaseScene from "./BaseScene";
+import { BaseScene, BaseBackgroundScene } from "./BaseScene";
 import i18n from "../../i18n";
 import bg from "../../assets/bg_title.png";
 import { styleHeader, styleText } from "../utils";
 import RedButton from "../objects/redButton";
 import {TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH} from '../constants/title';
 
-export class BackgroundScene extends Phaser.Scene
+export class TitleBackgroundScene extends BaseBackgroundScene
 {
     constructor() {
-      super({ key: "backgroundScene" });
+      super({ key: "titleBackgroundScene" });
     }
 
     preload ()
@@ -22,34 +22,6 @@ export class BackgroundScene extends Phaser.Scene
         this.bg = this.add.image(0, 0, 'bg').setOrigin(0, 0);
         this.updateCamera()
     }
-
-    updateCamera ()
-    {
-      if(this.bg){
-        const width = this.scale.gameSize.width;
-        const height = this.scale.gameSize.height;
-
-        const camera = this.cameras.main;
-
-        // let x = this.bg.width - width;
-        // let y = this.bg.height - height;
-
-        let x = width - this.bg.width
-        let y = height - this.bg.height
-
-        const scaleX = width / this.bg.width;
-        const scaleY = height / this.bg.height;
-
-        // camera.setViewport(x, y , width, height);
-        camera.setZoom(Math.max(scaleX, scaleY));
-        camera.centerOn(this.bg.width / 2, this.bg.height / 2);
-
-      }
-        
-
-    }
-
-
 }
 
 export class TitleScreen extends BaseScene {
@@ -77,7 +49,7 @@ export class TitleScreen extends BaseScene {
   create() {
     super.create()
 
-    this.backgroundScene = this.scene.get('backgroundScene');
+    this.backgroundScene = this.scene.get('titleBackgroundScene');
     
     let styleH, styleT;
 
@@ -189,9 +161,9 @@ export class TitleScreen extends BaseScene {
 
     button.setInteractive();
     button.on("pointerdown", () => {
-      this.scene.remove('backgroundScene')
+      this.scene.remove('titleBackgroundScene')
       this.scale.removeListener("resize", this.resize)
-      this.scene.start("uiScene");
+      this.scene.start("gameScene");
     });
   }
 }

@@ -8,7 +8,7 @@ const LEFT = 2;
 const UP = 3;
 
 
-export default class Snake  {
+export default class Snake {
  
     constructor(scene, x, y, origX, origY, cellWidth, cellHeight) {
 
@@ -138,7 +138,6 @@ export default class Snake  {
 
     collideWithFood(food) {
       if (this.head.x === food.x && this.head.y === food.y) {
-
         return true;
       }
   

@@ -1,13 +1,17 @@
 import Phaser from "phaser";
-import BaseScene from "./BaseScene";
+import { BaseScene, BaseBackgroundScene } from "./BaseScene";
 import Snake from "../objects/snake";
 import ChoiceFood from "../objects/choiceFood";
 import head from "../../assets/first xokera head.png";
 import body from "../../assets/first xokera body.png";
+import { questions } from "../questions";
 import yesFood from "../../assets/yes.png";
 import noFood from "../../assets/no.png";
+import { getRandom, shuffle } from "../helpers/scripts";
+import { sceneEvents } from "../events/EventCenter";
 
-import { GRID_HEIGHT, GRID_WIDTH } from "../constants/dimensions";
+import { GRID_HEIGHT, GRID_WIDTH, PLAY_AREA_HEIGHT, PLAY_AREA_WIDTH, TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH } from "../constants/dimensions";
+import { UIScene } from "./UIScene";
 
 class GameScene extends BaseScene {
   constructor() {
@@ -21,20 +25,27 @@ class GameScene extends BaseScene {
     this.load.image("no_food", noFood);
   }
 
-  create(data) {
+  create() {
     super.create()
 
-    let {origX, origY, width, height} = data
-    this.origX = origX
-    this.origY = origY
-    this.cellWidth = width/GRID_WIDTH
-    this.cellHeight = height/GRID_HEIGHT
+    this.cellWidth = PLAY_AREA_WIDTH/GRID_WIDTH
+    this.cellHeight = PLAY_AREA_HEIGHT/GRID_HEIGHT
 
-    console.log(this.cellHeight, this.cellWidth)
-    
-    this.snake = new Snake(this, 1, 1, origX, origY, this.cellWidth, this.cellHeight);
+    let playAreaStartY = this.origY = (TITLE_AREA_HEIGHT - PLAY_AREA_HEIGHT)/2
+    let playAreaStartX = this.origX = (TITLE_AREA_WIDTH - PLAY_AREA_WIDTH)/2
+
+    this.stage = 0
+    this.initStage()
+
+    this.snake = new Snake(this, 1, 1, this.origX, this.origY, this.cellWidth, this.cellHeight);
     this.generateChoices(this.snake);
     this.cursors = this.input.keyboard.createCursorKeys();
+
+    // Run UI Scene
+    this.scene.add("uiScene", UIScene, true, 
+    { playAreaStartX, playAreaStartY, questionText: this.currentQuestions[this.curQuestion].question});
+    console.log("here")
+    this.scene.bringToTop();
   }
 
   generateChoices(snake) {
@@ -88,27 +99,66 @@ class GameScene extends BaseScene {
     if (this.snake.update(time)) {
       if (this.snake.collideWithFood(this.YesFood)) {
         // Check Answer
-        if (true) {
+        if (this.answer) {
           this.snake.grow();
           this.repositionChoices(this.snake);
+          this.nextQuestion()
         } else {
-          // lose life
+          this.repositionChoices(this.snake);
+          this.health -= 1;
+          // check zero health
+          sceneEvents.emit('health-changed', this.health)
+          
+        
         }
 
         this.repositionChoices(this.snake);
       } else if (this.snake.collideWithFood(this.NoFood)) {
         // Check Answer
-        if (true) {
+        if (!this.answer) {
           this.snake.grow();
           this.repositionChoices(this.snake);
+          this.nextQuestion()
         } else {
-          // lose life
+          this.repositionChoices(this.snake);
+          this.health -= 1;
+          // check zero health
+          sceneEvents.emit('health-changed', this.health)
         }
       }
     }
   }
 
-  end() {}
+  STAGES = ['gutenberg', 'broadcastng', 'digital']
+
+  randomizeQuestions() {
+    let stageKey = this.STAGES[this.stage];
+    let randHistory = getRandom(questions['history'][stageKey], 5)
+    let randContent = getRandom(questions['content'][stageKey], 5)
+    return shuffle(randHistory.concat(randContent))
+  }
+
+  initStage() {
+    this.currentQuestions = this.randomizeQuestions();
+
+    this.curQuestion = 0;
+    this.answer = this.currentQuestions[this.curQuestion].answer
+    sceneEvents.emit('question-changed', {text: this.currentQuestions[this.curQuestion].question, idx: this.curQuestion})
+
+    this.health = 3
+    sceneEvents.emit('health-changed', this.health)
+  }
+
+  nextStage() {
+    this.stage += 1;
+    this.initStage();
+  }
+
+  nextQuestion() {
+    this.curQuestion += 1;
+    this.answer = this.currentQuestions[this.curQuestion].answer
+    sceneEvents.emit('question-changed', {text: this.currentQuestions[this.curQuestion].question, idx: this.curQuestion})
+  }
 }
 
 export default GameScene;

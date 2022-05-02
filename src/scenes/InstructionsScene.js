@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import BaseScene from "./BaseScene";
+import { BaseScene } from "./BaseScene";
 import i18n from "../../i18n";
 import bg from "../../assets/bg_instructions.png";
 import headline from "../../assets/headline.png";

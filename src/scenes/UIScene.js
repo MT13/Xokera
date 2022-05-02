@@ -1,53 +1,124 @@
 import Phaser from "phaser";
-import BaseScene from "./BaseScene";
-import bg from "../../assets/bg_board.png";
-import { questions } from "../questions";
+import { BaseScene, BaseBackgroundScene } from "./BaseScene";
+import bgBoard from "../../assets/bg_board.png";
+import heart from "../../assets/lives.png";
 import { styleText } from "../utils";
-import GameScene from "./GameScene";
 
 import {TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH, PLAY_AREA_WIDTH, PLAY_AREA_HEIGHT} from '../constants/dimensions';
 
-export default class UIScene extends BaseScene {
+import { sceneEvents } from "../events/EventCenter";
+
+export class UiBackgroundScene extends BaseBackgroundScene
+{
+    constructor() {
+      super({ key: "uiBackgroundScene" });
+      
+    }
+
+    preload ()
+    {
+        this.load.image("bgBoard", bgBoard);
+    }
+
+    create ()
+    {
+        this.bg = this.add.image(0, 0, 'bgBoard').setOrigin(0, 0);
+        this.scene.sendToBack();
+        this.updateCamera()
+    }
+}
+
+export class UIScene extends BaseScene {
   constructor() {
     super({ key: "uiScene" });
-    console.log("in constr");
   }
 
   preload() {
-    this.load.image("bg", bg);
+    this.load.image("heart", heart);
   }
 
-  create() {
+  resize (gameSize, baseSize, displaySize, resolution)
+  {
+    super.resize(gameSize, baseSize, displaySize, resolution)
+    this.backgroundScene.updateCamera();
+  }
+
+  create(data) {
     super.create()
 
-    this.bg = this.add.image(TITLE_AREA_WIDTH / 2, TITLE_AREA_HEIGHT / 2, "bg");
-    this.bg.setDisplaySize(TITLE_AREA_WIDTH, TITLE_AREA_HEIGHT);
+    this.backgroundScene = this.scene.add('uiBackgroundScene', UiBackgroundScene, true);
+    
 
-    console.log("in create");
+    let {playAreaStartX, playAreaStartY, questionText} = data;
+
     this.textBox = this.add.rectangle(
       TITLE_AREA_WIDTH / 2,
-      50,
-      TITLE_AREA_WIDTH - 400,
-      50,
+      100,
+      TITLE_AREA_WIDTH * 3/4,
+      80,
       "0xFFFFFF"
     );
 
     let styleT = styleText;
 
     styleT.color = "0x000000";
-    let q = questions.history.gutenberg[1].question;
-    this.question = this.add.text(0, 0, q, styleT);
+
+    // Style dis
+    this.question = this.add.text(0, 0, questionText, styleT);
     Phaser.Display.Align.In.Center(this.question, this.textBox);
 
-
-    let playAreaStartY = (TITLE_AREA_HEIGHT - PLAY_AREA_HEIGHT)/2
-    let playAreaStartX = (TITLE_AREA_WIDTH - PLAY_AREA_WIDTH)/2
-
+    
     let playArea = this.add.rectangle(playAreaStartX, playAreaStartY, PLAY_AREA_WIDTH, PLAY_AREA_HEIGHT, "0x000000").setOrigin(0);
     playArea.setStrokeStyle(-1, "0xFFFFFF");
 
-    let scene = this.scene.add("gameScene", GameScene, true, 
-    { origX: playAreaStartX, origY: playAreaStartY,
-       width: PLAY_AREA_WIDTH, height: PLAY_AREA_HEIGHT });
+
+    this.hearts = this.add.group({
+      classType: Phaser.GameObjects.Image,
+    })
+
+    let healthY = (TITLE_AREA_HEIGHT + PLAY_AREA_HEIGHT)/2
+    let healthX = (TITLE_AREA_WIDTH + PLAY_AREA_WIDTH)/2
+
+    this.questionNum = this.add.text(playAreaStartX, healthY + 10, "1/10").setOrigin(0)
+
+    this.hearts.createMultiple({
+      key: "heart",
+      setOrigin: {x: 1, y: 0},
+      setXY: {
+        x: healthX,
+        y: healthY + 10,
+        stepX: -40,
+      },
+      setScale: {
+        x: 0.007,
+        y: 0.007,
+      },
+      quantity: 3,
+    })
+
+    sceneEvents.on('question-changed', this.handleQuestionUpdate, this);
+    sceneEvents.on('health-changed', this.handlePlayerHealth, this);
+
+    console.log("first?")
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      sceneEvents.off('health-changed', this.handlePlayerHealth)
+      sceneEvents.off('question-changed', this.handleQuestionUpdate)
+    })
+    
+  }
+
+  handleQuestionUpdate(data) {
+    this.question.setText(data.text)
+    this.questionNum.setText(`${data.idx + 1}/10`)
+  }
+
+  handlePlayerHealth(health) {
+    this.hearts.children.each((heart, i) => {
+      if (i >= health) {
+        heart.setActive(false).setVisible(false)
+      } else {
+        heart.setActive(true).setVisible(true)
+      }
+    })
   }
 }

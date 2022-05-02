@@ -2,7 +2,7 @@ import Phaser from "phaser";
 
 import {TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH} from '../constants/title';
 
-class BaseScene extends Phaser.Scene {
+export class BaseScene extends Phaser.Scene {
   constructor(key) {
     super(key);
   }
@@ -53,4 +53,31 @@ class BaseScene extends Phaser.Scene {
 
 }
 
-export default BaseScene;
+
+export class BaseBackgroundScene extends Phaser.Scene
+{
+    constructor(key) {
+      super(key);
+    }
+
+    preload () {}
+
+    updateCamera ()
+    {
+      if(this.bg){
+        const width = this.scale.gameSize.width;
+        const height = this.scale.gameSize.height;
+
+        const camera = this.cameras.main;
+
+        let x = width - this.bg.width
+        let y = height - this.bg.height
+
+        const scaleX = width / this.bg.width;
+        const scaleY = height / this.bg.height;
+
+        camera.setZoom(Math.max(scaleX, scaleY));
+        camera.centerOn(this.bg.width / 2, this.bg.height / 2);
+      }
+    }
+}

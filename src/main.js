@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import GameScene from "./scenes/GameScene";
-import { TitleScreen, BackgroundScene } from "./scenes/TitleScreen";
+import { TitleScreen, TitleBackgroundScene } from "./scenes/TitleScreen";
 import i18n from "../i18n";
 import RoundRectanglePlugin from "phaser3-rex-plugins/plugins/roundrectangle-plugin.js";
 import InstructionsScene from "./scenes/InstructionsScene";
@@ -45,16 +45,16 @@ let game = new Phaser.Game(config);
 
 let titleScreen = new TitleScreen();
 let gameScene = new GameScene();
-let backgroundScene = new BackgroundScene();
+let titleBackgroundScene = new TitleBackgroundScene();
 let instructionsScene = new InstructionsScene();
-let uiScene = new UIScene();
+// let uiScene = new UIScene();
 
-game.scene.add("backgroundScene", backgroundScene);
+game.scene.add("titleBackgroundScene", titleBackgroundScene);
 
 game.scene.add("titleScreen", titleScreen);
 game.scene.add("instructionsScene", instructionsScene);
-// game.scene.add("gameScene", gameScene);
-game.scene.add("uiScene", uiScene);
+game.scene.add("gameScene", gameScene);
+// game.scene.add("uiScene", uiScene);
 
-game.scene.start("backgroundScene");
+game.scene.start("titleBackgroundScene");
 game.scene.start("titleScreen");
