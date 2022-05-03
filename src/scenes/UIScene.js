@@ -1,32 +1,11 @@
 import Phaser from "phaser";
-import { BaseScene, BaseBackgroundScene } from "./BaseScene";
-import bgBoard from "../../assets/bg_board.png";
+import { BaseScene } from "./BaseScene";
 import heart from "../../assets/lives.png";
 import { styleText } from "../utils";
 
 import {TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH, PLAY_AREA_WIDTH, PLAY_AREA_HEIGHT} from '../constants/dimensions';
 
 import { sceneEvents } from "../events/EventCenter";
-
-export class UiBackgroundScene extends BaseBackgroundScene
-{
-    constructor() {
-      super({ key: "uiBackgroundScene" });
-      
-    }
-
-    preload ()
-    {
-        this.load.image("bgBoard", bgBoard);
-    }
-
-    create ()
-    {
-        this.bg = this.add.image(0, 0, 'bgBoard').setOrigin(0, 0);
-        this.scene.sendToBack();
-        this.updateCamera()
-    }
-}
 
 export class UIScene extends BaseScene {
   constructor() {
@@ -37,18 +16,9 @@ export class UIScene extends BaseScene {
     this.load.image("heart", heart);
   }
 
-  resize (gameSize, baseSize, displaySize, resolution)
-  {
-    super.resize(gameSize, baseSize, displaySize, resolution)
-    this.backgroundScene.updateCamera();
-  }
-
   create(data) {
     super.create()
-
-    this.backgroundScene = this.scene.add('uiBackgroundScene', UiBackgroundScene, true);
     
-
     let {playAreaStartX, playAreaStartY, questionText} = data;
 
     this.textBox = this.add.rectangle(
@@ -99,7 +69,6 @@ export class UIScene extends BaseScene {
     sceneEvents.on('question-changed', this.handleQuestionUpdate, this);
     sceneEvents.on('health-changed', this.handlePlayerHealth, this);
 
-    console.log("first?")
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       sceneEvents.off('health-changed', this.handlePlayerHealth)
       sceneEvents.off('question-changed', this.handleQuestionUpdate)

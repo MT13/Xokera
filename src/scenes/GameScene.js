@@ -4,6 +4,7 @@ import Snake from "../objects/snake";
 import ChoiceFood from "../objects/choiceFood";
 import head from "../../assets/first xokera head.png";
 import body from "../../assets/first xokera body.png";
+import bgBoard from "../../assets/bg_board.png";
 import { questions } from "../questions";
 import yesFood from "../../assets/yes.png";
 import noFood from "../../assets/no.png";
@@ -12,6 +13,28 @@ import { sceneEvents } from "../events/EventCenter";
 
 import { GRID_HEIGHT, GRID_WIDTH, PLAY_AREA_HEIGHT, PLAY_AREA_WIDTH, TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH } from "../constants/dimensions";
 import { UIScene } from "./UIScene";
+
+
+export class GameBackgroundScene extends BaseBackgroundScene
+{
+    constructor() {
+      super({ key: "gameBackgroundScene" });
+      
+    }
+
+    preload ()
+    {
+        
+    }
+
+    create ()
+    {
+        this.bg = this.add.image(0, 0, 'bgBoard').setOrigin(0, 0);
+        // this.scene.sendToBack();
+        this.updateCamera()
+    }
+}
+
 
 class GameScene extends BaseScene {
   constructor() {
@@ -23,11 +46,18 @@ class GameScene extends BaseScene {
     this.load.image("body", body);
     this.load.image("yes_food", yesFood);
     this.load.image("no_food", noFood);
+    this.load.image("bgBoard", bgBoard);
+  }
+
+  resize (gameSize, baseSize, displaySize, resolution)
+  {
+    super.resize(gameSize, baseSize, displaySize, resolution)
+    this.backgroundScene.updateCamera();
   }
 
   create() {
     super.create()
-
+    
     this.cellWidth = PLAY_AREA_WIDTH/GRID_WIDTH
     this.cellHeight = PLAY_AREA_HEIGHT/GRID_HEIGHT
 
@@ -37,14 +67,12 @@ class GameScene extends BaseScene {
     this.stage = 0
     this.initStage()
 
-    this.snake = new Snake(this, 1, 1, this.origX, this.origY, this.cellWidth, this.cellHeight);
-    this.generateChoices(this.snake);
     this.cursors = this.input.keyboard.createCursorKeys();
 
     // Run UI Scene
+    this.backgroundScene = this.scene.add('gameBackgroundScene', GameBackgroundScene, true);
     this.scene.add("uiScene", UIScene, true, 
     { playAreaStartX, playAreaStartY, questionText: this.currentQuestions[this.curQuestion].question});
-    console.log("here")
     this.scene.bringToTop();
   }
 
@@ -147,11 +175,15 @@ class GameScene extends BaseScene {
 
     this.health = 3
     sceneEvents.emit('health-changed', this.health)
+
+    this.snake = new Snake(this, 1, 1, this.origX, this.origY, this.cellWidth, this.cellHeight);
+    this.generateChoices(this.snake);
   }
 
   nextStage() {
     this.stage += 1;
     this.initStage();
+    
   }
 
   nextQuestion() {

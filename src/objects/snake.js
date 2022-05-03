@@ -154,4 +154,8 @@ export default class Snake {
   
       return grid;
     }
+
+    destroy(){
+      this.body.destroy()
+    }
   }
