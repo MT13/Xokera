@@ -4,24 +4,21 @@ import i18n from "../../i18n";
 import bg from "../../assets/bg_title.png";
 import { styleHeader, styleText } from "../utils";
 import RedButton from "../objects/redButton";
-import {TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH} from '../constants/title';
+import { TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH } from "../constants/title";
 
-export class TitleBackgroundScene extends BaseBackgroundScene
-{
-    constructor() {
-      super({ key: "titleBackgroundScene" });
-    }
+export class TitleBackgroundScene extends BaseBackgroundScene {
+  constructor() {
+    super({ key: "titleBackgroundScene" });
+  }
 
-    preload ()
-    {
-        this.load.image("bg", bg);
-    }
+  preload() {
+    this.load.image("bg", bg);
+  }
 
-    create ()
-    {
-        this.bg = this.add.image(0, 0, 'bg').setOrigin(0, 0);
-        this.updateCamera()
-    }
+  create() {
+    this.bg = this.add.image(0, 0, "bg").setOrigin(0, 0);
+    this.updateCamera();
+  }
 }
 
 export class TitleScreen extends BaseScene {
@@ -38,19 +35,16 @@ export class TitleScreen extends BaseScene {
     // );
   }
 
-
-  resize (gameSize, baseSize, displaySize, resolution)
-  {
-    super.resize(gameSize, baseSize, displaySize, resolution)
+  resize(gameSize, baseSize, displaySize, resolution) {
+    super.resize(gameSize, baseSize, displaySize, resolution);
     this.backgroundScene.updateCamera();
   }
 
-  
   create() {
-    super.create()
+    super.create();
 
-    this.backgroundScene = this.scene.get('titleBackgroundScene');
-    
+    this.backgroundScene = this.scene.get("titleBackgroundScene");
+
     let styleH, styleT;
 
     this.offset = 50;
@@ -60,7 +54,7 @@ export class TitleScreen extends BaseScene {
       styleH = styleHeader;
       styleT = styleText;
       styleT.wordWrap = {
-        width: TITLE_AREA_WIDTH/2 - 50,
+        width: TITLE_AREA_WIDTH / 2 - 50,
         useAdvancedWrap: true,
       };
     }
@@ -98,7 +92,7 @@ export class TitleScreen extends BaseScene {
     );
 
     currentOffset += this.instructionsT.height + this.offset / 2;
-    styleT.fontSize = "2vh";
+    styleT.fontSize = "15px";
     styleT.fontStyle = "bold";
     this.questions = this.add.text(
       this.offset,
@@ -148,7 +142,6 @@ export class TitleScreen extends BaseScene {
       styleT
     );
 
-
     currentOffset += 100;
     let button = new RedButton(
       this,
@@ -161,9 +154,9 @@ export class TitleScreen extends BaseScene {
 
     button.setInteractive();
     button.on("pointerdown", () => {
-      this.scene.remove('titleBackgroundScene')
-      this.scale.removeListener("resize", this.resize)
-      this.scene.start("gameScene");
+      this.scene.remove("titleBackgroundScene");
+      this.scale.removeListener("resize", this.resize);
+      this.scene.start("instructionsScene");
     });
   }
 }

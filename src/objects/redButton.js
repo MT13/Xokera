@@ -7,8 +7,8 @@ export default class RedButton extends Phaser.GameObjects.Container {
   constructor(scene, x, y, text) {
     super(scene, x, y);
 
-    this.rectUp = new RoundRectangle(scene, x, y, 200, 20, 25, "0xE5541C");
-    this.rectOver = new RoundRectangle(scene, x, y, 200, 20, 25, "0x5093FF");
+    this.rectUp = new RoundRectangle(scene, x, y, 300, 40, 40, "0xE5541C");
+    this.rectOver = new RoundRectangle(scene, x, y, 300, 40, 40, "0x5093FF");
 
     scene.add.existing(this.rectUp);
     scene.add.existing(this.rectOver);
@@ -20,7 +20,7 @@ export default class RedButton extends Phaser.GameObjects.Container {
       top: 5,
       bottom: 5,
     },
-    fontSize: "3vh",}).setOrigin(0.5);
+    fontSize: "35px",}).setOrigin(0.5);
 
     this.rectOver.setVisible(false);
     this.setSize(this.rectUp.width, this.rectUp.height);
