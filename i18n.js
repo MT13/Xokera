@@ -67,7 +67,9 @@ const resources = {
       gc14: "When a person bites a dog, it is “news”.",
       gc15: "Media has a “watchdogging” function.",
 
-      win1: "Good job! The era of print media is over. The era of broadcast media awaits you!",
+      win1_title: "Good job!",
+      win1_text:
+        "The era of print media is over. The era of broadcast media awaits you!",
 
       //Broadcasting Era
 
@@ -111,8 +113,9 @@ const resources = {
       bc14: "Voice over - The voice of a journalist attached to the visual.",
       bc15: "The story is a sequence of facts and events captured in a few minutes, which is only published on social networks.",
 
-      win2: "Congratulations! You have successfully overcome the broadcasting era and reached the cyber snake. In order to secure your victory, you have to adapt to the digital world as well!",
-
+      win2_title: "Congratulations!",
+      win2_text:
+        "You have successfully overcome the broadcasting era and reached the cyber snake. In order to secure your victory, you have to adapt to the digital world as well!",
       //digital media era
       third_xokera: "The Era of Digital Media",
       third_instr:
@@ -153,7 +156,9 @@ const resources = {
       dc14: "The newcomers to Google are called Nooglers.",
       dc15: "The New Media Ecosystem is a collaborative information environment for print, broadcast, digital and social media.",
 
-      win3: "Great Work! You are equally familiar with traditional and contemporary media and have found the ability to safely navigate into the digital world!",
+      win3_title: "Great Work!",
+      win3_text:
+        "You are equally familiar with traditional and contemporary media and have found the ability to safely navigate into the digital world!",
 
       lose: "You are out of lives! But instead of giving up, you can try again!",
 
@@ -188,7 +193,6 @@ const resources = {
       "dev name": "მარია ტარიელაშვილი",
 
       cyber_snake: "კიბერ ხოკერა",
-
 
       //rules page
       rules:
@@ -235,7 +239,9 @@ const resources = {
       gc14: 'როცა ადამიანი კბენს ძაღლს, ეს "ნიუსია".',
       gc15: "მედიას “მოდარაჯე ძაღლის” ფუნქცია აქვს.",
 
-      win1: "ყოჩაღ! ბეჭდვითი მედიის ეტაპი დაძლეულია, წინ სამაუწყებლო მედიის პერიოდი გელის!",
+      win1_title: "ყოჩაღ!",
+      win1_text:
+        "ბეჭდვითი მედიის ეტაპი დაძლეულია, წინ სამაუწყებლო მედიის პერიოდი გელის!",
 
       //Broadcasting Era
 
@@ -279,7 +285,9 @@ const resources = {
       bc14: "Voice over - გამოსახულებაზე დადებული ჟურნალისტის ხმა.",
       bc15: "სიუჟეტი რამდენიმე წუთში ჩატეული ფაქტების და მოვლენების თანმიმდევრობაა, რომელიც მხოლოდ სოციალურ ქსელებში ქვეყნდება.",
 
-      win2: "გილოცავ! მაუწყებლის ეპოქაც წარმატებით გადალახე და კიბერ ხოკერამდეც მოხვედი, საბოლოო გამარჯვებისთვის ციფრულ სამყაროშიც უნდა ადაპტირდე!",
+      win2_title: "გილოცავ!",
+      win2_text:
+        "მაუწყებლის ეპოქაც წარმატებით გადალახე და კიბერ ხოკერამდეც მოხვედი, საბოლოო გამარჯვებისთვის ციფრულ სამყაროშიც უნდა ადაპტირდე!",
 
       //digital media era
       third_xokera: "ციფრული მედიის ეპოქა",
@@ -305,31 +313,6 @@ const resources = {
       dh15: "მაიკროსოფტის შემქმნელები ბილ გეიტსი და პოლ ალენი არიან.",
 
       //content history
-      dc6: "RSS ხშირად განახლებული ინფორმაციის ქრონოლოგიური უკუთანმიმდევრობით გამოქვეყნების ვებ ფორმატია.",
-      dc7: "კოორდინირებული არაავთენტური ქმედება საზოგადოების შეცდომაში შეყვანის მიზნით, ფეისბუქზე რამდენიმე ანგარიშის ერთობლივი ფარული მოქმედებაა.",
-      dc8: "ვიდეოთამაშების კომპანია Nintendo თავდაპირველად ბანქოს აწარმოებდა.",
-      dc9: "შესაძლებელია თუ არა Bluetooth-ით ვაქცინირებულების ამოცნობა?",
-      dc10: "შესაძლებელია თუ არა Bluetooth-ით მობილურიდან პირადი მონაცემების მოპარვა?",
-      dc11: "პირველი ვებ-გვერდი info.cern.ch დღემდე ხელმისაწვდომია.",
-      dc12: "უინტერნეტობის შემთხვევაში Chrome-ის ბრაუზერში მორბენალი T-Rex-ის თამაშით შეგიძლია თავის შექცევა.",
-      dc13: "TikTok დუეტი ცნობილი მუსიკალური ბენდია.",
-      dc14: "Google-ში ახალდასაქმებულ ადამიანს Noogler-ს ეძახიან.",
-      dc15: "ახალი მედია ეკოსისტემა - ბეჭდვითი, სამაუწყებლო, ციფრული და სოციალური მედიის ერთობლივი საინფორმაციო გარემოა.",
-
-      win3: "ყოჩაღ! ტრადიციულ და ახალ მედიას, თანაბრად კარგად იცნობ და ციფრულ სამყაროში უსაფრთხო ნავიგაციის უნარიც აღმოგაჩნდა!",
-
-      lose: "სიცოცხლეები ამოგეწურა, მაგრამ შეგიძლია, არ დანებდე და კიდევ სცადო!",
-
-      victory: "გამარჯვება",
-      give_up_text:
-        "სამწუხაროა, რომ დანებება გადაწყვიტე! თუმცა თავიდან ცდა ყოველთვის შეგიძლია!",
-      /// Buttons
-      start: "დაწყება",
-      next: "შემდეგი",
-      continue: "გაგრძელება",
-      stop: "შეწყვეტა",
-      try_again: "კიდევ ცდა",
-      give_up: "დანებება",
       dc1: "ვლოგი ვიდეომასალის შემცველი ბლოგია.",
       dc2: "მულტიმედია მულტიმილიონერის ხელში კონცენტრირებულ მედიას ნიშნავს.",
       dc3: "მულტიმედია კომუნიკაციის ფორმაა, რომელიც სხვადასხვა შინაარსს (ტექსტი, აუდიო, ვიზუალი და ა.შ.) აერთიანებს.",
@@ -345,8 +328,17 @@ const resources = {
       dc13: "TikTok დუეტი ცნობილი მუსიკალური ბენდია.",
       dc14: "Google-ში ახალდასაქმებულ ადამიანს Noogler-ს ეძახიან.",
       dc15: "ახალი მედია ეკოსისტემა - ბეჭდვითი, სამაუწყებლო, ციფრული და სოციალური მედიის ერთობლივი საინფორმაციო გარემოა.",
-
-      win3: "ყოჩაღ! ტრადიციულ და ახალ მედიას, თანაბრად კარგად იცნობ და ციფრულ სამყაროში უსაფრთხო ნავიგაციის უნარიც აღმოგაჩნდა!",
+      /// Buttons
+      start: "დაწყება",
+      next: "შემდეგი",
+      continue: "გაგრძელება",
+      stop: "შეწყვეტა",
+      try_again: "კიდევ ცდა",
+      give_up: "დანებება",
+      
+      win3_title: "ყოჩაღ!",
+      win3_text:
+        "ტრადიციულ და ახალ მედიას, თანაბრად კარგად იცნობ და ციფრულ სამყაროში უსაფრთხო ნავიგაციის უნარიც აღმოგაჩნდა!",
 
       lose: "სიცოცხლეები ამოგეწურა, მაგრამ შეგიძლია, არ დანებდე და კიდევ სცადო!",
 

@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { BaseScene, BaseBackgroundScene } from "./BaseScene";
+import { BaseScene } from "./BaseScene";
 import i18n from "../../i18n";
 import RedButton from "../objects/redButton";
 import { styleText, styleHeader } from "../utils";

@@ -4,7 +4,7 @@ import { TitleScreen, TitleBackgroundScene } from "./scenes/TitleScreen";
 import i18n from "../i18n";
 import RoundRectanglePlugin from "phaser3-rex-plugins/plugins/roundrectangle-plugin.js";
 import InstructionsScene from "./scenes/InstructionsScene";
-import { WinStage } from "./scenes/StageLoseWin";
+import { StageWinLoseScene, WinStage } from "./scenes/StageWinLose";
 import StageScene from "./scenes/StageScene";
 
 const MAX_SIZE_WIDTH_SCREEN = 1920;
@@ -52,7 +52,7 @@ let instructionsScene = new InstructionsScene();
 let stageScene = new StageScene();
 // let uiScene = new UIScene();
 
-let winScene = new WinStage();
+let winScene = new StageWinLoseScene();
 
 game.scene.add("titleBackgroundScene", titleBackgroundScene);
 
@@ -61,7 +61,7 @@ game.scene.add("instructionsScene", instructionsScene);
 game.scene.add("gameScene", gameScene);
 game.scene.add("stageScene", stageScene);
 
-// game.scene.add("winScene", winScene);
+game.scene.add("StageWinLoseScene", winScene);
 
 // game.scene.start("winScene")
 // game.scene.add("uiScene", uiScene);
@@ -69,4 +69,4 @@ game.scene.add("stageScene", stageScene);
 // game.scene.start("titleBackgroundScene");
 // game.scene.start("titleScreen");
 
-game.scene.start("instructionsScene");
+game.scene.start("stageWinLoseScene");

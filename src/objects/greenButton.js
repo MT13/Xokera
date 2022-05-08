@@ -1,12 +1,33 @@
 import Phaser from "phaser";
 import RoundRectangle from "phaser3-rex-plugins/plugins/roundrectangle.js";
+import {
+  BUTTON_HEIGHT,
+  BUTTON_RADIUS,
+  BUTTON_WIDTH,
+} from "../constants/dimensions";
 
 export default class RedButton extends Phaser.GameObjects.Container {
   constructor(scene, x, y, text) {
     super(scene, x, y);
 
-    this.rectUp = new RoundRectangle(scene, x, y, 200, 20, 25, "0x4BC671");
-    this.rectOver = new RoundRectangle(scene, x, y, 200, 20, 25, "0x5093FF");
+    this.rectUp = new RoundRectangle(
+      scene,
+      x,
+      y,
+      BUTTON_WIDTH,
+      BUTTON_HEIGHT,
+      BUTTON_RADIUS,
+      "0x4BC671"
+    );
+    this.rectOver = new RoundRectangle(
+      scene,
+      x,
+      y,
+      BUTTON_WIDTH,
+      BUTTON_HEIGHT,
+      BUTTON_RADIUS,
+      "0x5093FF"
+    );
 
     scene.add.existing(this.rectUp);
     scene.add.existing(this.rectOver);
@@ -20,7 +41,7 @@ export default class RedButton extends Phaser.GameObjects.Container {
           top: 5,
           bottom: 5,
         },
-        fontSize: "3vh",
+        fontSize: "35px",
       })
       .setOrigin(0.5);
 
