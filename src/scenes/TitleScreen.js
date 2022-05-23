@@ -2,17 +2,22 @@ import Phaser from "phaser";
 import { BaseScene, BaseBackgroundScene } from "./BaseScene";
 import i18n from "../../i18n";
 import bg from "../../assets/bg_title.png";
+import bgInstr from "../../assets/bg_instructions.png";
+import headline from "../../assets/headline.svg";
 import { styleHeader, styleText } from "../utils";
 import RedButton from "../objects/redButton";
 import { TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH } from "../constants/title";
 
 export class TitleBackgroundScene extends BaseBackgroundScene {
   constructor() {
-    super({ key: "titleBackgroundScene" });
+    super({ key: "titleBackgroundScene" });    // this.scene.bringToTop();
+
   }
 
   preload() {
     this.load.image("bg", bg);
+    this.load.image("bgInstr", bgInstr);
+    this.load.svg("headline", headline, { width: 500, height: 100 });
   }
 
   create() {
@@ -27,12 +32,7 @@ export class TitleScreen extends BaseScene {
   }
 
   preload() {
-    this.objects = {};
-    // this.load.plugin(
-    //   "rexroundrectangleplugin",
-    //   "https://raw.githubusercontent.com/rexrainbow/    phaser3-rex-notes/master/dist/rexroundrectangleplugin.min.js",
-    //   true
-    // );
+
   }
 
   resize(gameSize, baseSize, displaySize, resolution) {
@@ -43,8 +43,12 @@ export class TitleScreen extends BaseScene {
   create() {
     super.create();
 
-    this.backgroundScene = this.scene.get("titleBackgroundScene");
-
+    this.backgroundScene = this.scene.add(
+      "titleBackgroundScene",
+      TitleBackgroundScene,
+      true
+    );
+    this.scene.bringToTop();
     let styleH, styleT;
 
     this.offset = 50;

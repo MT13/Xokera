@@ -159,7 +159,8 @@ const resources = {
       win3_title: "Great Work!",
       win3_text:
         "You are equally familiar with traditional and contemporary media and have found the ability to safely navigate into the digital world!",
-
+      final_win_text:
+        "Great Work! You are equally familiar with traditional and contemporary media and have found the ability to safely navigate into the digital world!",
       lose: "You are out of lives! But instead of giving up, you can try again!",
 
       victory: "Victory!",
@@ -335,10 +336,13 @@ const resources = {
       stop: "შეწყვეტა",
       try_again: "კიდევ ცდა",
       give_up: "დანებება",
-      
+
       win3_title: "ყოჩაღ!",
       win3_text:
         "ტრადიციულ და ახალ მედიას, თანაბრად კარგად იცნობ და ციფრულ სამყაროში უსაფრთხო ნავიგაციის უნარიც აღმოგაჩნდა!",
+
+      final_win_text:
+        "ყოჩაღ! ტრადიციულ და ახალ მედიას, თანაბრად კარგად იცნობ და ციფრულ სამყაროში უსაფრთხო ნავიგაციის უნარიც აღმოგაჩნდა!",
 
       lose: "სიცოცხლეები ამოგეწურა, მაგრამ შეგიძლია, არ დანებდე და კიდევ სცადო!",
 

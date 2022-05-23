@@ -4,6 +4,11 @@ import i18n from "../../i18n";
 import RedButton from "../objects/redButton";
 import { styleText, styleHeader } from "../utils";
 import { TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH } from "../constants/dimensions";
+import head from "../../assets/1st head.svg";
+import body from "../../assets/1st body.svg";
+import bgBoard from "../../assets/bg_board.png";
+import yesFood from "../../assets/yes fruit.svg";
+import noFood from "../../assets/no fruit.svg";
 
 // export class StageBackgroundScene extends BaseBackgroundScene {
 //   constructor() {
@@ -27,7 +32,25 @@ class StageScene extends BaseScene {
     this.bgImage = data.bgImage;
   }
 
-  preload() {}
+  preload() {
+    this.load.svg("head", head, {
+      width: this.cellWidth,
+      height: this.cellHeight,
+    });
+    this.load.svg("body", body, {
+      width: this.cellWidth,
+      height: this.cellHeight,
+    });
+    this.load.svg("yes_food", yesFood, {
+      width: this.cellWidth,
+      height: this.cellHeight,
+    });
+    this.load.svg("no_food", noFood, {
+      width: this.cellWidth,
+      height: this.cellHeight,
+    });
+    this.load.image("bgBoard", bgBoard);
+  }
 
   resize(gameSize, baseSize, displaySize, resolution) {
     super.resize(gameSize, baseSize, displaySize, resolution);

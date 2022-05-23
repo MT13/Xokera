@@ -1,9 +1,7 @@
 import Phaser from "phaser";
 import { BaseScene, BaseBackgroundScene } from "./BaseScene";
 import i18n from "../../i18n";
-import bgBoard from "../../assets/bg_instructions.png";
 import bgStage from "../../assets/bg_first_xokera.png";
-import headline from "../../assets/headline.png";
 import RedButton from "../objects/redButton";
 import { styleText } from "../utils";
 import { TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH } from "../constants/dimensions";
@@ -16,7 +14,7 @@ export class InstructionsBackgroundScene extends BaseBackgroundScene {
   preload() {}
 
   create() {
-    this.bg = this.add.image(0, 0, "bgBoard").setOrigin(0, 0);
+    this.bg = this.add.image(0, 0, "bgInstr").setOrigin(0, 0);
     // this.scene.sendToBack();
     this.updateCamera();
   }
@@ -28,8 +26,6 @@ class InstructionsScene extends BaseScene {
   }
 
   preload() {
-    this.load.image("bgBoard", bgBoard);
-    this.load.image("headline", headline);
     this.load.image("bgStageBoard", bgStage);
   }
 
@@ -61,7 +57,6 @@ class InstructionsScene extends BaseScene {
     }
 
     this.headline = this.add.image(startX, startY, "headline");
-    this.headline.scale = 0.2;
     let offset = startY + 150;
     this.instr = this.add.text(startX, offset, i18n.t("rules"), styleT);
     this.instr.setOrigin(0.5);

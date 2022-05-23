@@ -6,6 +6,7 @@ import RoundRectanglePlugin from "phaser3-rex-plugins/plugins/roundrectangle-plu
 import InstructionsScene from "./scenes/InstructionsScene";
 import { StageWinLoseScene, WinStage } from "./scenes/StageWinLose";
 import StageScene from "./scenes/StageScene";
+import { FinalWinLose } from "./scenes/FinalWinLose";
 
 const MAX_SIZE_WIDTH_SCREEN = 1920;
 const MAX_SIZE_HEIGHT_SCREEN = 1080;
@@ -50,23 +51,31 @@ let gameScene = new GameScene();
 let titleBackgroundScene = new TitleBackgroundScene();
 let instructionsScene = new InstructionsScene();
 let stageScene = new StageScene();
+let finalWinLose = new FinalWinLose();
 // let uiScene = new UIScene();
 
 let winScene = new StageWinLoseScene();
 
-game.scene.add("titleBackgroundScene", titleBackgroundScene);
+// game.scene.add("titleBackgroundScene", titleBackgroundScene);
 
 game.scene.add("titleScreen", titleScreen);
 game.scene.add("instructionsScene", instructionsScene);
 game.scene.add("gameScene", gameScene);
 game.scene.add("stageScene", stageScene);
 
-game.scene.add("StageWinLoseScene", winScene);
+game.scene.add("stageWinLoseScene", winScene);
+game.scene.add("finalWinLose", finalWinLose);
 
 // game.scene.start("winScene")
 // game.scene.add("uiScene", uiScene);
 
 // game.scene.start("titleBackgroundScene");
-// game.scene.start("titleScreen");
+ game.scene.start("titleScreen");
 
-game.scene.start("stageWinLoseScene");
+// game.scene.start("instructionsScene");
+// game.scene.start("stageWinLoseScene");
+// game.scene.start("finalWinLose");
+
+// game.scene.start("stageScene");
+
+//game.scene.start("gameScene");

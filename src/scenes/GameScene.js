@@ -2,83 +2,126 @@ import Phaser from "phaser";
 import { BaseScene, BaseBackgroundScene } from "./BaseScene";
 import Snake from "../objects/snake";
 import ChoiceFood from "../objects/choiceFood";
-import head from "../../assets/first xokera head.png";
-import body from "../../assets/first xokera body.png";
-import bgBoard from "../../assets/bg_board.png";
+import firstXokeraWin from "../../assets/1st win.svg";
+import firstXokeraLose from "../../assets/1st lose.svg";
+import secondXokeraWin from "../../assets/2nd win.svg";
+import secondXokeraLose from "../../assets/2nd lose.svg";
+import thirdXokeraWin from "../../assets/3rd win.svg";
+import thirdXokeraLose from "../../assets/3rd lose.svg";
+
 import { questions } from "../questions";
-import yesFood from "../../assets/yes.png";
-import noFood from "../../assets/no.png";
+
 import { getRandom, shuffle } from "../helpers/scripts";
 import { sceneEvents } from "../events/EventCenter";
 
-import { GRID_HEIGHT, GRID_WIDTH, PLAY_AREA_HEIGHT, PLAY_AREA_WIDTH, TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH } from "../constants/dimensions";
+import {
+  GRID_HEIGHT,
+  GRID_WIDTH,
+  PLAY_AREA_HEIGHT,
+  PLAY_AREA_WIDTH,
+  TITLE_AREA_HEIGHT,
+  TITLE_AREA_WIDTH,
+} from "../constants/dimensions";
 import { UIScene } from "./UIScene";
+import i18n from "../../i18n";
 
+export class GameBackgroundScene extends BaseBackgroundScene {
+  constructor() {
+    super({ key: "gameBackgroundScene" });
+  }
 
-export class GameBackgroundScene extends BaseBackgroundScene
-{
-    constructor() {
-      super({ key: "gameBackgroundScene" });
-      
-    }
+  preload() {}
 
-    preload ()
-    {
-        
-    }
-
-    create ()
-    {
-        this.bg = this.add.image(0, 0, 'bgBoard').setOrigin(0, 0);
-        // this.scene.sendToBack();
-        this.updateCamera()
-    }
+  create() {
+    this.bg = this.add.image(0, 0, "bgBoard").setOrigin(0, 0);
+    // this.scene.sendToBack();
+    this.updateCamera();
+  }
 }
-
 
 class GameScene extends BaseScene {
   constructor() {
     super({ key: "gameScene" });
   }
 
+  init() {
+    this.cellWidth = PLAY_AREA_WIDTH / GRID_WIDTH;
+    this.cellHeight = PLAY_AREA_HEIGHT / GRID_HEIGHT;
+  }
   preload() {
-    this.load.image("head", head);
-    this.load.image("body", body);
-    this.load.image("yes_food", yesFood);
-    this.load.image("no_food", noFood);
-    this.load.image("bgBoard", bgBoard);
+    this.load.svg("firstXokeraWin", firstXokeraWin, { width: 75, height: 75 });
+    this.load.svg("firstXokeraLose", firstXokeraLose, {
+      width: 75,
+      height: 75,
+    });
+    this.load.svg("secondXokeraWin", secondXokeraWin, {
+      width: 75,
+      height: 75,
+    });
+    this.load.svg("secondXokeraLose", secondXokeraLose, {
+      width: 75,
+      height: 75,
+    });
+    this.load.svg("thirdXokeraWin", thirdXokeraWin, { width: 75, height: 75 });
+    this.load.svg("thirdXokeraLose", thirdXokeraLose, {
+      width: 75,
+      height: 75,
+    });
   }
 
-  resize (gameSize, baseSize, displaySize, resolution)
-  {
-    super.resize(gameSize, baseSize, displaySize, resolution)
+  resize(gameSize, baseSize, displaySize, resolution) {
+    super.resize(gameSize, baseSize, displaySize, resolution);
     this.backgroundScene.updateCamera();
   }
 
   create() {
-    super.create()
-    
-    this.cellWidth = PLAY_AREA_WIDTH/GRID_WIDTH
-    this.cellHeight = PLAY_AREA_HEIGHT/GRID_HEIGHT
+    super.create();
 
-    let playAreaStartY = this.origY = (TITLE_AREA_HEIGHT - PLAY_AREA_HEIGHT)/2
-    let playAreaStartX = this.origX = (TITLE_AREA_WIDTH - PLAY_AREA_WIDTH)/2
+    let playAreaStartY = (this.origY =
+      (TITLE_AREA_HEIGHT - PLAY_AREA_HEIGHT) / 2);
+    let playAreaStartX = (this.origX =
+      (TITLE_AREA_WIDTH - PLAY_AREA_WIDTH) / 2);
 
-    this.stage = 0
-    this.initStage()
+    this.stage = 0;
+    this.initStage();
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
     // Run UI Scene
-    this.backgroundScene = this.scene.add('gameBackgroundScene', GameBackgroundScene, true);
-    this.scene.add("uiScene", UIScene, true, 
-    { playAreaStartX, playAreaStartY, questionText: this.currentQuestions[this.curQuestion].question});
+    this.backgroundScene = this.scene.add(
+      "gameBackgroundScene",
+      GameBackgroundScene,
+      true
+    );
+    this.scene.add("uiScene", UIScene, true, {
+      playAreaStartX,
+      playAreaStartY,
+      questionText: this.currentQuestions[this.curQuestion].question,
+    });
     this.scene.bringToTop();
   }
 
   generateChoices(snake) {
-    this.YesFood = new ChoiceFood(this, 13, 11, this.origX, this.origY, this.cellWidth, this.cellHeight, "yes_food");
-    this.NoFood = new ChoiceFood(this, 0, 0, this.origX, this.origY, this.cellWidth, this.cellHeight, "no_food");
+    this.YesFood = new ChoiceFood(
+      this,
+      13,
+      11,
+      this.origX,
+      this.origY,
+      this.cellWidth,
+      this.cellHeight,
+      "yes_food"
+    );
+    this.NoFood = new ChoiceFood(
+      this,
+      0,
+      0,
+      this.origX,
+      this.origY,
+      this.cellWidth,
+      this.cellHeight,
+      "no_food"
+    );
   }
 
   repositionChoices(snake) {
@@ -104,8 +147,14 @@ class GameScene extends BaseScene {
       let YesPosition = validLocations[0];
       let NoPosition = validLocations[1];
 
-      this.YesFood.setPosition(this.origX + YesPosition.x * this.cellWidth, this.origY + YesPosition.y * this.cellHeight);
-      this.NoFood.setPosition(this.origX + NoPosition.x * this.cellWidth, this.origY + NoPosition.y * this.cellHeight);
+      this.YesFood.setPosition(
+        this.origX + YesPosition.x * this.cellWidth,
+        this.origY + YesPosition.y * this.cellHeight
+      );
+      this.NoFood.setPosition(
+        this.origX + NoPosition.x * this.cellWidth,
+        this.origY + NoPosition.y * this.cellHeight
+      );
 
       return true;
     }
@@ -126,18 +175,21 @@ class GameScene extends BaseScene {
 
     if (this.snake.update(time)) {
       if (this.snake.collideWithFood(this.YesFood)) {
-        // Check Answer
+        // Check Answer    this.scene.bringToTop();
+
         if (this.answer) {
           this.snake.grow();
           this.repositionChoices(this.snake);
-          this.nextQuestion()
+          this.nextQuestion();
         } else {
           this.repositionChoices(this.snake);
           this.health -= 1;
           // check zero health
-          sceneEvents.emit('health-changed', this.health)
-          
-        
+
+          if (this.health == 0) {
+            this.openLoseScene();
+          }
+          sceneEvents.emit("health-changed", this.health);
         }
 
         this.repositionChoices(this.snake);
@@ -146,50 +198,91 @@ class GameScene extends BaseScene {
         if (!this.answer) {
           this.snake.grow();
           this.repositionChoices(this.snake);
-          this.nextQuestion()
+          this.nextQuestion();
         } else {
           this.repositionChoices(this.snake);
           this.health -= 1;
+
+          if (this.health == 0) {
+            this.openLoseScene();
+          }
           // check zero health
-          sceneEvents.emit('health-changed', this.health)
+          sceneEvents.emit("health-changed", this.health);
         }
       }
     }
   }
 
-  STAGES = ['gutenberg', 'broadcastng', 'digital']
+  openLoseScene() {
+    this.scene.remove("gameBackgroundScene");
+    this.scene.remove("uiScene");
+    this.scale.removeListener("resize", this.resize);
+    var data = {
+      title: i18n.t("you_lost"),
+      text: i18n.t("lose"),
+      color: "#E5541C",
+    };
+    switch (this.stage) {
+      case 0:
+        data.xokeraHead = "firstXokeraLose";
+        break;
+      case 1:
+        data.xokeraHead = "secondXokeraLose";
+        break;
+      case 2:
+        data.xokeraHead = "thirdXokeraLose";
+        break;
+    }
+    this.scene.start("stageWinLoseScene", data);
+  }
+
+  STAGES = ["gutenberg", "broadcasting", "digital"];
 
   randomizeQuestions() {
     let stageKey = this.STAGES[this.stage];
-    let randHistory = getRandom(questions['history'][stageKey], 5)
-    let randContent = getRandom(questions['content'][stageKey], 5)
-    return shuffle(randHistory.concat(randContent))
+
+    let randHistory = getRandom(questions["history"][stageKey], 5);
+    let randContent = getRandom(questions["content"][stageKey], 5);
+    return shuffle(randHistory.concat(randContent));
   }
 
   initStage() {
     this.currentQuestions = this.randomizeQuestions();
 
     this.curQuestion = 0;
-    this.answer = this.currentQuestions[this.curQuestion].answer
-    sceneEvents.emit('question-changed', {text: this.currentQuestions[this.curQuestion].question, idx: this.curQuestion})
+    this.answer = this.currentQuestions[this.curQuestion].answer;
+    sceneEvents.emit("question-changed", {
+      text: this.currentQuestions[this.curQuestion].question,
+      idx: this.curQuestion,
+    });
 
-    this.health = 3
-    sceneEvents.emit('health-changed', this.health)
+    this.health = 3;
+    sceneEvents.emit("health-changed", this.health);
 
-    this.snake = new Snake(this, 1, 1, this.origX, this.origY, this.cellWidth, this.cellHeight);
+    this.snake = new Snake(
+      this,
+      1,
+      1,
+      this.origX,
+      this.origY,
+      this.cellWidth,
+      this.cellHeight
+    );
     this.generateChoices(this.snake);
   }
 
   nextStage() {
     this.stage += 1;
     this.initStage();
-    
   }
 
   nextQuestion() {
     this.curQuestion += 1;
-    this.answer = this.currentQuestions[this.curQuestion].answer
-    sceneEvents.emit('question-changed', {text: this.currentQuestions[this.curQuestion].question, idx: this.curQuestion})
+    this.answer = this.currentQuestions[this.curQuestion].answer;
+    sceneEvents.emit("question-changed", {
+      text: this.currentQuestions[this.curQuestion].question,
+      idx: this.curQuestion,
+    });
   }
 }
 
