@@ -9,6 +9,7 @@ import {
   BUTTON_WIDTH,
 } from "../constants/dimensions";
 import bgFinalWin from "../../assets/bg win.png";
+import { CornerButtonsScene } from "./CornerButtonsScene";
 
 export class FinalBackgroundScene extends BaseBackgroundScene {
   constructor() {
@@ -53,8 +54,12 @@ export class FinalWinLose extends BaseScene {
       "finalBackgroundScene",
       FinalBackgroundScene,
       true,
-      {bgImage: data.bgImage}
+      { bgImage: data.bgImage }
     );
+    this.scene.add("cornerButtonsScene", CornerButtonsScene, true, {
+      sceneKey: this.scene.key,
+      bgKey: this.backgroundScene.scene.key,
+    });
 
     this.scene.bringToTop();
 
@@ -92,9 +97,10 @@ export class FinalWinLose extends BaseScene {
     button.setInteractive();
     button.on("pointerdown", () => {
       this.scene.remove("finalBackgroundScene");
+      this.scene.remove("cornerButtonsScene");
       this.scale.removeListener("resize", this.resize);
       this.scene.start("stageScene", {
-        bgImage: bgStage,
+        bgImage: "bgStageBoard",
         title: i18n.t("first_xokera"),
         text: i18n.t("first_instr"),
         color: "#6F56D8",

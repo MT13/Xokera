@@ -1,30 +1,12 @@
 import Phaser from "phaser";
 import { BaseScene, BaseBackgroundScene } from "./BaseScene";
 import i18n from "../../i18n";
-import bg from "../../assets/bg_title.png";
 import bgInstr from "../../assets/bg_instructions.png";
 import headline from "../../assets/headline.svg";
 import { styleHeader, styleText } from "../utils";
 import RedButton from "../objects/redButton";
 import { TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH } from "../constants/title";
-
-export class TitleBackgroundScene extends BaseBackgroundScene {
-  constructor() {
-    super({ key: "titleBackgroundScene" });    // this.scene.bringToTop();
-
-  }
-
-  preload() {
-    this.load.image("bg", bg);
-    this.load.image("bgInstr", bgInstr);
-    this.load.svg("headline", headline, { width: 500, height: 100 });
-  }
-
-  create() {
-    this.bg = this.add.image(0, 0, "bg").setOrigin(0, 0);
-    this.updateCamera();
-  }
-}
+import { TitleBackgroundScene } from "./TitleBackgroundScene";
 
 export class TitleScreen extends BaseScene {
   constructor() {
@@ -32,7 +14,8 @@ export class TitleScreen extends BaseScene {
   }
 
   preload() {
-
+    this.load.image("bgInstr", bgInstr);
+    this.load.svg("headline", headline, { width: 500, height: 100 });
   }
 
   resize(gameSize, baseSize, displaySize, resolution) {
@@ -48,6 +31,7 @@ export class TitleScreen extends BaseScene {
       TitleBackgroundScene,
       true
     );
+
     this.scene.bringToTop();
     let styleH, styleT;
 
@@ -160,6 +144,7 @@ export class TitleScreen extends BaseScene {
     button.on("pointerdown", () => {
       this.scene.remove("titleBackgroundScene");
       this.scale.removeListener("resize", this.resize);
+      this.scale.startFullscreen();
       this.scene.start("instructionsScene");
     });
   }

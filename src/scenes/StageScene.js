@@ -9,6 +9,7 @@ import body from "../../assets/1st body.svg";
 import bgBoard from "../../assets/bg_board.png";
 import yesFood from "../../assets/yes fruit.svg";
 import noFood from "../../assets/no fruit.svg";
+import { CornerButtonsScene } from "./CornerButtonsScene";
 
 // export class StageBackgroundScene extends BaseBackgroundScene {
 //   constructor() {
@@ -71,8 +72,8 @@ class StageScene extends BaseScene {
     //   StageBackgroundScene,
     //   true
     // );
-
     this.scene.bringToTop();
+
     let styleT, styleH;
     if (i18n.language === "ka") {
       styleT = styleText;
@@ -105,8 +106,14 @@ class StageScene extends BaseScene {
     button.setInteractive();
     button.on("pointerdown", () => {
       this.scene.remove("stageBackgroundScene");
+      this.scene.remove("cornerButtonsScene");
       this.scale.removeListener("resize", this.resize);
       this.scene.start("gameScene");
+    });
+
+    this.scene.add("cornerButtonsScene", CornerButtonsScene, true, {
+      sceneKey: this.scene.key,
+      bgKey: null,
     });
   }
 }

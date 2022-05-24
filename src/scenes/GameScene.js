@@ -8,6 +8,7 @@ import secondXokeraWin from "../../assets/2nd win.svg";
 import secondXokeraLose from "../../assets/2nd lose.svg";
 import thirdXokeraWin from "../../assets/3rd win.svg";
 import thirdXokeraLose from "../../assets/3rd lose.svg";
+import { CornerButtonsScene } from "./CornerButtonsScene";
 
 import { questions } from "../questions";
 
@@ -98,6 +99,10 @@ class GameScene extends BaseScene {
       playAreaStartY,
       questionText: this.currentQuestions[this.curQuestion].question,
     });
+    this.scene.add("cornerButtonsScene", CornerButtonsScene, true, {
+      sceneKey: this.scene.key,
+      bgKey: this.backgroundScene.scene.key});
+
     this.scene.bringToTop();
   }
 
@@ -216,6 +221,7 @@ class GameScene extends BaseScene {
   openLoseScene() {
     this.scene.remove("gameBackgroundScene");
     this.scene.remove("uiScene");
+    this.scene.remove("cornerButtonsScene");
     this.scale.removeListener("resize", this.resize);
     var data = {
       title: i18n.t("you_lost"),

@@ -4,6 +4,7 @@ import bgBoard from "../../assets/bg_board.png";
 import RedButton from "../objects/redButton";
 import GreenButton from "../objects/greenButton";
 import bgFinalLose from "../../assets/bg lose.png";
+import { CornerButtonsScene } from "./CornerButtonsScene";
 
 import { styleText, styleHeader } from "../utils";
 
@@ -53,6 +54,9 @@ export class StageWinLoseScene extends BaseScene {
       StageBackgroundScene,
       true
     );
+    this.scene.add("cornerButtonsScene", CornerButtonsScene, true, {
+      sceneKey: this.scene.key,
+      bgKey: this.backgroundScene.scene.key});
 
     this.scene.bringToTop();
     let styleT, styleH;
@@ -118,6 +122,7 @@ export class StageWinLoseScene extends BaseScene {
     gbutton.setInteractive();
     gbutton.on("pointerdown", () => {
       this.scene.remove("stageBackgroundScene");
+      this.scene.remove("cornerButtonsScene");
       this.scale.removeListener("resize", this.resize);
       this.scene.start("stageScene", {
         bgImage: "bgStageBoard",
@@ -129,6 +134,7 @@ export class StageWinLoseScene extends BaseScene {
     rbutton.setInteractive();
     rbutton.on("pointerdown", () => {
       this.scene.remove("stageBackgroundScene");
+      this.scene.remove("cornerButtonsScene");
       this.scale.removeListener("resize", this.resize);
       this.scene.start("finalWinLose", {
         bgImage: "bgFinalLose",

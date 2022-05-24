@@ -5,6 +5,7 @@ import bgStage from "../../assets/bg_first_xokera.png";
 import RedButton from "../objects/redButton";
 import { styleText } from "../utils";
 import { TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH } from "../constants/dimensions";
+import { CornerButtonsScene } from "./CornerButtonsScene";
 
 export class InstructionsBackgroundScene extends BaseBackgroundScene {
   constructor() {
@@ -45,6 +46,7 @@ class InstructionsScene extends BaseScene {
       InstructionsBackgroundScene,
       true
     );
+
     this.scene.bringToTop();
     let styleT;
     if (i18n.language === "ka") {
@@ -55,6 +57,10 @@ class InstructionsScene extends BaseScene {
         useAdvancedWrap: true,
       };
     }
+    this.scene.add("cornerButtonsScene", CornerButtonsScene, true, {
+      sceneKey: this.scene.key,
+      bgKey: this.backgroundScene.scene.key,
+    });
 
     this.headline = this.add.image(startX, startY, "headline");
     let offset = startY + 150;
@@ -74,9 +80,9 @@ class InstructionsScene extends BaseScene {
     button.setInteractive();
     button.on("pointerdown", () => {
       this.scene.remove("instructionsBackgroundScene");
-      this.scale.removeListener("resize", this.resize);
+      this.scene.remove("cornerButtonsScene");
       this.scene.start("stageScene", {
-        bgImage: bgStage,
+        bgImage: "bgStageBoard",
         title: i18n.t("first_xokera"),
         text: i18n.t("first_instr"),
         color: "#6F56D8",
