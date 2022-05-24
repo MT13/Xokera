@@ -85,7 +85,7 @@ export class UIScene extends BaseScene {
     sceneEvents.on("question-changed", this.handleQuestionUpdate, this);
     sceneEvents.on("health-changed", this.handlePlayerHealth, this);
 
-    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+    this.events.on(Phaser.Scenes.Events.DESTROY, () => {
       sceneEvents.off("health-changed", this.handlePlayerHealth);
       sceneEvents.off("question-changed", this.handleQuestionUpdate);
     });
