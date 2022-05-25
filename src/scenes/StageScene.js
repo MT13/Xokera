@@ -3,9 +3,13 @@ import { BaseScene } from "./BaseScene";
 import i18n from "../../i18n";
 import RedButton from "../objects/redButton";
 import { styleText, styleHeader } from "../utils";
-import { TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH } from "../constants/dimensions";
-import head from "../../assets/1st head.svg";
-import body from "../../assets/1st body.svg";
+import {
+  TITLE_AREA_HEIGHT,
+  TITLE_AREA_WIDTH,
+  CELL_HEIGHT,
+  CELL_WIDTH,
+} from "../constants/dimensions";
+
 import bgBoard from "../../assets/bg_board.png";
 import yesFood from "../../assets/yes fruit.svg";
 import noFood from "../../assets/no fruit.svg";
@@ -34,21 +38,13 @@ class StageScene extends BaseScene {
   }
 
   preload() {
-    this.load.svg("head", head, {
-      width: this.cellWidth,
-      height: this.cellHeight,
-    });
-    this.load.svg("body", body, {
-      width: this.cellWidth,
-      height: this.cellHeight,
-    });
     this.load.svg("yes_food", yesFood, {
-      width: this.cellWidth,
-      height: this.cellHeight,
+      width: CELL_WIDTH,
+      height: CELL_HEIGHT,
     });
     this.load.svg("no_food", noFood, {
-      width: this.cellWidth,
-      height: this.cellHeight,
+      width: CELL_WIDTH,
+      height: CELL_HEIGHT,
     });
     this.load.image("bgBoard", bgBoard);
   }
@@ -64,7 +60,7 @@ class StageScene extends BaseScene {
     let startX = TITLE_AREA_WIDTH / 2;
     let startY = TITLE_AREA_HEIGHT / 3;
 
-    this.bg = this.add.image(0, 0, "bgStageBoard").setOrigin(0, 0);
+    this.bg = this.add.image(0, 0, data.bgImage).setOrigin(0, 0);
     this.bg.setDisplaySize(TITLE_AREA_WIDTH, TITLE_AREA_HEIGHT);
 
     this.scene.bringToTop();
@@ -103,7 +99,14 @@ class StageScene extends BaseScene {
     button.on("pointerdown", () => {
       this.scene.remove("stageBackgroundScene");
       this.scale.removeListener("resize", this.resize);
-      this.scene.start("gameScene");
+      if (data.stage === 0) {
+        this.scene.start("gameScene");
+      }else {
+        this.scene.wake("gameScene");
+        this.scene.wake("gameBackgroundScene");
+        this.scene.wake("uiScene");
+      }
+
     });
 
     sceneEvents.on("pause", this.onPause, this);

@@ -8,6 +8,11 @@ import secondXokeraWin from "../../assets/2nd win.svg";
 import secondXokeraLose from "../../assets/2nd lose.svg";
 import thirdXokeraWin from "../../assets/3rd win.svg";
 import thirdXokeraLose from "../../assets/3rd lose.svg";
+import bgFinalWin from "../../assets/bg win.png";
+import head2 from "../../assets/2nd head.svg";
+import body2 from "../../assets/2nd body.svg";
+import head3 from "../../assets/3rd head.svg";
+import body3 from "../../assets/3rd body.svg";
 
 import { questions } from "../questions";
 
@@ -21,7 +26,10 @@ import {
   PLAY_AREA_WIDTH,
   TITLE_AREA_HEIGHT,
   TITLE_AREA_WIDTH,
+  CELL_HEIGHT,
+  CELL_WIDTH,
 } from "../constants/dimensions";
+
 import { UIScene } from "./UIScene";
 import i18n from "../../i18n";
 
@@ -44,10 +52,6 @@ class GameScene extends BaseScene {
     super({ key: "gameScene" });
   }
 
-  init() {
-    this.cellWidth = PLAY_AREA_WIDTH / GRID_WIDTH;
-    this.cellHeight = PLAY_AREA_HEIGHT / GRID_HEIGHT;
-  }
   preload() {
     this.load.svg("firstXokeraWin", firstXokeraWin, { width: 75, height: 75 });
     this.load.svg("firstXokeraLose", firstXokeraLose, {
@@ -67,6 +71,24 @@ class GameScene extends BaseScene {
       width: 75,
       height: 75,
     });
+    this.load.svg("head2", head2, {
+      width: CELL_WIDTH,
+      height: CELL_HEIGHT,
+    });
+    this.load.svg("body2", body2, {
+      width: CELL_WIDTH,
+      height: CELL_HEIGHT,
+    });
+    this.load.svg("head3", head3, {
+      width: CELL_WIDTH,
+      height: CELL_HEIGHT,
+    });
+    this.load.svg("body3", body3, {
+      width: CELL_WIDTH,
+      height: CELL_HEIGHT,
+    });
+
+    this.load.image("bgFinalWin", bgFinalWin);
   }
 
   resize(gameSize, baseSize, displaySize, resolution) {
@@ -118,8 +140,8 @@ class GameScene extends BaseScene {
       11,
       this.origX,
       this.origY,
-      this.cellWidth,
-      this.cellHeight,
+      CELL_WIDTH,
+      CELL_HEIGHT,
       "yes_food"
     );
     this.NoFood = new ChoiceFood(
@@ -128,8 +150,8 @@ class GameScene extends BaseScene {
       0,
       this.origX,
       this.origY,
-      this.cellWidth,
-      this.cellHeight,
+      CELL_WIDTH,
+      CELL_HEIGHT,
       "no_food"
     );
   }
@@ -158,12 +180,12 @@ class GameScene extends BaseScene {
       let NoPosition = validLocations[1];
 
       this.YesFood.setPosition(
-        this.origX + YesPosition.x * this.cellWidth,
-        this.origY + YesPosition.y * this.cellHeight
+        this.origX + YesPosition.x * CELL_WIDTH,
+        this.origY + YesPosition.y * CELL_HEIGHT
       );
       this.NoFood.setPosition(
-        this.origX + NoPosition.x * this.cellWidth,
-        this.origY + NoPosition.y * this.cellHeight
+        this.origX + NoPosition.x * CELL_WIDTH,
+        this.origY + NoPosition.y * CELL_HEIGHT
       );
 
       return true;
@@ -188,15 +210,20 @@ class GameScene extends BaseScene {
         // Check Answer    this.scene.bringToTop();
 
         if (this.answer) {
-          this.snake.grow();
-          this.repositionChoices(this.snake);
-          this.nextQuestion();
+          if (this.curQuestion === 9) {
+            this.nextStage();
+          } else {
+            this.snake.grow();
+            this.repositionChoices(this.snake);
+            console.log("YAYA");
+            this.nextQuestion();
+          }
         } else {
           this.repositionChoices(this.snake);
           this.health -= 1;
           // check zero health
 
-          if (this.health == 0) {
+          if (this.health === 0) {
             this.openLoseScene();
           }
           sceneEvents.emit("health-changed", this.health);
@@ -206,14 +233,20 @@ class GameScene extends BaseScene {
       } else if (this.snake.collideWithFood(this.NoFood)) {
         // Check Answer
         if (!this.answer) {
-          this.snake.grow();
-          this.repositionChoices(this.snake);
-          this.nextQuestion();
+          if (this.curQuestion === 9) {
+            this.nextStage();
+          } else {
+            this.snake.grow();
+            this.repositionChoices(this.snake);
+            console.log("YAYo");
+
+            this.nextQuestion();
+          }
         } else {
           this.repositionChoices(this.snake);
           this.health -= 1;
 
-          if (this.health == 0) {
+          if (this.health === 0) {
             this.openLoseScene();
           }
           // check zero health
@@ -266,8 +299,10 @@ class GameScene extends BaseScene {
       idx: this.curQuestion,
     });
 
-    this.health = 3;
-    sceneEvents.emit("health-changed", this.health);
+    if (this.stage === 0) {
+      this.health = 5;
+      sceneEvents.emit("health-changed", this.health);
+    }
 
     this.snake = new Snake(
       this,
@@ -275,15 +310,54 @@ class GameScene extends BaseScene {
       1,
       this.origX,
       this.origY,
-      this.cellWidth,
-      this.cellHeight
+      CELL_WIDTH,
+      CELL_HEIGHT,
+      this.stage
     );
+
     this.generateChoices(this.snake);
   }
 
   nextStage() {
     this.stage += 1;
-    this.initStage();
+    let data = { stage: this.stage };
+
+    switch (this.stage) {
+      case 1:
+        data.xokeraHead = "firstXokeraWin";
+        data.title = i18n.t("win1_title");
+        data.text = i18n.t("win1_text");
+        data.color = "#6F56D8";
+        break;
+      case 2:
+        data.xokeraHead = "secondXokeraWin";
+        data.title = i18n.t("win2_title");
+        data.text = i18n.t("win2_text");
+        data.color = "#FFC627";
+        break;
+      case 3:
+        data.bgImage = "bgFinalWin";
+        data.title = i18n.t("win3_title");
+        data.text = i18n.t("win3_text");
+        data.color = "#4BC671";
+        break;
+    }
+
+    if (this.stage === 3) {
+      this.scene.remove("gameBackgroundScene");
+      this.scene.remove("uiScene");
+      this.scale.removeListener("resize", this.resize);
+      this.scene.start("finalWinLose", data);
+    }
+    else {
+      this.scene.launch("stageWinLoseScene", data);
+      this.backgroundScene.scene.sleep();
+      this.uiScene.scene.sleep();
+      this.scene.sleep();
+      console.log("after sleep");
+      this.initStage();
+    }
+    
   }
 
   nextQuestion() {

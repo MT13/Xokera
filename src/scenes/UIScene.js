@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import { BaseScene } from "./BaseScene";
 import heart from "../../assets/heart.svg";
 import { styleText } from "../utils";
+import i18n from "../../i18n";
 
 import {
   TITLE_AREA_HEIGHT,
@@ -35,21 +36,24 @@ export class UIScene extends BaseScene {
 
     let { playAreaStartX, playAreaStartY, questionText } = data;
 
-    this.textBox = this.add.rectangle(
-      TITLE_AREA_WIDTH / 2,
-      100,
-      (TITLE_AREA_WIDTH * 3) / 4,
-      80,
-      "0xFFFFFF"
-    );
+    this.textBox = this.add
+      .rectangle(
+        TITLE_AREA_WIDTH / 2,
+        100,
+        (TITLE_AREA_WIDTH * 3) / 4,
+        100,
+        "0xFFFFFF"
+      )
+      .setOrigin(0.5);
 
     let styleT = styleText;
-
+    styleT.align = "center";
     styleT.color = "0x000000";
 
     // Style dis
-    this.question = this.add.text(0, 0, questionText, styleT);
-    Phaser.Display.Align.In.Center(this.question, this.textBox);
+    this.question = this.add
+      .text(TITLE_AREA_WIDTH / 2, 100, questionText, styleT)
+      .setOrigin(0.5);
 
     let playArea = this.add
       .rectangle(
@@ -81,7 +85,7 @@ export class UIScene extends BaseScene {
         y: healthY + 10,
         stepX: -40,
       },
-      quantity: 3,
+      quantity: 5,
     });
 
     sceneEvents.on("question-changed", this.handleQuestionUpdate, this);
@@ -91,7 +95,6 @@ export class UIScene extends BaseScene {
       sceneEvents.off("health-changed", this.handlePlayerHealth);
       sceneEvents.off("question-changed", this.handleQuestionUpdate);
       console.log("in destroy if uiscene");
-
     });
 
     this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
