@@ -102,9 +102,12 @@ class StageScene extends BaseScene {
       if (data.stage === 0) {
         this.scene.start("gameScene");
       }else {
+        
         this.scene.wake("gameScene");
         this.scene.wake("gameBackgroundScene");
         this.scene.wake("uiScene");
+        this.scene.remove();
+
       }
 
     });

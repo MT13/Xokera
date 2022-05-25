@@ -126,10 +126,17 @@ class GameScene extends BaseScene {
     this.scene.bringToTop("cornerButtonsScene");
     sceneEvents.on("pause", this.onPause, this);
     sceneEvents.on("wake", this.onWake, this);
+ 
 
     this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
       sceneEvents.off("pause", this.onPause);
       sceneEvents.off("wake", this.onWake);
+
+
+    });
+
+    this.events.on(Phaser.Scenes.Events.WAKE, () => {
+      this.initStage();
     });
 
     this.swipeInput = this.rexGestures.add.swipe({ velocityThreshold: 1000, direction: '4dir' });
@@ -225,7 +232,7 @@ class GameScene extends BaseScene {
         // Check Answer    this.scene.bringToTop();
 
         if (this.answer) {
-          if (this.curQuestion === 9) {
+          if (this.curQuestion === 1) {
             this.nextStage();
           } else {
             this.snake.grow();
@@ -248,7 +255,7 @@ class GameScene extends BaseScene {
       } else if (this.snake.collideWithFood(this.NoFood)) {
         // Check Answer
         if (!this.answer) {
-          if (this.curQuestion === 9) {
+          if (this.curQuestion === 1) {
             this.nextStage();
           } else {
             this.snake.grow();
@@ -305,6 +312,7 @@ class GameScene extends BaseScene {
   }
 
   initStage() {
+
     this.currentQuestions = this.randomizeQuestions();
 
     this.curQuestion = 0;
@@ -358,19 +366,26 @@ class GameScene extends BaseScene {
         break;
     }
 
+      console.log("stage: " + this.stage);
     if (this.stage === 3) {
+      console.log("tututu");
+
       this.scene.remove("gameBackgroundScene");
       this.scene.remove("uiScene");
       this.scale.removeListener("resize", this.resize);
       this.scene.start("finalWinLose", data);
     }
     else {
+      console.log("tatata");
+
+      this.YesFood.destroy();
+      this.NoFood.destroy();
+
       this.scene.launch("stageWinLoseScene", data);
       this.backgroundScene.scene.sleep();
       this.uiScene.scene.sleep();
       this.scene.sleep();
       console.log("after sleep");
-      this.initStage();
     }
     
   }

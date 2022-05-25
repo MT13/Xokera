@@ -39,14 +39,9 @@ class InstructionsScene extends BaseScene {
     this.load.image("bgStageBoard1", bgStage1);
     this.load.image("bgStageBoard2", bgStage2);
     this.load.image("bgStageBoard3", bgStage3);
-    this.load.svg("head1", head1, {
-      width: CELL_WIDTH,
-      height: CELL_HEIGHT,
-    });
-    this.load.svg("body1", body1, {
-      width: CELL_WIDTH,
-      height: CELL_HEIGHT,
-    });
+    this.load.svg("head1", head1);
+
+    this.load.svg("body1", body1);
   }
 
   resize(gameSize, baseSize, displaySize, resolution) {
