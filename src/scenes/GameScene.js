@@ -131,6 +131,8 @@ class GameScene extends BaseScene {
       sceneEvents.off("pause", this.onPause);
       sceneEvents.off("wake", this.onWake);
     });
+
+    this.swipeInput = this.rexGestures.add.swipe({ velocityThreshold: 1000, direction: '4dir' });
   }
 
   generateChoices(snake) {
@@ -195,6 +197,19 @@ class GameScene extends BaseScene {
   }
 
   update(time) {
+    if (this.swipeInput.isSwiped) {
+      if (this.swipeInput.left) {
+        this.snake.faceLeft();
+      } else if (this.swipeInput.right) {
+        this.snake.faceRight();
+      } else if (this.swipeInput.up) {
+        this.snake.faceUp();
+      } else if (this.swipeInput.down) {
+        this.snake.faceDown();
+      }
+    }
+
+
     if (this.cursors.left.isDown) {
       this.snake.faceLeft();
     } else if (this.cursors.right.isDown) {

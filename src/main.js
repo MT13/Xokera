@@ -3,6 +3,7 @@ import GameScene from "./scenes/GameScene";
 import { TitleScreen, TitleBackgroundScene } from "./scenes/TitleScreen";
 import i18n from "../i18n";
 import RoundRectanglePlugin from "phaser3-rex-plugins/plugins/roundrectangle-plugin.js";
+import GesturesPlugin from 'phaser3-rex-plugins/plugins/gestures-plugin.js';
 import InstructionsScene from "./scenes/InstructionsScene";
 import { StageWinLoseScene, WinStage } from "./scenes/StageWinLose";
 import StageScene from "./scenes/StageScene";
@@ -43,6 +44,13 @@ const config = {
         start: true,
       },
     ],
+    scene: [
+      {
+        key: 'rexGestures',
+        plugin: GesturesPlugin,
+        mapping: 'rexGestures'
+      },
+    ]
   },
 };
 
