@@ -7,14 +7,32 @@ const LEFT = 2;
 const UP = 3;
 
 export default class Snake {
-  constructor(scene, x, y, origX, origY, cellWidth, cellHeight) {
+  constructor(scene, x, y, origX, origY, cellWidth, cellHeight, stage) {
     this.cellWidth = cellWidth;
     this.cellHeight = cellHeight;
     this.origX = origX;
     this.origY = origY;
 
+    let bodyImg, headImg;
+
+    switch (stage) {
+      case 0:
+        bodyImg = "body1";
+        headImg = "head1";
+        break;
+      case 1:
+        bodyImg = "body2";
+        headImg = "head2";
+        break;
+      case 2:
+        bodyImg = "body3";
+        headImg = "head3";
+        break;
+    }
+
+    console.log(bodyImg + " " + headImg);
     this.body = scene.add.group({
-      defaultKey: "body",
+      defaultKey: bodyImg,
       createCallback: (o) => {
         o.setOrigin(0);
         o.displayWidth = cellWidth;
@@ -25,7 +43,7 @@ export default class Snake {
     this.head = this.body.create(
       origX + x * cellWidth,
       origY + y * cellHeight,
-      "head"
+      headImg
     );
 
     this.heading = RIGHT;

@@ -13,3 +13,6 @@ export const GRID_HEIGHT = 12
 export const BUTTON_WIDTH = 300
 export const BUTTON_HEIGHT = 40
 export const BUTTON_RADIUS = 40
+
+export const CELL_WIDTH = PLAY_AREA_WIDTH/GRID_WIDTH
+export const CELL_HEIGHT = PLAY_AREA_HEIGHT/GRID_HEIGHT

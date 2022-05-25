@@ -43,6 +43,8 @@ export class StageWinLoseScene extends BaseScene {
   create(data) {
     super.create();
 
+    console.log("in create staegwinLose");
+
     let infoAreaStartY = (this.origY =
       (TITLE_AREA_HEIGHT - STAGE_END_INFO_HEIGHT) / 2);
     let infoAreaStartX = (this.origX =
@@ -122,18 +124,30 @@ export class StageWinLoseScene extends BaseScene {
       i18n.t("give_up")
     );
 
+    console.log("data " + data);
+    switch (data.stage) {
+      case 1:
+        data.bgImage = "bgStageBoard2";
+        data.color = "#FFC627";
+        data.title = i18n.t("second_xokera");
+        data.text = i18n.t("second_instr");
+        break;
+      case 2:
+        data.bgImage = "bgStageBoard3";
+        data.color = "#4BC671";
+        data.title = i18n.t("third_xokera");
+        data.text = i18n.t("third_instr");
+        break;    let finalWinPage = false;
+
+
+    }
     this.add.existing(gbutton);
     this.add.existing(rbutton);
     gbutton.setInteractive();
     gbutton.on("pointerdown", () => {
       this.scene.remove("stageBackgroundScene");
       this.scale.removeListener("resize", this.resize);
-      this.scene.start("stageScene", {
-        bgImage: "bgStageBoard",
-        title: i18n.t("first_xokera"),
-        text: i18n.t("first_instr"),
-        color: "#6F56D8",
-      });
+      this.scene.start("stageScene", data);
     });
     rbutton.setInteractive();
     rbutton.on("pointerdown", () => {

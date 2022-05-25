@@ -1,11 +1,20 @@
 import Phaser from "phaser";
 import { BaseScene, BaseBackgroundScene } from "./BaseScene";
 import i18n from "../../i18n";
-import bgStage from "../../assets/bg_first_xokera.png";
+import bgStage1 from "../../assets/bg_first_xokera.png";
+import bgStage2 from "../../assets/bg second xokera.png";
+import bgStage3 from "../../assets/bg third xokera.png";
 import RedButton from "../objects/redButton";
 import { styleText } from "../utils";
-import { TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH } from "../constants/dimensions";
+import {
+  TITLE_AREA_HEIGHT,
+  TITLE_AREA_WIDTH,
+  CELL_HEIGHT,
+  CELL_WIDTH,
+} from "../constants/dimensions";
 import { sceneEvents } from "../events/EventCenter";
+import head1 from "../../assets/1st head.svg";
+import body1 from "../../assets/1st body.svg";
 
 export class InstructionsBackgroundScene extends BaseBackgroundScene {
   constructor() {
@@ -27,7 +36,17 @@ class InstructionsScene extends BaseScene {
   }
 
   preload() {
-    this.load.image("bgStageBoard", bgStage);
+    this.load.image("bgStageBoard1", bgStage1);
+    this.load.image("bgStageBoard2", bgStage2);
+    this.load.image("bgStageBoard3", bgStage3);
+    this.load.svg("head1", head1, {
+      width: CELL_WIDTH,
+      height: CELL_HEIGHT,
+    });
+    this.load.svg("body1", body1, {
+      width: CELL_WIDTH,
+      height: CELL_HEIGHT,
+    });
   }
 
   resize(gameSize, baseSize, displaySize, resolution) {
@@ -92,10 +111,11 @@ class InstructionsScene extends BaseScene {
       this.scene.remove("instructionsBackgroundScene");
       this.scale.removeListener("resize", this.resize);
       this.scene.start("stageScene", {
-        bgImage: "bgStageBoard",
+        bgImage: "bgStageBoard1",
         title: i18n.t("first_xokera"),
         text: i18n.t("first_instr"),
         color: "#6F56D8",
+        stage: 0,
       });
     });
   }
