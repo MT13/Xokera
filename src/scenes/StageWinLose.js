@@ -4,7 +4,7 @@ import bgBoard from "../../assets/bg_board.png";
 import RedButton from "../objects/redButton";
 import GreenButton from "../objects/greenButton";
 import bgFinalLose from "../../assets/bg lose.png";
-import { CornerButtonsScene } from "./CornerButtonsScene";
+import { sceneEvents } from "../events/EventCenter";
 
 import { styleText, styleHeader } from "../utils";
 
@@ -16,7 +16,6 @@ import {
   BUTTON_WIDTH,
 } from "../constants/dimensions";
 
-import { sceneEvents } from "../events/EventCenter";
 import i18n from "../../i18n";
 
 export class StageBackgroundScene extends BaseBackgroundScene {
@@ -54,11 +53,17 @@ export class StageWinLoseScene extends BaseScene {
       StageBackgroundScene,
       true
     );
-    this.scene.add("cornerButtonsScene", CornerButtonsScene, true, {
-      sceneKey: this.scene.key,
-      bgKey: this.backgroundScene.scene.key});
 
     this.scene.bringToTop();
+    this.scene.bringToTop("cornerButtonsScene");
+    sceneEvents.on("pause", this.onPause, this);
+    sceneEvents.on("wake", this.onWake, this);
+
+    this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
+      sceneEvents.off("pause", this.onPause);
+      sceneEvents.off("wake", this.onWake);
+    });
+
     let styleT, styleH;
     if (i18n.language === "ka") {
       styleT = styleText;
@@ -122,7 +127,6 @@ export class StageWinLoseScene extends BaseScene {
     gbutton.setInteractive();
     gbutton.on("pointerdown", () => {
       this.scene.remove("stageBackgroundScene");
-      this.scene.remove("cornerButtonsScene");
       this.scale.removeListener("resize", this.resize);
       this.scene.start("stageScene", {
         bgImage: "bgStageBoard",
@@ -134,7 +138,6 @@ export class StageWinLoseScene extends BaseScene {
     rbutton.setInteractive();
     rbutton.on("pointerdown", () => {
       this.scene.remove("stageBackgroundScene");
-      this.scene.remove("cornerButtonsScene");
       this.scale.removeListener("resize", this.resize);
       this.scene.start("finalWinLose", {
         bgImage: "bgFinalLose",
@@ -143,5 +146,16 @@ export class StageWinLoseScene extends BaseScene {
         color: "#E5541C",
       });
     });
+  }
+
+  onPause() {
+    this.scene.launch("pauseScene");
+    this.backgroundScene.scene.sleep();
+    this.scene.sleep();
+  }
+
+  onWake() {
+    this.scene.wake();
+    this.backgroundScene.scene.wake();
   }
 }

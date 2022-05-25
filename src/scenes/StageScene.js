@@ -9,7 +9,7 @@ import body from "../../assets/1st body.svg";
 import bgBoard from "../../assets/bg_board.png";
 import yesFood from "../../assets/yes fruit.svg";
 import noFood from "../../assets/no fruit.svg";
-import { CornerButtonsScene } from "./CornerButtonsScene";
+import { sceneEvents } from "../events/EventCenter";
 
 // export class StageBackgroundScene extends BaseBackgroundScene {
 //   constructor() {
@@ -67,12 +67,8 @@ class StageScene extends BaseScene {
     this.bg = this.add.image(0, 0, "bgStageBoard").setOrigin(0, 0);
     this.bg.setDisplaySize(TITLE_AREA_WIDTH, TITLE_AREA_HEIGHT);
 
-    // this.backgroundScene = this.scene.add(
-    //   "stageBackgroundScene",
-    //   StageBackgroundScene,
-    //   true
-    // );
     this.scene.bringToTop();
+    this.scene.bringToTop("cornerButtonsScene");
 
     let styleT, styleH;
     if (i18n.language === "ka") {
@@ -106,15 +102,26 @@ class StageScene extends BaseScene {
     button.setInteractive();
     button.on("pointerdown", () => {
       this.scene.remove("stageBackgroundScene");
-      this.scene.remove("cornerButtonsScene");
       this.scale.removeListener("resize", this.resize);
       this.scene.start("gameScene");
     });
 
-    this.scene.add("cornerButtonsScene", CornerButtonsScene, true, {
-      sceneKey: this.scene.key,
-      bgKey: null,
+    sceneEvents.on("pause", this.onPause, this);
+    sceneEvents.on("wake", this.onWake, this);
+
+    this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
+      sceneEvents.off("pause", this.onPause);
+      sceneEvents.off("wake", this.onWake);
     });
+  }
+
+  onPause() {
+    this.scene.launch("pauseScene");
+    this.scene.sleep();
+  }
+
+  onWake() {
+    this.scene.wake();
   }
 }
 

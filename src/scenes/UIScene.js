@@ -24,8 +24,10 @@ export class UIScene extends BaseScene {
     this.cellHeight = PLAY_AREA_HEIGHT / GRID_HEIGHT;
   }
   preload() {
-    this.load.svg("heart", heart,
-      { width: this.cellWidth, height: this.cellHeight });
+    this.load.svg("heart", heart, {
+      width: this.cellWidth,
+      height: this.cellHeight,
+    });
   }
 
   create(data) {
@@ -88,6 +90,14 @@ export class UIScene extends BaseScene {
     this.events.on(Phaser.Scenes.Events.DESTROY, () => {
       sceneEvents.off("health-changed", this.handlePlayerHealth);
       sceneEvents.off("question-changed", this.handleQuestionUpdate);
+      console.log("in destroy if uiscene");
+
+    });
+
+    this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
+      console.log("in shutdown if uiscene");
+      sceneEvents.off("pause");
+      sceneEvents.off("wake");
     });
   }
 

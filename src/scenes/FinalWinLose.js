@@ -10,6 +10,7 @@ import {
 } from "../constants/dimensions";
 import bgFinalWin from "../../assets/bg win.png";
 import { CornerButtonsScene } from "./CornerButtonsScene";
+import { sceneEvents } from "../events/EventCenter";
 
 export class FinalBackgroundScene extends BaseBackgroundScene {
   constructor() {
@@ -56,12 +57,17 @@ export class FinalWinLose extends BaseScene {
       true,
       { bgImage: data.bgImage }
     );
-    this.scene.add("cornerButtonsScene", CornerButtonsScene, true, {
-      sceneKey: this.scene.key,
-      bgKey: this.backgroundScene.scene.key,
-    });
 
     this.scene.bringToTop();
+
+    this.scene.bringToTop("cornerButtonsScene");
+    sceneEvents.on("pause", this.onPause, this);
+    sceneEvents.on("wake", this.onWake, this);
+
+    this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
+      sceneEvents.off("pause", this.onPause);
+      sceneEvents.off("wake", this.onWake);
+    });
 
     let styleH, styleT;
 
@@ -97,7 +103,6 @@ export class FinalWinLose extends BaseScene {
     button.setInteractive();
     button.on("pointerdown", () => {
       this.scene.remove("finalBackgroundScene");
-      this.scene.remove("cornerButtonsScene");
       this.scale.removeListener("resize", this.resize);
       this.scene.start("stageScene", {
         bgImage: "bgStageBoard",
@@ -106,5 +111,16 @@ export class FinalWinLose extends BaseScene {
         color: "#6F56D8",
       });
     });
+  }
+
+  onPause() {
+    this.scene.launch("pauseScene");
+    this.backgroundScene.scene.sleep();
+    this.scene.sleep();
+  }
+
+  onWake() {
+    this.scene.wake();
+    this.backgroundScene.scene.wake();
   }
 }

@@ -8,6 +8,7 @@ import { StageWinLoseScene, WinStage } from "./scenes/StageWinLose";
 import StageScene from "./scenes/StageScene";
 import { FinalWinLose } from "./scenes/FinalWinLose";
 import { PauseScene } from "./scenes/PauseScene";
+import { CornerButtonsScene } from "./scenes/CornerButtonsScene";
 
 const MAX_SIZE_WIDTH_SCREEN = 1920;
 const MAX_SIZE_HEIGHT_SCREEN = 1080;
@@ -57,6 +58,7 @@ let finalWinLose = new FinalWinLose();
 
 let winScene = new StageWinLoseScene();
 let pauseScene = new PauseScene();
+let cornerButtonsScene = new CornerButtonsScene();
 
 // game.scene.add("titleBackgroundScene", titleBackgroundScene);
 
@@ -68,13 +70,15 @@ game.scene.add("stageScene", stageScene);
 game.scene.add("stageWinLoseScene", winScene);
 game.scene.add("finalWinLose", finalWinLose);
 game.scene.add("pauseScene", pauseScene);
+game.scene.add("cornerButtonsScene", cornerButtonsScene);
 
 // game.scene.start("winScene")
 // game.scene.add("uiScene", uiScene);
 
 // game.scene.start("titleBackgroundScene");
-game.scene.start("titleScreen");
 
+game.scene.start("titleScreen");
+game.scene.start("cornerButtonsScene");
 // game.scene.start("instructionsScene");
 // game.scene.start("stageWinLoseScene");
 // game.scene.start("finalWinLose");

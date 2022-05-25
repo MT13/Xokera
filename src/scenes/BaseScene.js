@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { sceneEvents } from "../events/EventCenter";
 
 import { TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH } from "../constants/title";
 
@@ -25,6 +26,18 @@ export class BaseScene extends Phaser.Scene {
 
     this.scale.on("resize", this.resize, this);
     this.updateCamera(this);
+
+    this.events.on(Phaser.Scenes.Events.DESTROY, () => {
+      sceneEvents.off("pause");
+      sceneEvents.off("wake");
+      this.scale.removeListener("resize", this.resize);
+
+    });
+
+    this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
+      sceneEvents.off("pause");
+      sceneEvents.off("wake");
+    });
   }
 
   updateCamera() {

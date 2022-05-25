@@ -4,6 +4,7 @@ import i18n from "../../i18n";
 import { TitleBackgroundScene } from "./TitleBackgroundScene";
 import GreenButton from "../objects/greenButton";
 import { TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH } from "../constants/title";
+import { sceneEvents } from "../events/EventCenter";
 
 export class PauseScene extends BaseScene {
   constructor() {
@@ -14,12 +15,11 @@ export class PauseScene extends BaseScene {
 
   create(data) {
     super.create();
-    console.log("in create");
-    // this.backgroundScene = this.scene.add(
-    //   "titleBackgroundScene",
-    //   TitleBackgroundScene,
-    //   true
-    // );
+    this.backgroundScene = this.scene.add(
+      "titleBackgroundScene",
+      TitleBackgroundScene,
+      true
+    );
 
     this.scene.bringToTop();
 
@@ -31,13 +31,16 @@ export class PauseScene extends BaseScene {
     );
     this.add.existing(gbutton);
 
-    console.log(data.sceneKey + " " + data.bgKey);
+    // console.log(data.sceneKey + " " + data.bgKey);
     gbutton.on("pointerdown", () => {
       this.scale.startFullscreen();
-      this.scene.wake(data.sceneKey);
-      this.scene.wake(data.bgKey);
+      sceneEvents.emit("wake");
+      // this.scene.wake(data.sceneKey);
+      // this.scene.wake(data.bgKey);
       // this.scene.wake("cornerButtonScene");
-      // this.scene.remove(this.backgroundScene.scene.key);
+      this.backgroundScene.scene.sleep();
+      this.scene.bringToTop("cornerButtonsScene");
+      this.scene.remove("titleBackgroundScene");
       this.scene.sleep();
     });
   }

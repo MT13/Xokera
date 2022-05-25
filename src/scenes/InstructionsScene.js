@@ -5,7 +5,7 @@ import bgStage from "../../assets/bg_first_xokera.png";
 import RedButton from "../objects/redButton";
 import { styleText } from "../utils";
 import { TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH } from "../constants/dimensions";
-import { CornerButtonsScene } from "./CornerButtonsScene";
+import { sceneEvents } from "../events/EventCenter";
 
 export class InstructionsBackgroundScene extends BaseBackgroundScene {
   constructor() {
@@ -57,9 +57,19 @@ class InstructionsScene extends BaseScene {
         useAdvancedWrap: true,
       };
     }
-    this.scene.add("cornerButtonsScene", CornerButtonsScene, true, {
-      sceneKey: this.scene.key,
-      bgKey: this.backgroundScene.scene.key,
+    // this.scene.add("cornerButtonsScene", CornerButtonsScene, true, {
+    //   sceneKey: this.scene.key,
+    //   bgKey: this.backgroundScene.scene.key,
+    // });
+    this.scene.setVisible(true, "cornerButtonsScene");
+    this.scene.bringToTop("cornerButtonsScene");
+
+    sceneEvents.on("pause", this.onPause, this);
+    sceneEvents.on("wake", this.onWake, this);
+
+    this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
+      sceneEvents.off("pause", this.onPause);
+      sceneEvents.off("wake", this.onWake);
     });
 
     this.headline = this.add.image(startX, startY, "headline");
@@ -80,7 +90,7 @@ class InstructionsScene extends BaseScene {
     button.setInteractive();
     button.on("pointerdown", () => {
       this.scene.remove("instructionsBackgroundScene");
-      this.scene.remove("cornerButtonsScene");
+      this.scale.removeListener("resize", this.resize);
       this.scene.start("stageScene", {
         bgImage: "bgStageBoard",
         title: i18n.t("first_xokera"),
@@ -88,6 +98,17 @@ class InstructionsScene extends BaseScene {
         color: "#6F56D8",
       });
     });
+  }
+
+  onPause() {
+    this.scene.launch("pauseScene");
+    this.backgroundScene.scene.sleep();
+    this.scene.sleep();
+  }
+
+  onWake() {
+    this.scene.wake();
+    this.backgroundScene.scene.wake();
   }
 }
 

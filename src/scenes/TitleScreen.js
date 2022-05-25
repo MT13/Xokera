@@ -33,6 +33,8 @@ export class TitleScreen extends BaseScene {
     );
 
     this.scene.bringToTop();
+    this.scene.setVisible(false, "cornerButtonsScene");
+
     let styleH, styleT;
 
     this.offset = 50;
