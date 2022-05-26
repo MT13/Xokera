@@ -8,7 +8,6 @@ import secondXokeraWin from "../../assets/2nd win.svg";
 import secondXokeraLose from "../../assets/2nd lose.svg";
 import thirdXokeraWin from "../../assets/3rd win.svg";
 import thirdXokeraLose from "../../assets/3rd lose.svg";
-import bgFinalWin from "../../assets/bg win.png";
 import head2 from "../../assets/2nd head.svg";
 import body2 from "../../assets/2nd body.svg";
 import head3 from "../../assets/3rd head.svg";
@@ -79,16 +78,14 @@ class GameScene extends BaseScene {
       width: CELL_WIDTH,
       height: CELL_HEIGHT,
     });
-    this.load.svg("head3", head3, {
+    this.load.svg("head3", head2, {
       width: CELL_WIDTH,
       height: CELL_HEIGHT,
     });
-    this.load.svg("body3", body3, {
+    this.load.svg("body3", body2, {
       width: CELL_WIDTH,
       height: CELL_HEIGHT,
     });
-
-    this.load.image("bgFinalWin", bgFinalWin);
   }
 
   resize(gameSize, baseSize, displaySize, resolution) {
@@ -131,8 +128,6 @@ class GameScene extends BaseScene {
       sceneEvents.off("pause", this.onPause);
       sceneEvents.off("wake", this.onWake);
     });
-
-    this.swipeInput = this.rexGestures.add.swipe({ velocityThreshold: 1000, direction: '4dir' });
   }
 
   generateChoices(snake) {
@@ -197,19 +192,6 @@ class GameScene extends BaseScene {
   }
 
   update(time) {
-    if (this.swipeInput.isSwiped) {
-      if (this.swipeInput.left) {
-        this.snake.faceLeft();
-      } else if (this.swipeInput.right) {
-        this.snake.faceRight();
-      } else if (this.swipeInput.up) {
-        this.snake.faceUp();
-      } else if (this.swipeInput.down) {
-        this.snake.faceDown();
-      }
-    }
-
-
     if (this.cursors.left.isDown) {
       this.snake.faceLeft();
     } else if (this.cursors.right.isDown) {
@@ -330,49 +312,33 @@ class GameScene extends BaseScene {
       this.stage
     );
 
+    console.log("snake: " + this.snake);
     this.generateChoices(this.snake);
   }
 
   nextStage() {
     this.stage += 1;
-    let data = { stage: this.stage };
-
+    let data = {};
     switch (this.stage) {
       case 1:
-        data.xokeraHead = "firstXokeraWin";
-        data.title = i18n.t("win1_title");
-        data.text = i18n.t("win1_text");
-        data.color = "#6F56D8";
+        data.bgImage = "bgStageBoard2";
+        data.color = "#FFC627";
+        data.title = i18n.t("second_xokera");
+        data.text = i18n.t("second_instr");
         break;
       case 2:
-        data.xokeraHead = "secondXokeraWin";
-        data.title = i18n.t("win2_title");
-        data.text = i18n.t("win2_text");
-        data.color = "#FFC627";
-        break;
-      case 3:
-        data.bgImage = "bgFinalWin";
-        data.title = i18n.t("win3_title");
-        data.text = i18n.t("win3_text");
+        data.bgImage = "bgStageBoard3";
         data.color = "#4BC671";
+        data.title = i18n.t("third_xokera");
+        data.text = i18n.t("third_instr");
         break;
     }
-
-    if (this.stage === 3) {
-      this.scene.remove("gameBackgroundScene");
-      this.scene.remove("uiScene");
-      this.scale.removeListener("resize", this.resize);
-      this.scene.start("finalWinLose", data);
-    }
-    else {
-      this.scene.launch("stageWinLoseScene", data);
-      this.backgroundScene.scene.sleep();
-      this.uiScene.scene.sleep();
-      this.scene.sleep();
-      console.log("after sleep");
-      this.initStage();
-    }
-    
+    this.scene.launch("stageScene", data);
+    this.backgroundScene.scene.sleep();
+    this.uiScene.scene.sleep();
+    this.scene.sleep();
+    console.log("after sleep");
+    //this.initStage();
   }
 
   nextQuestion() {

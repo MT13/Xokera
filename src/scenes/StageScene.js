@@ -99,14 +99,9 @@ class StageScene extends BaseScene {
     button.on("pointerdown", () => {
       this.scene.remove("stageBackgroundScene");
       this.scale.removeListener("resize", this.resize);
-      if (data.stage === 0) {
-        this.scene.start("gameScene");
-      }else {
-        this.scene.wake("gameScene");
-        this.scene.wake("gameBackgroundScene");
-        this.scene.wake("uiScene");
-      }
-
+      this.scene.wake("gameScene");
+      this.scene.wake("gameBackgroundScene");
+      this.scene.wake("uiScene");
     });
 
     sceneEvents.on("pause", this.onPause, this);
