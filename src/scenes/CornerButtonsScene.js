@@ -33,7 +33,7 @@ export class CornerButtonsScene extends BaseScene {
     fullscreen.setInteractive();
     fullscreen.on("pointerdown", () => {
       this.scale.stopFullscreen();
-      sceneEvents.emit("pause");
+      this.handleFullscreen();
       this.scene.sendToBack();
     });
 
@@ -62,7 +62,7 @@ export class CornerButtonsScene extends BaseScene {
 
     this.instr = this.add
       .text(
-        this.rulesX-50,
+        this.rulesX - 50,
         2 * this.rulesY + TITLE_AREA_HEIGHT / 4,
         i18n.t("instruction text"),
         styleT
@@ -75,7 +75,6 @@ export class CornerButtonsScene extends BaseScene {
       if (!this.aboutClicked) {
         this.instr.setVisible(true);
         this.aboutRec.setVisible(true);
-
       } else {
         this.instr.setVisible(false);
         this.aboutRec.setVisible(false);

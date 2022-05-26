@@ -15,12 +15,19 @@ export class PauseScene extends BaseScene {
 
   create(data) {
     super.create();
-    this.backgroundScene = this.scene.add(
-      "titleBackgroundScene",
-      TitleBackgroundScene,
-      true
-    );
 
+    console.log("in puase create");
+    // this.backgroundScene = this.scene.add(
+    //   "titleBackgroundScene",
+    //   TitleBackgroundScene,
+    //   true
+    // );
+
+    this.events.on(Phaser.Scenes.Events.WAKE, () => {
+      this.scene.bringToTop();
+    });
+    this.backgroundScene = this.scene.get("titleBackgroundScene");
+    this.backgroundScene.scene.restart();
     this.scene.bringToTop();
 
     let gbutton = new GreenButton(
@@ -34,13 +41,13 @@ export class PauseScene extends BaseScene {
     // console.log(data.sceneKey + " " + data.bgKey);
     gbutton.on("pointerdown", () => {
       this.scale.startFullscreen();
-      sceneEvents.emit("wake");
+      sceneEvents.emit("wake-up");
       // this.scene.wake(data.sceneKey);
       // this.scene.wake(data.bgKey);
       // this.scene.wake("cornerButtonScene");
       this.backgroundScene.scene.sleep();
       this.scene.bringToTop("cornerButtonsScene");
-      this.scene.remove("titleBackgroundScene");
+      // this.scene.remove("titleBackgroundScene");
       this.scene.sleep();
     });
   }

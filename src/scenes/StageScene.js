@@ -33,10 +33,6 @@ class StageScene extends BaseScene {
     super({ key: "stageScene" });
   }
 
-  init(data) {
-    this.bgImage = data.bgImage;
-  }
-
   preload() {
     this.load.svg("yes_food", yesFood, {
       width: CELL_WIDTH,
@@ -81,10 +77,11 @@ class StageScene extends BaseScene {
 
     this.title = this.add.text(startX, startY, data.title, styleH);
     this.title.setOrigin(0.5);
-    let offset = startY + 100;
+    let offset = startY + 75;
+
     this.instr = this.add.text(startX, offset, data.text, styleT);
-    this.instr.setOrigin(0.5);
-    offset += 50 + this.instr.height;
+    this.instr.setOrigin(0.5, 0);
+    offset += 100 + this.instr.height;
 
     let button = new RedButton(
       this,
@@ -101,32 +98,34 @@ class StageScene extends BaseScene {
       this.scale.removeListener("resize", this.resize);
       if (data.stage === 0) {
         this.scene.start("gameScene");
-      }else {
-        
+      } else if (data.stage === -1) {
+        let gameScene = this.scene.get("gameScene");
+        gameScene.scene.restart();
+        this.scene.stop();
+      } else {
+        console.log("StageScene: waking gameScene");
         this.scene.wake("gameScene");
         this.scene.wake("gameBackgroundScene");
         this.scene.wake("uiScene");
-        this.scene.remove();
-
+        this.scene.stop();
       }
-
     });
 
-    sceneEvents.on("pause", this.onPause, this);
-    sceneEvents.on("wake", this.onWake, this);
+    sceneEvents.on("pause-up", this.onPause, this);
+    sceneEvents.on("wake-up", this.onWake, this);
 
     this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
-      sceneEvents.off("pause", this.onPause);
-      sceneEvents.off("wake", this.onWake);
+      sceneEvents.off("pause-up", this.onPause);
+      sceneEvents.off("wake-up", this.onWake);
     });
   }
 
   onPause() {
-    this.scene.launch("pauseScene");
     this.scene.sleep();
   }
 
   onWake() {
+    
     this.scene.wake();
   }
 }

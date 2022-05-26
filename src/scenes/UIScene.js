@@ -94,13 +94,11 @@ export class UIScene extends BaseScene {
     this.events.on(Phaser.Scenes.Events.DESTROY, () => {
       sceneEvents.off("health-changed", this.handlePlayerHealth);
       sceneEvents.off("question-changed", this.handleQuestionUpdate);
-      console.log("in destroy if uiscene");
     });
 
     this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
-      console.log("in shutdown if uiscene");
-      sceneEvents.off("pause");
-      sceneEvents.off("wake");
+      sceneEvents.off("pause-up");
+      sceneEvents.off("wake-up");
     });
   }
 

@@ -78,12 +78,12 @@ class InstructionsScene extends BaseScene {
     this.scene.setVisible(true, "cornerButtonsScene");
     this.scene.bringToTop("cornerButtonsScene");
 
-    sceneEvents.on("pause", this.onPause, this);
-    sceneEvents.on("wake", this.onWake, this);
+    sceneEvents.on("pause-up", this.onPause, this);
+    sceneEvents.on("wake-up", this.onWake, this);
 
     this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
-      sceneEvents.off("pause", this.onPause);
-      sceneEvents.off("wake", this.onWake);
+      sceneEvents.off("pause-up", this.onPause);
+      sceneEvents.off("wake-up", this.onWake);
     });
 
     this.headline = this.add.image(startX, startY, "headline");
@@ -116,14 +116,16 @@ class InstructionsScene extends BaseScene {
   }
 
   onPause() {
-    this.scene.launch("pauseScene");
+    console.log("in pause instr");
     this.backgroundScene.scene.sleep();
     this.scene.sleep();
   }
 
   onWake() {
-    this.scene.wake();
+    console.log("instructions on wake");
     this.backgroundScene.scene.wake();
+    this.scene.wake();
+    this.scene.bringToTop();
   }
 }
 

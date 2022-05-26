@@ -144,7 +144,7 @@ export class TitleScreen extends BaseScene {
 
     button.setInteractive();
     button.on("pointerdown", () => {
-      this.scene.remove("titleBackgroundScene");
+      this.scene.stop("titleBackgroundScene");
       this.scale.removeListener("resize", this.resize);
       this.scale.startFullscreen();
       this.scene.start("instructionsScene");

@@ -8,9 +8,8 @@ import {
   TITLE_AREA_WIDTH,
   BUTTON_WIDTH,
 } from "../constants/dimensions";
-import bgFinalWin from "../../assets/bg win.png";
-import { CornerButtonsScene } from "./CornerButtonsScene";
 import { sceneEvents } from "../events/EventCenter";
+import bgStage1 from "../../assets/bg_first_xokera.png";
 
 export class FinalBackgroundScene extends BaseBackgroundScene {
   constructor() {
@@ -20,9 +19,6 @@ export class FinalBackgroundScene extends BaseBackgroundScene {
   preload() {}
 
   create(data) {
-    console.log("in finalWinLoseBg: " + data);
-    console.log("in finalWinLoseBg: " + data.bgImage);
-
     this.bg = this.add.image(0, 0, data.bgImage).setOrigin(0, 0);
     this.updateCamera();
   }
@@ -43,14 +39,6 @@ export class FinalWinLose extends BaseScene {
   create(data) {
     super.create();
 
-    // let data = {
-    //   bgImage: "bgFinal",
-    //   title: i18n.t("victory"),
-    //   text: i18n.t("final_win_text"),
-    //   color: "#4BC671",
-    // };
-
-    console.log("in finalWinLose " + data.bgImage);
     this.backgroundScene = this.scene.add(
       "finalBackgroundScene",
       FinalBackgroundScene,
@@ -61,12 +49,12 @@ export class FinalWinLose extends BaseScene {
     this.scene.bringToTop();
 
     this.scene.bringToTop("cornerButtonsScene");
-    sceneEvents.on("pause", this.onPause, this);
-    sceneEvents.on("wake", this.onWake, this);
+    sceneEvents.on("pause-up", this.onPause, this);
+    sceneEvents.on("wake-up", this.onWake, this);
 
     this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
-      sceneEvents.off("pause", this.onPause);
-      sceneEvents.off("wake", this.onWake);
+      sceneEvents.off("pause-up", this.onPause);
+      sceneEvents.off("wake-up", this.onWake);
     });
 
     let styleH, styleT;
@@ -104,17 +92,19 @@ export class FinalWinLose extends BaseScene {
     button.on("pointerdown", () => {
       this.scene.remove("finalBackgroundScene");
       this.scale.removeListener("resize", this.resize);
+      // this.scene.remove("gameScene");
+
       this.scene.start("stageScene", {
-        bgImage: "bgStageBoard",
+        bgImage: "bgStageBoard1",
         title: i18n.t("first_xokera"),
         text: i18n.t("first_instr"),
         color: "#6F56D8",
+        stage: -1,
       });
     });
   }
 
   onPause() {
-    this.scene.launch("pauseScene");
     this.backgroundScene.scene.sleep();
     this.scene.sleep();
   }

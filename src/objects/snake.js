@@ -1,4 +1,4 @@
-import Phaser from "phaser";
+import Phaser, { Data } from "phaser";
 import { GRID_WIDTH, GRID_HEIGHT } from "../constants/dimensions";
 
 const RIGHT = 0;
@@ -45,7 +45,7 @@ export default class Snake {
       origY + y * cellHeight,
       headImg
     );
-
+    console.log("Snake: head created for stage " + stage);
     this.heading = RIGHT;
     this.direction = RIGHT;
     this.headPosition = new Phaser.Geom.Point(x, y);
@@ -187,6 +187,6 @@ export default class Snake {
   }
 
   destroy() {
-    this.body.destroy();
+    this.body.clear(true, true);
   }
 }

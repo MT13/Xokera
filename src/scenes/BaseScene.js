@@ -12,6 +12,7 @@ export class BaseScene extends Phaser.Scene {
   create() {
     const scaleWidth = this.scale.gameSize.width;
     const scaleHeight = this.scale.gameSize.height;
+    this.pauseSceneStarted = false;
 
     this.parent = new Phaser.Structs.Size(scaleWidth, scaleHeight);
     this.sizer = new Phaser.Structs.Size(
@@ -24,19 +25,14 @@ export class BaseScene extends Phaser.Scene {
     this.parent.setSize(scaleWidth, scaleHeight);
     this.sizer.setSize(scaleWidth, scaleHeight);
 
+    this.scale.on("leavefullscreen", this.handleFullscreen, this);
     this.scale.on("resize", this.resize, this);
     this.updateCamera(this);
 
     this.events.on(Phaser.Scenes.Events.DESTROY, () => {
-      sceneEvents.off("pause");
-      sceneEvents.off("wake");
+      sceneEvents.off("pause-up");
+      sceneEvents.off("wake-up");
       this.scale.removeListener("resize", this.resize);
-
-    });
-
-    this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
-      sceneEvents.off("pause");
-      sceneEvents.off("wake");
     });
   }
 
@@ -64,6 +60,23 @@ export class BaseScene extends Phaser.Scene {
     this.sizer.setSize(width, height);
 
     this.updateCamera();
+  }
+
+  handleFullscreen() {
+    console.log("caught leave fullscreen");
+    sceneEvents.emit("pause-up");
+    let pauseScene = this.scene.get("pauseScene");
+    if (pauseScene.scene.isSleeping()) {
+      console.log("waking pauseScene");
+      this.scene.wake("titleBackgroundScene");
+
+      pauseScene.scene.wake();
+    } else {
+      console.log("launching pauseScene");
+      this.scene.launch("pauseScene");
+    }
+
+    this.scene.sendToBack();
   }
 }
 
