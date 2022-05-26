@@ -46,7 +46,8 @@ export class PauseScene extends BaseScene {
       // this.scene.wake(data.bgKey);
       // this.scene.wake("cornerButtonScene");
       this.backgroundScene.scene.sleep();
-      this.scene.bringToTop("cornerButtonsScene");
+      let cornerButtonScene = this.scene.get("cornerButtonsScene");
+      cornerButtonScene.scene.setVisible(true);
       // this.scene.remove("titleBackgroundScene");
       this.scene.sleep();
     });
