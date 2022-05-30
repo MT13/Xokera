@@ -54,7 +54,12 @@ class StageScene extends BaseScene {
     super.create();
 
     let startX = TITLE_AREA_WIDTH / 2;
-    let startY = TITLE_AREA_HEIGHT / 3;
+    let startY;
+    if (data.stage === 1) {
+      startY = TITLE_AREA_HEIGHT / 3 - 25;
+    } else {
+      startY = TITLE_AREA_HEIGHT / 3;
+    }
 
     this.bg = this.add.image(0, 0, data.bgImage).setOrigin(0, 0);
     this.bg.setDisplaySize(TITLE_AREA_WIDTH, TITLE_AREA_HEIGHT);
@@ -64,8 +69,8 @@ class StageScene extends BaseScene {
 
     let styleT, styleH;
     if (i18n.language === "ka") {
-      styleT = styleText;
-      styleH = styleHeader;
+      styleT = { ...styleText };
+      styleH = { ...styleHeader };
       styleT.fontSize = "25px";
       styleT.wordWrap = {
         width: TITLE_AREA_WIDTH / 2 + 50,
@@ -77,11 +82,20 @@ class StageScene extends BaseScene {
 
     this.title = this.add.text(startX, startY, data.title, styleH);
     this.title.setOrigin(0.5);
-    let offset = startY + 75;
+    let offset;
+    if (data.stage === 1) {
+      offset = startY + 50;
+    } else {
+      offset = startY + 75;
+    }
 
     this.instr = this.add.text(startX, offset, data.text, styleT);
     this.instr.setOrigin(0.5, 0);
-    offset += 100 + this.instr.height;
+    if (data.stage === 1) {
+      offset += 75 + this.instr.height;
+    } else {
+      offset += 100 + this.instr.height;
+    }
 
     let button = new RedButton(
       this,
@@ -104,9 +118,10 @@ class StageScene extends BaseScene {
         this.scene.stop();
       } else {
         console.log("StageScene: waking gameScene");
-        this.scene.wake("gameScene");
         this.scene.wake("gameBackgroundScene");
         this.scene.wake("uiScene");
+
+        this.scene.wake("gameScene");
         this.scene.stop();
       }
     });
@@ -125,7 +140,6 @@ class StageScene extends BaseScene {
   }
 
   onWake() {
-    
     this.scene.wake();
   }
 }

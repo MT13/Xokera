@@ -66,8 +66,8 @@ export class StageWinLoseScene extends BaseScene {
 
     let styleT, styleH;
     if (i18n.language === "ka") {
-      styleT = styleText;
-      styleH = styleHeader;
+      styleT = { ...styleText };
+      styleH = {...styleHeader};
       styleT.fontSize = "25px";
       styleH.fontSize = "40px";
       styleT.wordWrap = {
@@ -122,7 +122,6 @@ export class StageWinLoseScene extends BaseScene {
       offset,
       i18n.t("give_up")
     );
-    console.log("StageWinLose: stage=" + data.stage);
     switch (data.stage) {
       case -1:
         data.bgImage = "bgStageBoard1";
@@ -173,5 +172,6 @@ export class StageWinLoseScene extends BaseScene {
   onWake() {
     this.scene.wake();
     this.backgroundScene.scene.wake();
+    this.scene.bringToTop();
   }
 }

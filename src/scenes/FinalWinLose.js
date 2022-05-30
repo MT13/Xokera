@@ -64,8 +64,8 @@ export class FinalWinLose extends BaseScene {
     let currentOffset = offsetY;
 
     if (i18n.language === "ka") {
-      styleH = styleHeader;
-      styleT = styleText;
+      styleH = { ...styleHeader };
+      styleT = { ...styleText };
       styleT.wordWrap = {
         width: TITLE_AREA_WIDTH / 2 - 100,
         useAdvancedWrap: true,
@@ -74,14 +74,14 @@ export class FinalWinLose extends BaseScene {
 
     styleH.color = data.color;
     styleH.fontSize = "50px";
-    this.title = this.add.text(this.offset, offsetY, data.title, styleH);
+    this.title = this.add.text(offsetX, offsetY, data.title, styleH);
 
     currentOffset += this.title.height + 50;
-    this.text = this.add.text(this.offsetX, currentOffset, data.text, styleT);
+    this.text = this.add.text(offsetX, currentOffset, data.text, styleT);
     currentOffset += this.text.height + 100;
     let button = new RedButton(
       this,
-      BUTTON_WIDTH / 2,
+      BUTTON_WIDTH / 2 + offsetX,
       currentOffset,
       i18n.t("try_again")
     );
@@ -91,6 +91,8 @@ export class FinalWinLose extends BaseScene {
     button.setInteractive();
     button.on("pointerdown", () => {
       this.scene.remove("finalBackgroundScene");
+      this.scene.remove("gameBackgroundScene");
+      this.scene.remove("uiScene");
       this.scale.removeListener("resize", this.resize);
       // this.scene.remove("gameScene");
 

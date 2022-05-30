@@ -19,4 +19,5 @@ export const styleText = {
   },
   fontSize: "20px",
   wordWrap: {},
+  lineSpacing: 8,
 };

@@ -64,7 +64,7 @@ class InstructionsScene extends BaseScene {
     this.scene.bringToTop();
     let styleT;
     if (i18n.language === "ka") {
-      styleT = styleText;
+      styleT = { ...styleText };
       styleT.fontSize = "25px";
       styleT.wordWrap = {
         width: TITLE_AREA_WIDTH / 2 + 50,
@@ -116,13 +116,11 @@ class InstructionsScene extends BaseScene {
   }
 
   onPause() {
-    console.log("in pause instr");
     this.backgroundScene.scene.sleep();
     this.scene.sleep();
   }
 
   onWake() {
-    console.log("instructions on wake");
     this.backgroundScene.scene.wake();
     this.scene.wake();
     this.scene.bringToTop();

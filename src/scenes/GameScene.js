@@ -87,7 +87,6 @@ class GameScene extends BaseScene {
 
   create() {
     super.create();
-    console.log("GameScene: in create");
     let playAreaStartY = (this.origY =
       (TITLE_AREA_HEIGHT - PLAY_AREA_HEIGHT) / 2);
     let playAreaStartX = (this.origX =
@@ -116,8 +115,18 @@ class GameScene extends BaseScene {
     sceneEvents.on("pause-up", this.onPause, this);
     sceneEvents.on("wake-up", this.onWake, this);
 
+    console.log(
+      "GameScene: create - gameScene.isActive = " +
+        this.scene.isActive() +
+        "   isVisible = " +
+        this.scene.isVisible() +
+        "    isSleeping=" +
+        this.scene.isSleeping() +
+        "   isPaused = " +
+        this.scene.isPaused()
+    );
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-      console.log("GameScene: in shutdown");
+      console.log("NOOO")
       this.stage = 0;
       this.YesFood.destroy();
       this.NoFood.destroy();
@@ -126,8 +135,24 @@ class GameScene extends BaseScene {
       this.events.off(Phaser.Scenes.Events.WAKE);
     });
 
+    this.events.on(Phaser.Scenes.Events.SLEEP, () => {
+      console.log("GameScene: go to sleep");
+    });
+
     this.events.on(Phaser.Scenes.Events.WAKE, () => {
+      this.setSleepFlag(false);
       console.log("GameScene: in wake");
+      console.log(
+        "GameScene: gameScene.isActive = " +
+          this.scene.isActive() +
+          "   isVisible = " +
+          this.scene.isVisible() +
+          "    isSleeping=" +
+          this.scene.isSleeping() +
+          "   isPaused = " +
+          this.scene.isPaused()
+      );
+
       this.initStage();
     });
   }
@@ -306,8 +331,6 @@ class GameScene extends BaseScene {
       sceneEvents.emit("health-changed", this.health);
     }
 
-    console.log("GameScene: creating snake " + this.scene.idx);
-
     this.snake = new Snake(
       this,
       1,
@@ -345,7 +368,6 @@ class GameScene extends BaseScene {
         data.text = i18n.t("win3_text");
     }
 
-    console.log("stage: " + this.stage);
     if (this.stage === 3) {
       this.scene.remove("gameBackgroundScene");
       this.scene.remove("uiScene");
@@ -355,7 +377,7 @@ class GameScene extends BaseScene {
       this.snake.destroy();
       this.YesFood.destroy();
       this.NoFood.destroy();
-
+      this.setSleepFlag(true);
       this.scene.launch("stageWinLoseScene", data);
       this.backgroundScene.scene.sleep();
       this.uiScene.scene.sleep();
@@ -373,21 +395,31 @@ class GameScene extends BaseScene {
   }
 
   onPause() {
-    this.uiScene.scene.pause();
-    this.scene.pause();
-    this.backgroundScene.scene.setVisible(false);
-    this.uiScene.scene.setVisible(false);
-    this.scene.setVisible(false);
+
+    if (!this.getSleepFlag()) {
+
+      this.uiScene.scene.pause();
+      this.scene.pause();
+      this.backgroundScene.scene.setVisible(false);
+      this.uiScene.scene.setVisible(false);
+      this.scene.setVisible(false);
+    }
   }
 
   onWake() {
-    this.scene.resume();
-    this.uiScene.scene.resume();
-    this.backgroundScene.scene.setVisible(true);
-    this.scene.setVisible(true);
-    this.uiScene.scene.setVisible(true);
-    this.backgroundScene.scene.sendToBack();
-    console.log("stageWinLose: start again");
+
+
+    if (!this.getSleepFlag()) {
+
+
+      this.scene.resume();
+      this.uiScene.scene.resume();
+      this.backgroundScene.scene.setVisible(true);
+      this.scene.setVisible(true);
+      this.uiScene.scene.setVisible(true);
+      this.backgroundScene.scene.sendToBack();
+
+    }
   }
 }
 

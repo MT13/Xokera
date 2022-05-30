@@ -46,9 +46,14 @@ export class UIScene extends BaseScene {
       )
       .setOrigin(0.5);
 
-    let styleT = styleText;
+    let styleT = { ...styleText };
     styleT.align = "center";
     styleT.color = "0x000000";
+    styleT.lineSpacing = 2;
+    styleT.wordWrap = {
+      width: TITLE_AREA_WIDTH / 2 + 50,
+      useAdvancedWrap: true,
+    };
 
     // Style dis
     this.question = this.add

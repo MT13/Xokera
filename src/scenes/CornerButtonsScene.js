@@ -19,9 +19,22 @@ export class CornerButtonsScene extends BaseScene {
     this.load.svg("rules", rules, { width: 50, height: 50 });
   }
 
+  handleFullscreen() {
+    this.scene.setVisible(false);
+
+    sceneEvents.emit("pause-up");
+    let pauseScene = this.scene.get("pauseScene");
+    if (pauseScene.scene.isSleeping()) {
+      this.scene.wake("titleBackgroundScene");
+
+      pauseScene.scene.wake();
+    } else {
+      this.scene.launch("pauseScene");
+    }
+  }
+
   create(data) {
     super.create();
-    sceneEvents.on;
 
     this.aboutClicked = false;
 
@@ -33,14 +46,15 @@ export class CornerButtonsScene extends BaseScene {
     fullscreen.setInteractive();
     fullscreen.on("pointerdown", () => {
       this.scale.stopFullscreen();
-      this.handleFullscreen();
       this.scene.sendToBack();
     });
+
+    this.scale.on("leavefullscreen", this.handleFullscreen, this);
 
     let styleT;
 
     if (i18n.language === "ka") {
-      styleT = styleText;
+      styleT = { ...styleText };
       styleT.wordWrap = {
         width: TITLE_AREA_WIDTH / 2,
         useAdvancedWrap: true,

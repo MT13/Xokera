@@ -10,6 +10,7 @@ export class BaseScene extends Phaser.Scene {
   preload() {}
 
   create() {
+    (this.paused = false), (this.asleep = false);
     const scaleWidth = this.scale.gameSize.width;
     const scaleHeight = this.scale.gameSize.height;
     this.pauseSceneStarted = false;
@@ -24,14 +25,15 @@ export class BaseScene extends Phaser.Scene {
 
     this.parent.setSize(scaleWidth, scaleHeight);
     this.sizer.setSize(scaleWidth, scaleHeight);
-
-    this.scale.on("leavefullscreen", this.handleFullscreen, this);
+    console.log("adding");
+    console.log(this);
     this.scale.on("resize", this.resize, this);
     this.updateCamera(this);
 
-    this.events.on(Phaser.Scenes.Events.DESTROY, () => {
-      sceneEvents.off("pause-up");
-      sceneEvents.off("wake-up");
+    this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
+      console.log("removing");
+      console.log(this);
+
       this.scale.removeListener("resize", this.resize);
     });
   }
@@ -62,21 +64,25 @@ export class BaseScene extends Phaser.Scene {
     this.updateCamera();
   }
 
-  handleFullscreen() {
-    console.log("caught leave fullscreen");
-    sceneEvents.emit("pause-up");
-    let pauseScene = this.scene.get("pauseScene");
-    if (pauseScene.scene.isSleeping()) {
-      console.log("waking pauseScene");
-      this.scene.wake("titleBackgroundScene");
+  // onPause() {
+  //   // if (!this.scene.isSleeping()) this.paused = true;
+  // }
 
-      pauseScene.scene.wake();
-    } else {
-      console.log("launching pauseScene");
-      this.scene.launch("pauseScene");
-    }
+  // onWake() {
+  //   // this.paused = false;
+  // }
 
-    this.scene.sendToBack();
+  isPaused() {
+    return this.paused;
+  }
+
+  setSleepFlag(flag) {
+    this.asleep = flag;
+  }
+
+  getSleepFlag() {
+    console.log(this.asleep);
+    return this.asleep;
   }
 }
 

@@ -30,7 +30,6 @@ export default class Snake {
         break;
     }
 
-    console.log(bodyImg + " " + headImg);
     this.body = scene.add.group({
       defaultKey: bodyImg,
       createCallback: (o) => {
@@ -45,7 +44,6 @@ export default class Snake {
       origY + y * cellHeight,
       headImg
     );
-    console.log("Snake: head created for stage " + stage);
     this.heading = RIGHT;
     this.direction = RIGHT;
     this.headPosition = new Phaser.Geom.Point(x, y);

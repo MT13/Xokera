@@ -41,8 +41,8 @@ export class TitleScreen extends BaseScene {
     let currentOffset = this.offset;
 
     if (i18n.language === "ka") {
-      styleH = styleHeader;
-      styleT = styleText;
+      styleH = { ...styleHeader };
+      styleT = { ...styleText };
       styleT.wordWrap = {
         width: TITLE_AREA_WIDTH / 2 - 50,
         useAdvancedWrap: true,
@@ -50,24 +50,14 @@ export class TitleScreen extends BaseScene {
     }
 
     styleH.color = "#FFC627";
-    this.aboutH = this.add.text(
-      this.offset,
-      currentOffset,
-      i18n.t("about game"),
-      styleH
-    );
+    this.aboutH = this.add.text(0, currentOffset, i18n.t("about game"), styleH);
 
     currentOffset *= 2;
-    this.aboutT = this.add.text(
-      this.offset,
-      currentOffset,
-      i18n.t("annotation"),
-      styleT
-    );
+    this.aboutT = this.add.text(0, currentOffset, i18n.t("annotation"), styleT);
 
     currentOffset += this.aboutT.height + this.offset / 2;
     this.instructionsH = this.add.text(
-      this.offset,
+      0,
       currentOffset,
       i18n.t("instruction"),
       styleH
@@ -75,7 +65,7 @@ export class TitleScreen extends BaseScene {
 
     currentOffset += this.offset;
     this.instructionsT = this.add.text(
-      this.offset,
+      0,
       currentOffset,
       i18n.t("instruction text"),
       styleT
@@ -85,7 +75,7 @@ export class TitleScreen extends BaseScene {
     styleT.fontSize = "15px";
     styleT.fontStyle = "bold";
     this.questions = this.add.text(
-      this.offset,
+      0,
       currentOffset,
       i18n.t("questions"),
       styleT
@@ -93,7 +83,7 @@ export class TitleScreen extends BaseScene {
 
     styleT.fontStyle = "normal";
     this.q_authors = this.add.text(
-      this.questions.width + this.offset,
+      this.questions.width,
       currentOffset,
       i18n.t("q_authors"),
       styleT
@@ -102,7 +92,7 @@ export class TitleScreen extends BaseScene {
     currentOffset += this.q_authors.height;
     styleT.fontStyle = "bold";
     this.illustrator = this.add.text(
-      this.offset,
+      0,
       currentOffset,
       i18n.t("illustrator"),
       styleT
@@ -110,7 +100,7 @@ export class TitleScreen extends BaseScene {
 
     styleT.fontStyle = "normal";
     this.il_name = this.add.text(
-      this.illustrator.width + this.offset,
+      this.illustrator.width,
       currentOffset,
       i18n.t("il name"),
       styleT
@@ -118,7 +108,7 @@ export class TitleScreen extends BaseScene {
     currentOffset += this.il_name.height;
     styleT.fontStyle = "bold";
     this.illustrator = this.add.text(
-      this.offset,
+      0,
       currentOffset,
       i18n.t("developer"),
       styleT
@@ -126,7 +116,7 @@ export class TitleScreen extends BaseScene {
 
     styleT.fontStyle = "normal";
     this.q_authors = this.add.text(
-      this.illustrator.width + this.offset,
+      this.illustrator.width,
       currentOffset,
       i18n.t("dev name"),
       styleT
