@@ -95,12 +95,9 @@ export class BaseBackgroundScene extends Phaser.Scene {
 
       const camera = this.cameras.main;
 
-      let x = width - this.bg.width;
-      let y = height - this.bg.height;
-
       const scaleX = width / this.bg.width;
       const scaleY = height / this.bg.height;
-
+      camera.setSize(width, height);
       camera.setZoom(Math.max(scaleX, scaleY));
       camera.centerOn(this.bg.width / 2, this.bg.height / 2);
     }
