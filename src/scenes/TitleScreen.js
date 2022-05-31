@@ -5,16 +5,36 @@ import i18n from "../../i18n";
 import { styleHeader, styleText } from "../utils";
 import RedButton from "../objects/redButton";
 import { TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH } from "../constants/title";
+import { CELL_HEIGHT, CELL_WIDTH } from "../constants/dimensions";
 import { TitleBackgroundScene } from "./TitleBackgroundScene";
 
-import { CELL_HEIGHT, CELL_WIDTH } from "../constants/dimensions";
+import logo from "../../assets/1st win.svg";
+import yesFood from "../../assets/yes fruit.svg";
+import noFood from "../../assets/no fruit.svg";
+import bg from "../../assets/bg_title.png";
+
 
 export class TitleScreen extends BaseScene {
   constructor() {
     super({ key: "titleScreen" });
   }
 
-  preload() {}
+  preload() {
+    this.load.svg("logo", logo, {
+      width: 75,
+      height: 75,
+    });
+    this.load.image("bg", bg);
+
+    this.load.svg("yes_food_small", yesFood, {
+      width: (CELL_WIDTH * 2) / 3,
+      height: (CELL_HEIGHT * 2) / 3,
+    });
+    this.load.svg("no_food_small", noFood, {
+      width: (CELL_WIDTH * 2) / 3,
+      height: (CELL_HEIGHT * 2) / 3,
+    });
+  }
 
   resize(gameSize, baseSize, displaySize, resolution) {
     super.resize(gameSize, baseSize, displaySize, resolution);

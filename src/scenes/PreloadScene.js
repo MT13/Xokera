@@ -40,8 +40,6 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   preload() {
-    console.log("zuuuuu");
-
     this.add
       .image(this.centerX(), this.centerY() - 100, "logo")
       .setOrigin(0.5, 0.5);
