@@ -167,6 +167,8 @@ const resources = {
       you_lost: "You lost!",
       give_up_text:
         "It is sad that you gave up after all! However, you can always start again!",
+      body_hit:
+        "Oops, you've bitten your own tail but no worries, you can still keep on playing.",
 
       /// Buttons
       start: "start",
@@ -175,8 +177,8 @@ const resources = {
       stop: "stop",
       try_again: "try again",
       give_up: "give up",
-      yes: " - yes",
-      no: " - no",
+      yes: " - True",
+      no: " - False",
     },
   },
   ka: {
@@ -349,6 +351,8 @@ const resources = {
       you_lost: "დამარცხება",
       give_up_text:
         "სამწუხაროა, რომ დანებება გადაწყვიტე! თუმცა თავიდან ცდა ყოველთვის შეგიძლია!",
+      body_hit: "კუდზე იკბინე, მაგრამ არ დანებდე, შეგიძლია განაგრძო",
+
       /// Buttons
       start: "დაწყება",
       next: "შემდეგი",
@@ -357,8 +361,8 @@ const resources = {
       stop: "შეწყვეტა",
       try_again: "კიდევ ცდა",
       give_up: "დანებება",
-      yes: " - კი",
-      no: " - არა",
+      yes: " - ჭეშმარიტია",
+      no: " - მცდარია",
     },
   },
 };
