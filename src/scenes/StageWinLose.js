@@ -160,6 +160,7 @@ export class StageWinLoseScene extends BaseScene {
         title: i18n.t("you_lost"),
         text: i18n.t("give_up_text"),
         color: "#E5541C",
+        won: false,
       });
     });
   }

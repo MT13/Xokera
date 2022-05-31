@@ -15,6 +15,11 @@ import body2 from "../../assets/2nd body.svg";
 import head3 from "../../assets/3rd head.svg";
 import body3 from "../../assets/3rd body.svg";
 
+import audioCorrect from "../../assets/snek_up.wav";
+import audioWrong from "../../assets/snek_down.wav";
+import loseMusic from "../../assets/snek_lost.wav";
+import winMusic from "../../assets/snek_won.wav";
+
 import { questions } from "../questions";
 
 import { getRandom, shuffle } from "../helpers/scripts";
@@ -54,6 +59,7 @@ class GameScene extends BaseScene {
   }
 
   preload() {
+    // TODO: move all this somewhere else
     this.load.svg("firstXokeraWin", firstXokeraWin, { width: 75, height: 75 });
     this.load.svg("firstXokeraLose", firstXokeraLose, {
       width: 75,
@@ -78,6 +84,11 @@ class GameScene extends BaseScene {
     this.load.svg("body3", body3);
 
     this.load.image("bgFinalWin", bgFinalWin);
+    this.load.audio("audioCorrect", audioCorrect);
+    this.load.audio("audioWrong", audioWrong);
+
+    this.load.audio("loseMusic", loseMusic);
+    this.load.audio("winMusic", winMusic);
   }
 
   resize(gameSize, baseSize, displaySize, resolution) {
@@ -85,8 +96,14 @@ class GameScene extends BaseScene {
     this.backgroundScene.updateCamera();
   }
 
+  initAudio() {
+    this.correctSound = this.sound.add("audioCorrect");
+    this.wrongSound = this.sound.add("audioWrong");
+  }
+
   create() {
     super.create();
+    
     let playAreaStartY = (this.origY =
       (TITLE_AREA_HEIGHT - PLAY_AREA_HEIGHT) / 2);
     let playAreaStartX = (this.origX =
@@ -94,6 +111,7 @@ class GameScene extends BaseScene {
 
     this.stage = 0;
     this.initStage();
+    this.initAudio();
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -115,18 +133,7 @@ class GameScene extends BaseScene {
     sceneEvents.on("pause-up", this.onPause, this);
     sceneEvents.on("wake-up", this.onWake, this);
 
-    console.log(
-      "GameScene: create - gameScene.isActive = " +
-        this.scene.isActive() +
-        "   isVisible = " +
-        this.scene.isVisible() +
-        "    isSleeping=" +
-        this.scene.isSleeping() +
-        "   isPaused = " +
-        this.scene.isPaused()
-    );
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-      console.log("NOOO")
       this.stage = 0;
       this.YesFood.destroy();
       this.NoFood.destroy();
@@ -234,10 +241,12 @@ class GameScene extends BaseScene {
     }
 
     if (this.snake.update(time)) {
-      if (this.snake.collideWithFood(this.YesFood)) {
-        // Check Answer    this.scene.bringToTop();
 
-        if (this.answer) {
+      let [yesCollision, noCollision] = this.snake.collideWithFood([this.YesFood, this.NoFood])
+
+      if (yesCollision || noCollision){
+        if((yesCollision && this.answer) || (noCollision && !this.answer)){
+          this.correctSound.play()
           if (this.curQuestion === 0) {
             this.nextStage();
           } else {
@@ -246,37 +255,14 @@ class GameScene extends BaseScene {
             this.nextQuestion();
           }
         } else {
+          this.wrongSound.play()
           this.repositionChoices(this.snake);
-          this.health -= 1;
-          // check zero health
-
-          if (this.health === 0) {
-            this.openLoseScene();
-          }
-          sceneEvents.emit("health-changed", this.health);
-        }
-
-        this.repositionChoices(this.snake);
-      } else if (this.snake.collideWithFood(this.NoFood)) {
-        // Check Answer
-        if (!this.answer) {
-          if (this.curQuestion === 0) {
-            this.nextStage();
-          } else {
-            this.snake.grow();
-            this.repositionChoices(this.snake);
-
-            this.nextQuestion();
-          }
-        } else {
-          this.repositionChoices(this.snake);
-          this.health -= 1;
-
-          if (this.health === 0) {
-            this.openLoseScene();
-          }
-          // check zero health
-          sceneEvents.emit("health-changed", this.health);
+            this.health -= 1;
+            // check zero health
+            if (this.health === 0) {
+              this.openLoseScene();
+            }
+            sceneEvents.emit("health-changed", this.health);
         }
       }
     }
@@ -372,6 +358,7 @@ class GameScene extends BaseScene {
       this.scene.remove("gameBackgroundScene");
       this.scene.remove("uiScene");
       this.scale.removeListener("resize", this.resize);
+      data.won = true;
       this.scene.start("finalWinLose", data);
     } else {
       this.snake.destroy();
@@ -395,9 +382,7 @@ class GameScene extends BaseScene {
   }
 
   onPause() {
-
     if (!this.getSleepFlag()) {
-
       this.uiScene.scene.pause();
       this.scene.pause();
       this.backgroundScene.scene.setVisible(false);
@@ -407,11 +392,7 @@ class GameScene extends BaseScene {
   }
 
   onWake() {
-
-
     if (!this.getSleepFlag()) {
-
-
       this.scene.resume();
       this.uiScene.scene.resume();
       this.backgroundScene.scene.setVisible(true);

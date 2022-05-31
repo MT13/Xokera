@@ -39,6 +39,28 @@ export class FinalWinLose extends BaseScene {
   create(data) {
     super.create();
 
+    // STOP GAME MUSIC IF RUNNING
+    this.game.sound.stopAll();
+
+    if (data.won) {
+      this.music = this.sound.add("winMusic");
+    } else {
+      this.music = this.sound.add("loseMusic");
+    }
+    
+
+    let musicConfig = {
+      mute: false,
+      volume: 1,
+      rate: 1,
+      detune: 0,
+      seek: 0,
+      loop: true,
+      delay: 0
+    }
+
+    this.music.play(musicConfig)
+
     this.backgroundScene = this.scene.add(
       "finalBackgroundScene",
       FinalBackgroundScene,
@@ -55,6 +77,7 @@ export class FinalWinLose extends BaseScene {
     this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
       sceneEvents.off("pause-up", this.onPause);
       sceneEvents.off("wake-up", this.onWake);
+      this.music.stop();
     });
 
     let styleH, styleT;
@@ -95,7 +118,22 @@ export class FinalWinLose extends BaseScene {
       this.scene.remove("uiScene");
       this.scale.removeListener("resize", this.resize);
       // this.scene.remove("gameScene");
+      this.music.stop();
 
+      let gameMusic = this.sound.add("gameMusic");
+
+      let musicConfig = {
+        mute: false,
+        volume: 1,
+        rate: 1,
+        detune: 0,
+        seek: 0,
+        loop: true,
+        delay: 0
+      }
+
+      gameMusic.play(musicConfig)
+      
       this.scene.start("stageScene", {
         bgImage: "bgStageBoard1",
         title: i18n.t("first_xokera"),
