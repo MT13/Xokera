@@ -11,8 +11,7 @@ import {
 } from "../constants/dimensions";
 
 import bgBoard from "../../assets/bg_board.png";
-import yesFood from "../../assets/yes fruit.svg";
-import noFood from "../../assets/no fruit.svg";
+
 import { sceneEvents } from "../events/EventCenter";
 
 // export class StageBackgroundScene extends BaseBackgroundScene {
@@ -34,14 +33,7 @@ class StageScene extends BaseScene {
   }
 
   preload() {
-    this.load.svg("yes_food", yesFood, {
-      width: CELL_WIDTH,
-      height: CELL_HEIGHT,
-    });
-    this.load.svg("no_food", noFood, {
-      width: CELL_WIDTH,
-      height: CELL_HEIGHT,
-    });
+
     this.load.image("bgBoard", bgBoard);
   }
 

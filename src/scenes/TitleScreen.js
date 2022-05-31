@@ -7,6 +7,9 @@ import { styleHeader, styleText } from "../utils";
 import RedButton from "../objects/redButton";
 import { TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH } from "../constants/title";
 import { TitleBackgroundScene } from "./TitleBackgroundScene";
+import yesFood from "../../assets/yes fruit.svg";
+import noFood from "../../assets/no fruit.svg";
+import { CELL_HEIGHT, CELL_WIDTH } from "../constants/dimensions";
 
 export class TitleScreen extends BaseScene {
   constructor() {
@@ -16,6 +19,23 @@ export class TitleScreen extends BaseScene {
   preload() {
     this.load.image("bgInstr", bgInstr);
     this.load.svg("headline", headline, { width: 500, height: 100 });
+    this.load.svg("yes_food_small", yesFood, {
+      width: (CELL_WIDTH * 2) / 3,
+      height: (CELL_HEIGHT * 2) / 3,
+    });
+    this.load.svg("no_food_small", noFood, {
+      width: (CELL_WIDTH * 2) / 3,
+      height: (CELL_HEIGHT * 2) / 3,
+    });
+
+    this.load.svg("yes_food_big", yesFood, {
+      width: CELL_WIDTH,
+      height: CELL_HEIGHT,
+    });
+    this.load.svg("no_food_big", noFood, {
+      width: CELL_WIDTH,
+      height: CELL_HEIGHT,
+    });
   }
 
   resize(gameSize, baseSize, displaySize, resolution) {
@@ -71,7 +91,27 @@ export class TitleScreen extends BaseScene {
       styleT
     );
 
+
     currentOffset += this.instructionsT.height + this.offset / 2;
+
+    this.yesFruit = this.add
+      .image(0, currentOffset, "yes_food_small")
+      .setOrigin(0, 0.5);
+    this.foodOffset = this.yesFruit.width;
+
+    this.yesText = this.add
+      .text(this.foodOffset, currentOffset, i18n.t("yes"), styleT)
+      .setOrigin(0, 0.5);
+    this.foodOffset += 2 * this.yesText.width;
+    this.noFruit = this.add
+      .image(this.foodOffset, currentOffset, "no_food_small")
+      .setOrigin(0, 0.5);
+    this.foodOffset += this.noFruit.width;
+
+    this.noText = this.add
+      .text(this.foodOffset, currentOffset, i18n.t("no"), styleT)
+      .setOrigin(0, 0.5);
+    currentOffset += this.yesFruit.height;
     styleT.fontSize = "15px";
     styleT.fontStyle = "bold";
     this.questions = this.add.text(
@@ -122,7 +162,7 @@ export class TitleScreen extends BaseScene {
       styleT
     );
 
-    currentOffset += 100;
+    currentOffset += 50;
     let button = new RedButton(
       this,
       TITLE_AREA_WIDTH / 2,

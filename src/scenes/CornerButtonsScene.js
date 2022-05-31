@@ -67,7 +67,7 @@ export class CornerButtonsScene extends BaseScene {
         this.rulesX,
         2 * this.rulesY,
         TITLE_AREA_WIDTH / 2 + 100,
-        TITLE_AREA_HEIGHT / 2,
+        TITLE_AREA_HEIGHT / 2 + 50,
         "0x000000"
       )
       .setOrigin(1, 0);
@@ -84,14 +84,47 @@ export class CornerButtonsScene extends BaseScene {
       .setOrigin(1, 0.5);
     this.instr.setVisible(false);
 
+    this.currentOffset = this.instr.y + this.instr.height / 2 + 50;
+    this.foodOffset = this.instr.x - this.instr.width;
+    this.yesFruit = this.add
+      .image(this.foodOffset, this.currentOffset, "yes_food_big")
+      .setOrigin(0, 0.5);
+    this.foodOffset += this.yesFruit.width;
+
+    this.yesText = this.add
+      .text(this.foodOffset, this.currentOffset, i18n.t("yes"), styleT)
+      .setOrigin(0, 0.5);
+    this.foodOffset += 2 * this.yesText.width;
+    this.noFruit = this.add
+      .image(this.foodOffset, this.currentOffset, "no_food_big")
+      .setOrigin(0, 0.5);
+    this.foodOffset += this.noFruit.width;
+
+    this.noText = this.add
+      .text(this.foodOffset, this.currentOffset, i18n.t("no"), styleT)
+      .setOrigin(0, 0.5);
+
+    this.yesFruit.setVisible(false);
+    this.noFruit.setVisible(false);
+    this.yesText.setVisible(false);
+    this.noText.setVisible(false);
+
     rules.setInteractive();
     rules.on("pointerdown", () => {
       if (!this.aboutClicked) {
         this.instr.setVisible(true);
         this.aboutRec.setVisible(true);
+        this.yesFruit.setVisible(true);
+        this.noFruit.setVisible(true);
+        this.yesText.setVisible(true);
+        this.noText.setVisible(true);
       } else {
         this.instr.setVisible(false);
         this.aboutRec.setVisible(false);
+        this.yesFruit.setVisible(false);
+        this.noFruit.setVisible(false);
+        this.yesText.setVisible(false);
+        this.noText.setVisible(false);
       }
       this.aboutClicked = !this.aboutClicked;
     });
