@@ -1,7 +1,6 @@
 import Phaser from "phaser";
 import { BaseScene } from "./BaseScene";
 import i18n from "../../i18n";
-import { TitleBackgroundScene } from "./TitleBackgroundScene";
 import GreenButton from "../objects/greenButton";
 import { TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH } from "../constants/title";
 import { sceneEvents } from "../events/EventCenter";
@@ -12,6 +11,11 @@ export class PauseScene extends BaseScene {
   }
 
   preload() {}
+
+  resize(gameSize, baseSize, displaySize, resolution) {
+    super.resize(gameSize, baseSize, displaySize, resolution);
+    this.backgroundScene.updateCamera();
+  }
 
   create(data) {
     super.create();
