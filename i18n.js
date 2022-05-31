@@ -30,7 +30,7 @@ const resources = {
 
       first_xokera: "Gutenberg Era",
       first_instr:
-        "Are you ready to travel in the depths of time and overcome the different stages of media development together with the Cyber Snake? Remember, you have to pass through two initial stages to advance to the Digital Age. Be cautious and look after your lives!",
+        "Welcome to the Gutenberg Era! Remember the evolution of the print culture and what we should know about media content.",
 
       //history questions
       gh1: "Johannes Gutenberg was the first printer and publisher.",
@@ -269,7 +269,7 @@ const resources = {
       bh11: "BBC-ის სალიცენზიო გადასახადი ფერადი და შავ-თეთრი ტელევიზორის მიხედვით განსხვავდება.",
       bh12: "1910 წელს ეიფელის კოშკი დანგრევას გადაურჩა, რადგან სამხედროებმა მისი რადიო კოშკად გამოყენება დაიწყეს.",
       bh13: "პირველი ფერადი მულტფილმი 1932 წელს უოლტ დისნეიმ გამოუშვა.",
-      bh14: "14. 1880 წელს “ლა ლუმიერ ელექტრიკში” გამოქვეყნებული მორის ლებლანკის სტატია საფუძვლად დაედო ტელევიზიის შექმნას.",
+      bh14: "1880 წელს “ლა ლუმიერ ელექტრიკში” გამოქვეყნებული მორის ლებლანკის სტატია საფუძვლად დაედო ტელევიზიის შექმნას.",
       bh15: "პოლონეთში პარტიზანული სოლიდარობის მოძრაობა რადიოს გარეშე  წარმატებული ვერ იქნებოდა.",
 
       //content questions

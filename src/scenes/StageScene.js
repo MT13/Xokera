@@ -67,7 +67,6 @@ class StageScene extends BaseScene {
     this.scene.bringToTop("cornerButtonsScene");
 
     let styleT, styleH;
-    if (i18n.language === "ka") {
       styleT = { ...styleText };
       styleH = { ...styleHeader };
       styleT.fontSize = "25px";
@@ -77,7 +76,6 @@ class StageScene extends BaseScene {
       };
       styleH.color = data.color;
       styleH.fontSize = "40px";
-    }
 
     this.title = this.add.text(startX, startY, data.title, styleH);
     this.title.setOrigin(0.5);

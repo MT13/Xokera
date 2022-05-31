@@ -2,6 +2,8 @@ import yesFood from "../../assets/yes fruit.svg";
 import noFood from "../../assets/no fruit.svg";
 import bgInstr from "../../assets/bg_instructions.png";
 import headline from "../../assets/headline.svg";
+import headlineEng from "../../assets/cyber snake.svg";
+
 import bgStage1 from "../../assets/bg_first_xokera.png";
 import bgStage2 from "../../assets/bg second xokera.png";
 import bgStage3 from "../../assets/bg third xokera.png";
@@ -25,12 +27,12 @@ import body3 from "../../assets/3rd body.svg";
 import heart from "../../assets/heart.svg";
 import bgFinalLose from "../../assets/bg lose.png";
 
-import audioCorrect from "../../assets/sounds/snek_up.wav";
-import audioWrong from "../../assets/sounds/snek_down.wav";
+import audioCorrect from "../../assets/sounds/snek up.mp3";
+import audioWrong from "../../assets/sounds/snek down.mp3";
 import loseMusic from "../../assets/sounds/snek lost.mp3";
 import winMusic from "../../assets/sounds/snek won.mp3";
 import backgroundMusic from "../../assets/sounds/snek.mp3";
-import bodyHit from "../../assets/sounds/bodyhit.wav";
+import bodyHit from "../../assets/sounds/bodyhit.mp3";
 
 import { CELL_HEIGHT, CELL_WIDTH } from "../constants/dimensions";
 
@@ -57,6 +59,7 @@ export default class PreloadScene extends Phaser.Scene {
   loadAssets() {
     this.load.image("bgInstr", bgInstr);
     this.load.svg("headline", headline, { width: 500, height: 100 });
+    this.load.svg("headlineEng", headlineEng, { width: 500, height: 100 });
 
     this.load.svg("yes_food", yesFood, {
       width: CELL_WIDTH,
@@ -138,7 +141,7 @@ export default class PreloadScene extends Phaser.Scene {
     let border = this.add.graphics({
       lineStyle: {
         width: 5,
-        color: 0xaaaaaa,
+        color: 0x6f56d8,
       },
     });
     border.strokeRectShape(borderRect);
@@ -152,7 +155,7 @@ export default class PreloadScene extends Phaser.Scene {
      */
     let updateProgressbar = function (percentage) {
       progressbar.clear();
-      progressbar.fillStyle(0xffffff, 1);
+      progressbar.fillStyle(0xffc627, 1);
       progressbar.fillRect(xStart, yStart, percentage * width, height);
     };
 

@@ -23,6 +23,7 @@ export default class Snake {
     this.origX = origX;
     this.origY = origY;
     this.bodyHit = bodyHit;
+    console.log("bodyHit is " + this.bodyHit);
 
     let bodyImg, headImg;
 

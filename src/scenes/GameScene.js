@@ -47,7 +47,9 @@ class GameScene extends BaseScene {
   initAudio() {
     this.correctSound = this.sound.add("audioCorrect");
     this.wrongSound = this.sound.add("audioWrong");
+
     this.bodyHit = this.sound.add("bodyHit");
+    console.log("gameScene: bodyhit is " + this.bodyHit);
   }
 
   create() {
@@ -59,8 +61,9 @@ class GameScene extends BaseScene {
       (TITLE_AREA_WIDTH - PLAY_AREA_WIDTH) / 2);
 
     this.stage = 0;
-    this.initStage();
     this.initAudio();
+
+    this.initStage();
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -113,7 +116,7 @@ class GameScene extends BaseScene {
     while (noX === snake.headPosition.x) {
       noX = Math.floor(Math.random() * (GRID_WIDTH - 1));
     }
-    while (noY === snake.headPosition.y) {
+    while (noY === snake.headPosition.y || (noX === yesX && noY === yesY)) {
       noY = Math.floor(Math.random() * (GRID_HEIGHT - 1));
     }
 
@@ -303,7 +306,7 @@ class GameScene extends BaseScene {
       CELL_WIDTH,
       CELL_HEIGHT,
       this.stage,
-      this.bodyHit,
+      this.bodyHit
     );
 
     this.generateChoices(this.snake);

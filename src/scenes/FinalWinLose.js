@@ -85,14 +85,14 @@ export class FinalWinLose extends BaseScene {
     let offsetX = 50;
     let currentOffset = offsetY;
 
-    if (i18n.language === "ka") {
+    // if (i18n.language === "ka") {
       styleH = { ...styleHeader };
       styleT = { ...styleText };
       styleT.wordWrap = {
         width: TITLE_AREA_WIDTH / 2 - 100,
         useAdvancedWrap: true,
       };
-    }
+    // }
 
     styleH.color = data.color;
     styleH.fontSize = "50px";

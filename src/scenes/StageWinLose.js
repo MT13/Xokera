@@ -35,8 +35,7 @@ export class StageWinLoseScene extends BaseScene {
     super({ key: "stageWinLoseScene" });
   }
 
-  preload() {
-  }
+  preload() {}
 
   create(data) {
     super.create();
@@ -63,18 +62,16 @@ export class StageWinLoseScene extends BaseScene {
     });
 
     let styleT, styleH;
-    if (i18n.language === "ka") {
-      styleT = { ...styleText };
-      styleH = { ...styleHeader };
-      styleT.fontSize = "25px";
-      styleH.fontSize = "40px";
-      styleT.wordWrap = {
-        width: TITLE_AREA_WIDTH / 2 + 50,
-        useAdvancedWrap: true,
-      };
-      styleT.color = "#FFFFFF";
-      styleT.align = "left";
-    }
+    styleT = { ...styleText };
+    styleH = { ...styleHeader };
+    styleT.fontSize = "25px";
+    styleH.fontSize = "40px";
+    styleT.wordWrap = {
+      width: TITLE_AREA_WIDTH / 2 + 50,
+      useAdvancedWrap: true,
+    };
+    styleT.color = "#FFFFFF";
+    styleT.align = "left";
 
     styleH.color = data.color;
 
@@ -102,8 +99,9 @@ export class StageWinLoseScene extends BaseScene {
     offset += title.height + 50;
     let text = this.add
       .text(TITLE_AREA_WIDTH / 2, offset, data.text, styleT)
-      .setOrigin(0.5);
-    offset += text.height + 50;
+      .setOrigin(0.5, 0.5);
+    if (i18n.language === "ka") offset += text.height + 50;
+    else offset += 125;
 
     let padding = 25;
 

@@ -64,14 +64,14 @@ class InstructionsScene extends BaseScene {
 
     this.scene.bringToTop();
     let styleT;
-    if (i18n.language === "ka") {
-      styleT = { ...styleText };
-      styleT.fontSize = "25px";
-      styleT.wordWrap = {
-        width: TITLE_AREA_WIDTH / 2 + 50,
-        useAdvancedWrap: true,
-      };
-    }
+    // if (i18n.language === "ka") {
+    styleT = { ...styleText };
+    styleT.fontSize = "25px";
+    styleT.wordWrap = {
+      width: TITLE_AREA_WIDTH / 2 + 50,
+      useAdvancedWrap: true,
+    };
+    // }
     // this.scene.add("cornerButtonsScene", CornerButtonsScene, true, {
     //   sceneKey: this.scene.key,
     //   bgKey: this.backgroundScene.scene.key,
@@ -88,7 +88,11 @@ class InstructionsScene extends BaseScene {
       sceneEvents.off("wake-up", this.onWake);
     });
 
-    this.headline = this.add.image(startX, startY, "headline");
+    if (i18n.language === "ka")
+      this.headline = this.add.image(startX, startY, "headline");
+    else {
+      this.headline = this.add.image(startX, startY, "headlineEng");
+    }
     let offset = startY + 150;
     this.instr = this.add.text(startX, offset, i18n.t("rules"), styleT);
     this.instr.setOrigin(0.5);

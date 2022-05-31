@@ -13,7 +13,6 @@ import yesFood from "../../assets/yes fruit.svg";
 import noFood from "../../assets/no fruit.svg";
 import bg from "../../assets/bg_title.png";
 
-
 export class TitleScreen extends BaseScene {
   constructor() {
     super({ key: "titleScreen" });
@@ -57,14 +56,12 @@ export class TitleScreen extends BaseScene {
     this.offset = 50;
     let currentOffset = this.offset;
 
-    if (i18n.language === "ka") {
-      styleH = { ...styleHeader };
-      styleT = { ...styleText };
-      styleT.wordWrap = {
-        width: TITLE_AREA_WIDTH / 2 - 50,
-        useAdvancedWrap: true,
-      };
-    }
+    styleH = { ...styleHeader };
+    styleT = { ...styleText };
+    styleT.wordWrap = {
+      width: TITLE_AREA_WIDTH / 2 - 50,
+      useAdvancedWrap: true,
+    };
 
     styleH.color = "#FFC627";
     this.aboutH = this.add.text(0, currentOffset, i18n.t("about game"), styleH);

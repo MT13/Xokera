@@ -49,14 +49,14 @@ export class CornerButtonsScene extends BaseScene {
 
     let styleT;
 
-    if (i18n.language === "ka") {
+    // if (i18n.language === "ka") {
       styleT = { ...styleText };
       styleT.wordWrap = {
         width: TITLE_AREA_WIDTH / 2,
         useAdvancedWrap: true,
       };
       styleT.fontSize = "25px";
-    }
+    // }
 
     this.aboutRec = this.add
       .rectangle(
