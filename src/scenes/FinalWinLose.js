@@ -9,7 +9,6 @@ import {
   BUTTON_WIDTH,
 } from "../constants/dimensions";
 import { sceneEvents } from "../events/EventCenter";
-import bgStage1 from "../../assets/bg_first_xokera.png";
 
 export class FinalBackgroundScene extends BaseBackgroundScene {
   constructor() {

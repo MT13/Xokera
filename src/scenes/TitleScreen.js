@@ -1,14 +1,12 @@
 import Phaser from "phaser";
-import { BaseScene, BaseBackgroundScene } from "./BaseScene";
+import { BaseScene } from "./BaseScene";
 import i18n from "../../i18n";
-import bgInstr from "../../assets/bg_instructions.png";
-import headline from "../../assets/headline.svg";
+
 import { styleHeader, styleText } from "../utils";
 import RedButton from "../objects/redButton";
 import { TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH } from "../constants/title";
 import { TitleBackgroundScene } from "./TitleBackgroundScene";
-import yesFood from "../../assets/yes fruit.svg";
-import noFood from "../../assets/no fruit.svg";
+
 import { CELL_HEIGHT, CELL_WIDTH } from "../constants/dimensions";
 
 export class TitleScreen extends BaseScene {
@@ -16,27 +14,7 @@ export class TitleScreen extends BaseScene {
     super({ key: "titleScreen" });
   }
 
-  preload() {
-    this.load.image("bgInstr", bgInstr);
-    this.load.svg("headline", headline, { width: 500, height: 100 });
-    this.load.svg("yes_food_small", yesFood, {
-      width: (CELL_WIDTH * 2) / 3,
-      height: (CELL_HEIGHT * 2) / 3,
-    });
-    this.load.svg("no_food_small", noFood, {
-      width: (CELL_WIDTH * 2) / 3,
-      height: (CELL_HEIGHT * 2) / 3,
-    });
-
-    this.load.svg("yes_food_big", yesFood, {
-      width: CELL_WIDTH,
-      height: CELL_HEIGHT,
-    });
-    this.load.svg("no_food_big", noFood, {
-      width: CELL_WIDTH,
-      height: CELL_HEIGHT,
-    });
-  }
+  preload() {}
 
   resize(gameSize, baseSize, displaySize, resolution) {
     super.resize(gameSize, baseSize, displaySize, resolution);
@@ -53,7 +31,6 @@ export class TitleScreen extends BaseScene {
     );
 
     this.scene.bringToTop();
-    this.scene.setVisible(false, "cornerButtonsScene");
 
     let styleH, styleT;
 
@@ -91,7 +68,6 @@ export class TitleScreen extends BaseScene {
       styleT
     );
 
-
     currentOffset += this.instructionsT.height + this.offset / 2;
 
     this.yesFruit = this.add
@@ -102,7 +78,7 @@ export class TitleScreen extends BaseScene {
     this.yesText = this.add
       .text(this.foodOffset, currentOffset, i18n.t("yes"), styleT)
       .setOrigin(0, 0.5);
-    this.foodOffset += 2 * this.yesText.width;
+    this.foodOffset += this.yesText.width + 15;
     this.noFruit = this.add
       .image(this.foodOffset, currentOffset, "no_food_small")
       .setOrigin(0, 0.5);
@@ -111,7 +87,7 @@ export class TitleScreen extends BaseScene {
     this.noText = this.add
       .text(this.foodOffset, currentOffset, i18n.t("no"), styleT)
       .setOrigin(0, 0.5);
-    currentOffset += this.yesFruit.height;
+    currentOffset += this.yesFruit.height + 15;
     styleT.fontSize = "15px";
     styleT.fontStyle = "bold";
     this.questions = this.add.text(
@@ -162,7 +138,7 @@ export class TitleScreen extends BaseScene {
       styleT
     );
 
-    currentOffset += 50;
+    // currentOffset += 50;
     let button = new RedButton(
       this,
       TITLE_AREA_WIDTH / 2,
@@ -176,8 +152,7 @@ export class TitleScreen extends BaseScene {
     button.on("pointerdown", () => {
       this.scene.stop("titleBackgroundScene");
       this.scale.removeListener("resize", this.resize);
-      this.scale.startFullscreen();
-      this.scene.start("instructionsScene");
+      this.scene.start("preload");
     });
   }
 }

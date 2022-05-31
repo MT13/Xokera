@@ -1,6 +1,5 @@
 import Phaser from "phaser";
 import { BaseScene } from "./BaseScene";
-import heart from "../../assets/heart.svg";
 import { styleText } from "../utils";
 import i18n from "../../i18n";
 
@@ -25,10 +24,7 @@ export class UIScene extends BaseScene {
     this.cellHeight = PLAY_AREA_HEIGHT / GRID_HEIGHT;
   }
   preload() {
-    this.load.svg("heart", heart, {
-      width: this.cellWidth,
-      height: this.cellHeight,
-    });
+
   }
 
   create(data) {

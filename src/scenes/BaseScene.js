@@ -25,14 +25,10 @@ export class BaseScene extends Phaser.Scene {
 
     this.parent.setSize(scaleWidth, scaleHeight);
     this.sizer.setSize(scaleWidth, scaleHeight);
-    console.log("adding");
-    console.log(this);
     this.scale.on("resize", this.resize, this);
     this.updateCamera(this);
 
     this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
-      console.log("removing");
-      console.log(this);
 
       this.scale.removeListener("resize", this.resize);
     });

@@ -1,4 +1,3 @@
-import bg from "../../assets/bg_title.png";
 import { BaseBackgroundScene } from "./BaseScene";
 
 export class TitleBackgroundScene extends BaseBackgroundScene {
@@ -7,7 +6,6 @@ export class TitleBackgroundScene extends BaseBackgroundScene {
     }
   
     preload() {
-      this.load.image("bg", bg);
 
     }
   

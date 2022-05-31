@@ -3,7 +3,6 @@ import { BaseScene, BaseBackgroundScene } from "./BaseScene";
 import bgBoard from "../../assets/bg_board.png";
 import RedButton from "../objects/redButton";
 import GreenButton from "../objects/greenButton";
-import bgFinalLose from "../../assets/bg lose.png";
 import { sceneEvents } from "../events/EventCenter";
 
 import { styleText, styleHeader } from "../utils";
@@ -37,7 +36,6 @@ export class StageWinLoseScene extends BaseScene {
   }
 
   preload() {
-    this.load.image("bgFinalLose", bgFinalLose);
   }
 
   create(data) {
@@ -67,7 +65,7 @@ export class StageWinLoseScene extends BaseScene {
     let styleT, styleH;
     if (i18n.language === "ka") {
       styleT = { ...styleText };
-      styleH = {...styleHeader};
+      styleH = { ...styleHeader };
       styleT.fontSize = "25px";
       styleH.fontSize = "40px";
       styleT.wordWrap = {
@@ -122,8 +120,13 @@ export class StageWinLoseScene extends BaseScene {
       offset,
       i18n.t("give_up")
     );
+
+    if (data.stage === -1 && data.curStage != -1) {
+      data.stage = data.curStage;
+    }
     switch (data.stage) {
       case -1:
+      case 0:
         data.bgImage = "bgStageBoard1";
         data.title = i18n.t("first_xokera");
         data.text = i18n.t("first_instr");

@@ -1,9 +1,7 @@
 import Phaser from "phaser";
 import { BaseScene, BaseBackgroundScene } from "./BaseScene";
 import i18n from "../../i18n";
-import bgStage1 from "../../assets/bg_first_xokera.png";
-import bgStage2 from "../../assets/bg second xokera.png";
-import bgStage3 from "../../assets/bg third xokera.png";
+
 import RedButton from "../objects/redButton";
 import { styleText } from "../utils";
 import {
@@ -13,9 +11,6 @@ import {
   CELL_WIDTH,
 } from "../constants/dimensions";
 import { sceneEvents } from "../events/EventCenter";
-import head1 from "../../assets/1st head.svg";
-import body1 from "../../assets/1st body.svg";
-import backgroundMusic from "../../assets/snek_background.wav";
 
 export class InstructionsBackgroundScene extends BaseBackgroundScene {
   constructor() {
@@ -36,22 +31,13 @@ class InstructionsScene extends BaseScene {
     super({ key: "instructionsScene" });
   }
 
-  preload() {
-    this.load.image("bgStageBoard1", bgStage1);
-    this.load.image("bgStageBoard2", bgStage2);
-    this.load.image("bgStageBoard3", bgStage3);
-    this.load.svg("head1", head1);
-
-    this.load.svg("body1", body1);
-    this.load.audio("gameMusic", backgroundMusic);
-  }
-
   resize(gameSize, baseSize, displaySize, resolution) {
     super.resize(gameSize, baseSize, displaySize, resolution);
     // this.backgroundScene.updateCamera();
   }
 
   create() {
+    this.scale.startFullscreen();
     super.create();
 
     let startX = TITLE_AREA_WIDTH / 2;
@@ -72,10 +58,10 @@ class InstructionsScene extends BaseScene {
       detune: 0,
       seek: 0,
       loop: true,
-      delay: 0
-    }
+      delay: 0,
+    };
 
-    this.music.play(musicConfig)
+    this.music.play(musicConfig);
 
     this.scene.bringToTop();
     let styleT;
@@ -91,6 +77,7 @@ class InstructionsScene extends BaseScene {
     //   sceneKey: this.scene.key,
     //   bgKey: this.backgroundScene.scene.key,
     // });
+    this.scene.launch("cornerButtonsScene");
     this.scene.setVisible(true, "cornerButtonsScene");
     this.scene.bringToTop("cornerButtonsScene");
 

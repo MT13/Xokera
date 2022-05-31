@@ -1,8 +1,6 @@
 import Phaser from "phaser";
 import { BaseScene } from "./BaseScene";
 import { styleText } from "../utils";
-import fullscreen from "../../assets/full screen.svg";
-import rules from "../../assets/rules.svg";
 
 import { TITLE_AREA_WIDTH } from "../constants/dimensions";
 import { sceneEvents } from "../events/EventCenter";
@@ -14,10 +12,7 @@ export class CornerButtonsScene extends BaseScene {
     super({ key: "cornerButtonsScene" });
   }
 
-  preload() {
-    this.load.svg("fullscreen", fullscreen, { width: 50, height: 50 });
-    this.load.svg("rules", rules, { width: 50, height: 50 });
-  }
+  preload() {}
 
   handleFullscreen() {
     this.scene.setVisible(false);
@@ -87,7 +82,7 @@ export class CornerButtonsScene extends BaseScene {
     this.currentOffset = this.instr.y + this.instr.height / 2 + 50;
     this.foodOffset = this.instr.x - this.instr.width;
     this.yesFruit = this.add
-      .image(this.foodOffset, this.currentOffset, "yes_food_big")
+      .image(this.foodOffset, this.currentOffset, "yes_food")
       .setOrigin(0, 0.5);
     this.foodOffset += this.yesFruit.width;
 
@@ -96,7 +91,7 @@ export class CornerButtonsScene extends BaseScene {
       .setOrigin(0, 0.5);
     this.foodOffset += 2 * this.yesText.width;
     this.noFruit = this.add
-      .image(this.foodOffset, this.currentOffset, "no_food_big")
+      .image(this.foodOffset, this.currentOffset, "no_food")
       .setOrigin(0, 0.5);
     this.foodOffset += this.noFruit.width;
 

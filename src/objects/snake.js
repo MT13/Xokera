@@ -7,11 +7,22 @@ const LEFT = 2;
 const UP = 3;
 
 export default class Snake {
-  constructor(scene, x, y, origX, origY, cellWidth, cellHeight, stage) {
+  constructor(
+    scene,
+    x,
+    y,
+    origX,
+    origY,
+    cellWidth,
+    cellHeight,
+    stage,
+    bodyHit
+  ) {
     this.cellWidth = cellWidth;
     this.cellHeight = cellHeight;
     this.origX = origX;
     this.origY = origY;
+    this.bodyHit = bodyHit;
 
     let bodyImg, headImg;
 
@@ -49,7 +60,10 @@ export default class Snake {
     // Measured in cell position
     this.headPosition = new Phaser.Geom.Point(x, y);
     // Measured in pixels
-    this.tailPosition = new Phaser.Geom.Point(origX + x * cellWidth, origY + y * cellHeight);
+    this.tailPosition = new Phaser.Geom.Point(
+      origX + x * cellWidth,
+      origY + y * cellHeight
+    );
     this.body.create(this.tailPosition.x, this.tailPosition.y);
     this.body.create(this.tailPosition.x, this.tailPosition.y);
 
@@ -153,6 +167,7 @@ export default class Snake {
 
     if (this.hitBody()) {
       //  Game Over!
+      this.bodyHit.play();
       this.alive = false;
       return false;
     }
@@ -162,12 +177,15 @@ export default class Snake {
     return true;
   }
 
+  isAlive() {
+    return this.alive;
+  }
   grow() {
     this.body.create(this.tailPosition.x, this.tailPosition.y);
   }
 
   collideWithFood(arr) {
-    return arr.map(food => this.head.x === food.x && this.head.y === food.y);
+    return arr.map((food) => this.head.x === food.x && this.head.y === food.y);
   }
 
   updateGrid(grid) {

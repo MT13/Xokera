@@ -2,26 +2,7 @@ import Phaser from "phaser";
 import { BaseScene, BaseBackgroundScene } from "./BaseScene";
 import Snake from "../objects/snake";
 import ChoiceFood from "../objects/choiceFood";
-import firstXokeraWin from "../../assets/1st win.svg";
-import firstXokeraLose from "../../assets/1st lose.svg";
-import secondXokeraWin from "../../assets/2nd win.svg";
-import secondXokeraLose from "../../assets/2nd lose.svg";
-import thirdXokeraWin from "../../assets/3rd win.svg";
-import thirdXokeraLose from "../../assets/3rd lose.svg";
-import bgFinalWin from "../../assets/bg win.png";
-
-import head2 from "../../assets/2nd head.svg";
-import body2 from "../../assets/2nd body.svg";
-import head3 from "../../assets/3rd head.svg";
-import body3 from "../../assets/3rd body.svg";
-
-import audioCorrect from "../../assets/snek_up.wav";
-import audioWrong from "../../assets/snek_down.wav";
-import loseMusic from "../../assets/snek_lost.wav";
-import winMusic from "../../assets/snek_won.wav";
-
 import { questions } from "../questions";
-
 import { getRandom, shuffle } from "../helpers/scripts";
 import { sceneEvents } from "../events/EventCenter";
 
@@ -58,39 +39,6 @@ class GameScene extends BaseScene {
     super({ key: "gameScene" });
   }
 
-  preload() {
-    // TODO: move all this somewhere else
-    this.load.svg("firstXokeraWin", firstXokeraWin, { width: 75, height: 75 });
-    this.load.svg("firstXokeraLose", firstXokeraLose, {
-      width: 75,
-      height: 75,
-    });
-    this.load.svg("secondXokeraWin", secondXokeraWin, {
-      width: 75,
-      height: 75,
-    });
-    this.load.svg("secondXokeraLose", secondXokeraLose, {
-      width: 75,
-      height: 75,
-    });
-    this.load.svg("thirdXokeraWin", thirdXokeraWin, { width: 75, height: 75 });
-    this.load.svg("thirdXokeraLose", thirdXokeraLose, {
-      width: 75,
-      height: 75,
-    });
-    this.load.svg("head2", head2);
-    this.load.svg("body2", body2);
-    this.load.svg("head3", head3);
-    this.load.svg("body3", body3);
-
-    this.load.image("bgFinalWin", bgFinalWin);
-    this.load.audio("audioCorrect", audioCorrect);
-    this.load.audio("audioWrong", audioWrong);
-
-    this.load.audio("loseMusic", loseMusic);
-    this.load.audio("winMusic", winMusic);
-  }
-
   resize(gameSize, baseSize, displaySize, resolution) {
     super.resize(gameSize, baseSize, displaySize, resolution);
     this.backgroundScene.updateCamera();
@@ -99,11 +47,12 @@ class GameScene extends BaseScene {
   initAudio() {
     this.correctSound = this.sound.add("audioCorrect");
     this.wrongSound = this.sound.add("audioWrong");
+    this.bodyHit = this.sound.add("bodyHit");
   }
 
   create() {
     super.create();
-    
+
     let playAreaStartY = (this.origY =
       (TITLE_AREA_HEIGHT - PLAY_AREA_HEIGHT) / 2);
     let playAreaStartX = (this.origX =
@@ -142,33 +91,36 @@ class GameScene extends BaseScene {
       this.events.off(Phaser.Scenes.Events.WAKE);
     });
 
-    this.events.on(Phaser.Scenes.Events.SLEEP, () => {
-      console.log("GameScene: go to sleep");
-    });
-
     this.events.on(Phaser.Scenes.Events.WAKE, () => {
       this.setSleepFlag(false);
-      console.log("GameScene: in wake");
-      console.log(
-        "GameScene: gameScene.isActive = " +
-          this.scene.isActive() +
-          "   isVisible = " +
-          this.scene.isVisible() +
-          "    isSleeping=" +
-          this.scene.isSleeping() +
-          "   isPaused = " +
-          this.scene.isPaused()
-      );
 
       this.initStage();
     });
   }
 
   generateChoices(snake) {
+    let yesX = Math.floor(Math.random() * (GRID_WIDTH - 1));
+    let yesY = Math.floor(Math.random() * (GRID_HEIGHT - 1));
+    let noX = Math.floor(Math.random() * (GRID_WIDTH - 1));
+    let noY = Math.floor(Math.random() * (GRID_HEIGHT - 1));
+
+    while (yesX === snake.headPosition.x) {
+      yesX = Math.floor(Math.random() * (GRID_WIDTH - 1));
+    }
+    while (yesY === snake.headPosition.y) {
+      yesY = Math.floor(Math.random() * (GRID_HEIGHT - 1));
+    }
+    while (noX === snake.headPosition.x) {
+      noX = Math.floor(Math.random() * (GRID_WIDTH - 1));
+    }
+    while (noY === snake.headPosition.y) {
+      noY = Math.floor(Math.random() * (GRID_HEIGHT - 1));
+    }
+
     this.YesFood = new ChoiceFood(
       this,
-      13,
-      11,
+      yesX,
+      yesY,
       this.origX,
       this.origY,
       CELL_WIDTH,
@@ -177,8 +129,8 @@ class GameScene extends BaseScene {
     );
     this.NoFood = new ChoiceFood(
       this,
-      0,
-      0,
+      noX,
+      noY,
       this.origX,
       this.origY,
       CELL_WIDTH,
@@ -241,13 +193,17 @@ class GameScene extends BaseScene {
     }
 
     if (this.snake.update(time)) {
-
-      let [yesCollision, noCollision] = this.snake.collideWithFood([this.YesFood, this.NoFood])
-
-      if (yesCollision || noCollision){
-        if((yesCollision && this.answer) || (noCollision && !this.answer)){
-          this.correctSound.play()
-          if (this.curQuestion === 0) {
+      let [yesCollision, noCollision] = this.snake.collideWithFood([
+        this.YesFood,
+        this.NoFood,
+      ]);
+      if (!this.snake.isAlive()) {
+        this.openLoseScene();
+      }
+      if (yesCollision || noCollision) {
+        if ((yesCollision && this.answer) || (noCollision && !this.answer)) {
+          this.correctSound.play();
+          if (this.curQuestion === 5) {
             this.nextStage();
           } else {
             this.snake.grow();
@@ -255,30 +211,36 @@ class GameScene extends BaseScene {
             this.nextQuestion();
           }
         } else {
-          this.wrongSound.play()
+          this.wrongSound.play();
           this.repositionChoices(this.snake);
-            this.health -= 1;
-            // check zero health
-            if (this.health === 0) {
-              this.openLoseScene();
-            }
-            sceneEvents.emit("health-changed", this.health);
+          this.health -= 1;
+          // check zero health
+          if (this.health === 0) {
+            this.openLoseScene();
+          }
+          sceneEvents.emit("health-changed", this.health);
         }
       }
     }
   }
 
   openLoseScene() {
-    this.scene.remove("gameBackgroundScene");
-    this.scene.remove("uiScene");
-    this.scale.removeListener("resize", this.resize);
     var data = {
       title: i18n.t("you_lost"),
-      text: i18n.t("lose"),
       color: "#E5541C",
       buttonText: i18n.t("try_again"),
       stage: -1,
     };
+
+    if (this.snake.isAlive()) {
+      data.text = i18n.t("lose");
+      data.curStage = -1;
+    } else {
+      data.text = i18n.t("body_hit");
+      data.curStage = this.stage;
+      data.bodyHit = true;
+    }
+
     switch (this.stage) {
       case 0:
         data.xokeraHead = "firstXokeraLose";
@@ -290,7 +252,22 @@ class GameScene extends BaseScene {
         data.xokeraHead = "thirdXokeraLose";
         break;
     }
-    this.scene.start("stageWinLoseScene", data);
+
+    if (this.snake.isAlive()) {
+      this.scene.remove("gameBackgroundScene");
+      this.scene.remove("uiScene");
+      this.scale.removeListener("resize", this.resize);
+      this.scene.start("stageWinLoseScene", data);
+    } else {
+      this.snake.destroy();
+      this.YesFood.destroy();
+      this.NoFood.destroy();
+      this.setSleepFlag(true);
+      this.scene.launch("stageWinLoseScene", data);
+      this.backgroundScene.scene.sleep();
+      this.uiScene.scene.sleep();
+      this.scene.sleep();
+    }
   }
 
   STAGES = ["gutenberg", "broadcasting", "digital"];
@@ -312,7 +289,7 @@ class GameScene extends BaseScene {
       idx: this.curQuestion,
     });
 
-    if (this.stage === 0 || this.stage === -1) {
+    if (this.stage === 0 || this.stage === -1 || !this.snake.isAlive()) {
       this.health = 5;
       sceneEvents.emit("health-changed", this.health);
     }
@@ -325,7 +302,8 @@ class GameScene extends BaseScene {
       this.origY,
       CELL_WIDTH,
       CELL_HEIGHT,
-      this.stage
+      this.stage,
+      this.bodyHit,
     );
 
     this.generateChoices(this.snake);
@@ -333,7 +311,10 @@ class GameScene extends BaseScene {
 
   nextStage() {
     this.stage += 1;
-    let data = { stage: this.stage, buttonText: i18n.t("continue") };
+    let data = {
+      stage: this.stage,
+      buttonText: i18n.t("continue"),
+    };
     switch (this.stage) {
       case 1:
         data.xokeraHead = "firstXokeraWin";
@@ -399,7 +380,6 @@ class GameScene extends BaseScene {
       this.scene.setVisible(true);
       this.uiScene.scene.setVisible(true);
       this.backgroundScene.scene.sendToBack();
-
     }
   }
 }

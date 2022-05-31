@@ -10,9 +10,10 @@ import {
   CELL_WIDTH,
 } from "../constants/dimensions";
 
-import bgBoard from "../../assets/bg_board.png";
 
 import { sceneEvents } from "../events/EventCenter";
+// import yesFood from "../../assets/yes fruit.svg";
+// import noFood from "../../assets/no fruit.svg";
 
 // export class StageBackgroundScene extends BaseBackgroundScene {
 //   constructor() {
@@ -33,8 +34,14 @@ class StageScene extends BaseScene {
   }
 
   preload() {
-
-    this.load.image("bgBoard", bgBoard);
+    // this.load.svg("yes_food_big", yesFood, {
+    //   width: CELL_WIDTH,
+    //   height: CELL_HEIGHT,
+    // });
+    // this.load.svg("no_food_big", noFood, {
+    //   width: CELL_WIDTH,
+    //   height: CELL_HEIGHT,
+    // });
   }
 
   resize(gameSize, baseSize, displaySize, resolution) {
@@ -102,14 +109,14 @@ class StageScene extends BaseScene {
     button.on("pointerdown", () => {
       this.scene.remove("stageBackgroundScene");
       this.scale.removeListener("resize", this.resize);
-      if (data.stage === 0) {
+      if (data.stage === 0 && data.curStage != 0) {
         this.scene.start("gameScene");
       } else if (data.stage === -1) {
         let gameScene = this.scene.get("gameScene");
         gameScene.scene.restart();
         this.scene.stop();
       } else {
-        console.log("StageScene: waking gameScene");
+
         this.scene.wake("gameBackgroundScene");
         this.scene.wake("uiScene");
 
