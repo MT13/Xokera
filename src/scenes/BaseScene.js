@@ -81,7 +81,6 @@ export class BaseScene extends Phaser.Scene {
   }
 
   getSleepFlag() {
-    console.log(this.asleep);
     return this.asleep;
   }
 }

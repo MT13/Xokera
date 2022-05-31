@@ -15,6 +15,7 @@ import {
 import { sceneEvents } from "../events/EventCenter";
 import head1 from "../../assets/1st head.svg";
 import body1 from "../../assets/1st body.svg";
+import backgroundMusic from "../../assets/snek_background.wav";
 
 export class InstructionsBackgroundScene extends BaseBackgroundScene {
   constructor() {
@@ -42,6 +43,7 @@ class InstructionsScene extends BaseScene {
     this.load.svg("head1", head1);
 
     this.load.svg("body1", body1);
+    this.load.audio("gameMusic", backgroundMusic);
   }
 
   resize(gameSize, baseSize, displaySize, resolution) {
@@ -60,6 +62,20 @@ class InstructionsScene extends BaseScene {
       InstructionsBackgroundScene,
       true
     );
+
+    this.music = this.sound.add("gameMusic");
+
+    let musicConfig = {
+      mute: false,
+      volume: 1,
+      rate: 1,
+      detune: 0,
+      seek: 0,
+      loop: true,
+      delay: 0
+    }
+
+    this.music.play(musicConfig)
 
     this.scene.bringToTop();
     let styleT;

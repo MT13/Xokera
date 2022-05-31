@@ -46,9 +46,10 @@ export default class Snake {
     );
     this.heading = RIGHT;
     this.direction = RIGHT;
+    // Measured in cell position
     this.headPosition = new Phaser.Geom.Point(x, y);
-    this.tailPosition = new Phaser.Geom.Point(x, y);
-
+    // Measured in pixels
+    this.tailPosition = new Phaser.Geom.Point(origX + x * cellWidth, origY + y * cellHeight);
     this.body.create(this.tailPosition.x, this.tailPosition.y);
     this.body.create(this.tailPosition.x, this.tailPosition.y);
 
@@ -165,12 +166,8 @@ export default class Snake {
     this.body.create(this.tailPosition.x, this.tailPosition.y);
   }
 
-  collideWithFood(food) {
-    if (this.head.x === food.x && this.head.y === food.y) {
-      return true;
-    }
-
-    return false;
+  collideWithFood(arr) {
+    return arr.map(food => this.head.x === food.x && this.head.y === food.y);
   }
 
   updateGrid(grid) {
