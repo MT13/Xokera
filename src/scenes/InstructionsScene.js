@@ -31,13 +31,12 @@ class InstructionsScene extends BaseScene {
     super({ key: "instructionsScene" });
   }
 
-  resize(gameSize, baseSize, displaySize, resolution) {
-    super.resize(gameSize, baseSize, displaySize, resolution);
-    // this.backgroundScene.updateCamera();
+  resize(gameSize, baseSize, displaySize) {
+    super.resize(gameSize, baseSize, displaySize);
+    this.backgroundScene.updateCamera();
   }
 
   create() {
-    this.scale.startFullscreen();
     super.create();
 
     let startX = TITLE_AREA_WIDTH / 2;

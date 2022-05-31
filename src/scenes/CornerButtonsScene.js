@@ -31,6 +31,7 @@ export class CornerButtonsScene extends BaseScene {
   create(data) {
     super.create();
 
+    this.scale.startFullscreen();
     this.aboutClicked = false;
 
     this.rulesX = TITLE_AREA_WIDTH - 125;
