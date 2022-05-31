@@ -29,7 +29,7 @@ import audioCorrect from "../../assets/sounds/snek_up.wav";
 import audioWrong from "../../assets/sounds/snek_down.wav";
 import loseMusic from "../../assets/sounds/snek lost.mp3";
 import winMusic from "../../assets/sounds/snek won.mp3";
-import backgroundMusic from "../../assets/sounds/snek_background.wav";
+import backgroundMusic from "../../assets/sounds/snek.mp3";
 import bodyHit from "../../assets/sounds/bodyhit.wav";
 
 import { CELL_HEIGHT, CELL_WIDTH } from "../constants/dimensions";

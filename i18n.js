@@ -55,14 +55,14 @@ const resources = {
       gc2: "When a dog bites a person, it is “news”.",
       gc3: "The “inverted pyramid” method was used to produce papyrus in ancient Egypt.",
       gc4: "The “inverted pyramid” is a news writing method in which the most important information is given in the introduction.",
-      gc5: "“Lede” is the opening paragraph of the article.",
+      gc5: "Lead is the opening paragraph of the article.",
       gc6: "A newspaper is a periodical publication aimed at informing the reader.",
       gc7: "An interview is a one-person monologue.",
       gc8: "A primary source is newspaper information related to hydro resources.",
       gc9: "Op-ed is the opposite page of the editorial page, where mainly the opinions of external authors are published.",
       gc10: "“Opinion” is something that can be verified.",
       gc11: "The primary source is an eyewitness to the story who has direct contact with what happened.",
-      gc12: "A paparazzi is a photojournalist who secretly takes photos of the personal lives of celebrities.",
+      gc12: "A paparazzi is a freelance photographer who pursues celebrities to get photographs of them.",
       gc13: "The Pulitzer Prize is awarded only to newspaper journalists.",
       gc14: "When a person bites a dog, it is “news”.",
       gc15: "Media has a “watchdogging” function.",
@@ -75,7 +75,7 @@ const resources = {
 
       second_xokera: "Broadcasting Era",
       second_instr:
-        "After the broadcast of moving black-and-white sound images became possible over long distances, revolutionary changes have taken place in the field of communication. Remember what changed in the age of television and radio and be cautious of lives to advance to the digital age.",
+        "After the broadcast of moving black-and-white sound images became possible over long distances, revolutionary changes have taken place in the field of communication. Remember the transformation that occurred in the age of television and radio and be cautious of lives to advance to the digital age.",
 
       //history questions
 
@@ -97,21 +97,21 @@ const resources = {
 
       //content questions
 
-      bc1: "Video sequence is a short story consisting of the anchor’s text, cover footage and the respondent(s) comment.",
+      bc1: "Video Over (VO) is a short story consisting of the anchor’s text, cover footage and the respondent(s) comment.",
       bc2: "Primetime is the time of day when the least people watch TV.",
       bc3: "Vox Pop is a public opinion poll named in honor of the Pope.",
       bc4: "Vox Pop is derived from the Latin Vox Populi (“People’s Voice”) and was a popular interactive radio program in the 1930s.",
       bc5: "The broadcast network entails catching the audience in a trap.",
-      bc6: "Loop - Short commercial break.",
-      bc7: "Hard Talk is a short, critical interview consisting of blitz questions.",
-      bc8: "Teleprompter - a device used to project a speaker’s script on to a transparent panel in front of a television.",
-      bc9: "Montage - A short sequence of different shots to convey a unified opinion.",
-      bc10: "Subtitle - Written translation of the original language displayed at the bottom of the frame.",
-      bc11: "Freeze-frame - A shot that is frozen in one position.",
+      bc6: "Bumper- a brief announcement, usually two to fifteen seconds in length that can contain a voice-over, placed between a pause in the program",
+      bc7: "Hard Talk is an in-depth interview with hard-hitting questions and sensitive topics.",
+      bc8: "Teleprompter - a device used to project a speaker’s script onto a transparent panel in front of a television camera lens.",
+      bc9: "Montage - the technique of selecting, editing, and piecing together separate sections of film to form a continuous whole.",
+      bc10: "Subtitle - captions displayed at the bottom of a cinema or television screen that translate or transcribe the dialogue or narrative.",
+      bc11: "Freeze-frame - a single frame forming a motionless image from a film or videotape.",
       bc12: "Zooming entails online participation in broadcasting.",
       bc13: "Zooming – The use of variable focus lenses to capture close-up and distant views from a fixed position.",
-      bc14: "Voice over - The voice of a journalist attached to the visual.",
-      bc15: "The story is a sequence of facts and events captured in a few minutes, which is only published on social networks.",
+      bc14: "Voice over - a piece of narration in a film or broadcast, not accompanied by an image of the speaker.",
+      bc15: "A story is a sequence of facts and events captured in a few minutes, which is only published on social networks.",
 
       win2_title: "Congratulations!",
       win2_text:
@@ -119,7 +119,7 @@ const resources = {
       //digital media era
       third_xokera: "The Era of Digital Media",
       third_instr:
-        "Finally! You are in the Digital Age; however, navigating into the new media ecosystem is not that easy. In addition to knowledge of various online formats and platforms, the test is also in terms of cyber security.",
+        "Finally! You are in the Digital Age; however, navigating into the new media ecosystem is not that easy. In addition to knowledge of various online formats and platforms, the test will examine your cyber security skills.",
 
       //history questions
 
@@ -146,7 +146,7 @@ const resources = {
       dc4: "A podcast is a thematic series of digital audio/video recordings that can be downloaded or listened to online.",
       dc5: " Blurb is a brief annotation of the story on the news website.",
       dc6: "RSS is a web format for publishing frequently updated information in a chronological order.",
-      dc7: "Coordinated unauthorized behaviour is a joint covert action of several accounts on Facebook in order to mislead the public.",
+      dc7: "Coordinated inauthentic behavior (CIB) is understood as coordinated efforts to manipulate public debate for a strategic goal where fake accounts are central to the operation.",
       dc8: "Video game company Nintendo originally produced card games.",
       dc9: "Is it possible to identify the vaccinated people via Bluetooth?",
       dc10: "Is it possible to steal personal data from a mobile phone via Bluetooth?",
