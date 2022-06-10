@@ -46,7 +46,6 @@ export class FinalWinLose extends BaseScene {
     } else {
       this.music = this.sound.add("loseMusic");
     }
-    
 
     let musicConfig = {
       mute: false,
@@ -55,10 +54,10 @@ export class FinalWinLose extends BaseScene {
       detune: 0,
       seek: 0,
       loop: true,
-      delay: 0
-    }
+      delay: 0,
+    };
 
-    this.music.play(musicConfig)
+    this.music.play(musicConfig);
 
     this.backgroundScene = this.scene.add(
       "finalBackgroundScene",
@@ -72,10 +71,14 @@ export class FinalWinLose extends BaseScene {
     this.scene.bringToTop("cornerButtonsScene");
     sceneEvents.on("pause-up", this.onPause, this);
     sceneEvents.on("wake-up", this.onWake, this);
+    sceneEvents.on("rotate", this.onRotate, this);
+    sceneEvents.on("unRotate", this.unRotate, this);
 
     this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
       sceneEvents.off("pause-up", this.onPause);
       sceneEvents.off("wake-up", this.onWake);
+      sceneEvents.off("rotate", this.onRotate);
+      sceneEvents.off("unRotate", this.unRotate);
       this.music.stop();
     });
 
@@ -86,12 +89,12 @@ export class FinalWinLose extends BaseScene {
     let currentOffset = offsetY;
 
     // if (i18n.language === "ka") {
-      styleH = { ...styleHeader };
-      styleT = { ...styleText };
-      styleT.wordWrap = {
-        width: TITLE_AREA_WIDTH / 2 - 100,
-        useAdvancedWrap: true,
-      };
+    styleH = { ...styleHeader };
+    styleT = { ...styleText };
+    styleT.wordWrap = {
+      width: TITLE_AREA_WIDTH / 2 - 100,
+      useAdvancedWrap: true,
+    };
     // }
 
     styleH.color = data.color;
@@ -128,11 +131,11 @@ export class FinalWinLose extends BaseScene {
         detune: 0,
         seek: 0,
         loop: true,
-        delay: 0
-      }
+        delay: 0,
+      };
 
-      gameMusic.play(musicConfig)
-      
+      gameMusic.play(musicConfig);
+
       this.scene.start("stageScene", {
         bgImage: "bgStageBoard1",
         title: i18n.t("first_xokera"),
@@ -151,5 +154,17 @@ export class FinalWinLose extends BaseScene {
   onWake() {
     this.scene.wake();
     this.backgroundScene.scene.wake();
+  }
+
+  onRotate() {
+    this.backgroundScene.scene.setVisible(false);
+    this.scene.setVisible(false);
+    this.scene.setVisible(true, "rotateScene");
+  }
+
+  unRotate() {
+    this.backgroundScene.scene.setVisible(true);
+    this.scene.setVisible(true);
+    this.scene.setVisible(false, "rotateScene");
   }
 }

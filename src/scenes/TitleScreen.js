@@ -4,36 +4,16 @@ import i18n from "../../i18n";
 
 import { styleHeader, styleText } from "../utils";
 import RedButton from "../objects/redButton";
-import { TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH } from "../constants/title";
+import { TITLE_AREA_WIDTH } from "../constants/title";
 import { CELL_HEIGHT, CELL_WIDTH } from "../constants/dimensions";
 import { TitleBackgroundScene } from "./TitleBackgroundScene";
-
-import logo from "../../assets/1st win.svg";
-import yesFood from "../../assets/yes fruit.svg";
-import noFood from "../../assets/no fruit.svg";
-import bg from "../../assets/bg_title.png";
 
 export class TitleScreen extends BaseScene {
   constructor() {
     super({ key: "titleScreen" });
   }
 
-  preload() {
-    this.load.svg("logo", logo, {
-      width: 75,
-      height: 75,
-    });
-    this.load.image("bg", bg);
-
-    this.load.svg("yes_food_small", yesFood, {
-      width: (CELL_WIDTH * 2) / 3,
-      height: (CELL_HEIGHT * 2) / 3,
-    });
-    this.load.svg("no_food_small", noFood, {
-      width: (CELL_WIDTH * 2) / 3,
-      height: (CELL_HEIGHT * 2) / 3,
-    });
-  }
+  preload() {}
 
   resize(gameSize, baseSize, displaySize, resolution) {
     super.resize(gameSize, baseSize, displaySize, resolution);
@@ -48,6 +28,8 @@ export class TitleScreen extends BaseScene {
       TitleBackgroundScene,
       true
     );
+    this.scene.launch("rotateScene");
+    this.scene.setVisible(false, "rotateScene");
 
     this.scene.bringToTop();
 
@@ -104,6 +86,16 @@ export class TitleScreen extends BaseScene {
     this.noText = this.add
       .text(this.foodOffset, currentOffset, i18n.t("no"), styleT)
       .setOrigin(0, 0.5);
+
+    this.foodOffset += this.noText.width + 15;
+    this.arrows = this.add
+      .image(this.foodOffset, currentOffset, "arrows")
+      .setOrigin(0, 0.5);
+    this.foodOffset += this.arrows.width;
+    this.arrowsText = this.add
+      .text(this.foodOffset, currentOffset, i18n.t("movement"), styleT)
+      .setOrigin(0, 0.5);
+
     currentOffset += this.yesFruit.height + 15;
     styleT.fontSize = "15px";
     styleT.fontStyle = "bold";
@@ -167,9 +159,11 @@ export class TitleScreen extends BaseScene {
 
     button.setInteractive();
     button.on("pointerdown", () => {
+      this.scale.startFullscreen();
+
       this.scene.stop("titleBackgroundScene");
       this.scale.removeListener("resize", this.resize);
-      this.scene.start("preload");
+      this.scene.start("instructionsScene");
     });
   }
 }

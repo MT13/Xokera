@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import { sceneEvents } from "../events/EventCenter";
 
 import { TITLE_AREA_HEIGHT, TITLE_AREA_WIDTH } from "../constants/title";
+import i18n from "../../i18n";
 
 export class BaseScene extends Phaser.Scene {
   constructor(key) {
@@ -29,7 +30,9 @@ export class BaseScene extends Phaser.Scene {
     this.updateCamera(this);
 
     this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
-
+      this.scale.removeListener("resize", this.resize);
+    });
+    this.events.once(Phaser.Scenes.Events.DESTROY, () => {
       this.scale.removeListener("resize", this.resize);
     });
   }
@@ -88,6 +91,17 @@ export class BaseBackgroundScene extends Phaser.Scene {
 
   preload() {}
 
+  resize(gameSize, baseSize, displaySize, resolution) {
+    const width = this.scale.gameSize.width;
+    const height = this.scale.gameSize.height;
+
+    if (width <= height) {
+      sceneEvents.emit("rotate");
+    } else {
+      sceneEvents.emit("unRotate");
+    }
+  }
+
   updateCamera() {
     if (this.bg) {
       const width = this.scale.gameSize.width;
@@ -100,6 +114,19 @@ export class BaseBackgroundScene extends Phaser.Scene {
       camera.setSize(width, height);
       camera.setZoom(Math.max(scaleX, scaleY));
       camera.centerOn(this.bg.width / 2, this.bg.height / 2);
+    }
+  }
+
+  create() {
+    this.scale.on("resize", this.resize, this);
+
+    const width = this.scale.gameSize.width;
+    const height = this.scale.gameSize.height;
+    if (width <= height) {
+      sceneEvents.emit("rotate");
+    } else {
+
+      sceneEvents.emit("unRotate");
     }
   }
 }

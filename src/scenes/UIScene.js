@@ -23,9 +23,7 @@ export class UIScene extends BaseScene {
     this.cellWidth = PLAY_AREA_WIDTH / GRID_WIDTH;
     this.cellHeight = PLAY_AREA_HEIGHT / GRID_HEIGHT;
   }
-  preload() {
-
-  }
+  preload() {}
 
   create(data) {
     super.create();
@@ -46,8 +44,9 @@ export class UIScene extends BaseScene {
     styleT.align = "center";
     styleT.color = "0x000000";
     styleT.lineSpacing = 2;
+    styleT.fontSize = "25px";
     styleT.wordWrap = {
-      width: TITLE_AREA_WIDTH / 2 + 50,
+      width: (TITLE_AREA_WIDTH * 2) / 3,
       useAdvancedWrap: true,
     };
 
@@ -93,6 +92,7 @@ export class UIScene extends BaseScene {
     sceneEvents.on("health-changed", this.handlePlayerHealth, this);
 
     this.events.on(Phaser.Scenes.Events.DESTROY, () => {
+  
       sceneEvents.off("health-changed", this.handlePlayerHealth);
       sceneEvents.off("question-changed", this.handleQuestionUpdate);
     });

@@ -11,6 +11,8 @@ import { FinalWinLose } from "./scenes/FinalWinLose";
 import { PauseScene } from "./scenes/PauseScene";
 import { CornerButtonsScene } from "./scenes/CornerButtonsScene";
 import PreloadScene from "./scenes/PreloadScene";
+import BootScene from "./scenes/BootScene";
+import { RotateScene } from "./scenes/RotateScene";
 
 const MAX_SIZE_WIDTH_SCREEN = 1920;
 const MAX_SIZE_HEIGHT_SCREEN = 1080;
@@ -55,9 +57,11 @@ const config = {
   },
 };
 
+
 let game = new Phaser.Game(config);
 
 let preloadScene = new PreloadScene();
+let bootScene = new BootScene();
 
 let titleScreen = new TitleScreen();
 let gameScene = new GameScene();
@@ -68,7 +72,10 @@ let finalWinLose = new FinalWinLose();
 let winScene = new StageWinLoseScene();
 let pauseScene = new PauseScene();
 let cornerButtonsScene = new CornerButtonsScene();
+let rotateScene = new RotateScene();
+game.scene.add("rotateScene", rotateScene);
 game.scene.add("preload", preloadScene);
+game.scene.add("boot", bootScene);
 
 game.scene.add("titleScreen", titleScreen);
 game.scene.add("instructionsScene", instructionsScene);
@@ -79,4 +86,4 @@ game.scene.add("stageWinLoseScene", winScene);
 game.scene.add("finalWinLose", finalWinLose);
 game.scene.add("pauseScene", pauseScene);
 game.scene.add("cornerButtonsScene", cornerButtonsScene);
-game.scene.start("titleScreen");
+game.scene.start("boot");

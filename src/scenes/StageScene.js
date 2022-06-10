@@ -10,7 +10,6 @@ import {
   CELL_WIDTH,
 } from "../constants/dimensions";
 
-
 import { sceneEvents } from "../events/EventCenter";
 // import yesFood from "../../assets/yes fruit.svg";
 // import noFood from "../../assets/no fruit.svg";
@@ -52,6 +51,8 @@ class StageScene extends BaseScene {
   create(data) {
     super.create();
 
+    console.log("is visible " + this.scene.isVisible("rotateScene"));
+
     let startX = TITLE_AREA_WIDTH / 2;
     let startY;
     if (data.stage === 1) {
@@ -67,15 +68,15 @@ class StageScene extends BaseScene {
     this.scene.bringToTop("cornerButtonsScene");
 
     let styleT, styleH;
-      styleT = { ...styleText };
-      styleH = { ...styleHeader };
-      styleT.fontSize = "25px";
-      styleT.wordWrap = {
-        width: TITLE_AREA_WIDTH / 2 + 50,
-        useAdvancedWrap: true,
-      };
-      styleH.color = data.color;
-      styleH.fontSize = "40px";
+    styleT = { ...styleText };
+    styleH = { ...styleHeader };
+    styleT.fontSize = "25px";
+    styleT.wordWrap = {
+      width: TITLE_AREA_WIDTH / 2 + 50,
+      useAdvancedWrap: true,
+    };
+    styleH.color = data.color;
+    styleH.fontSize = "40px";
 
     this.title = this.add.text(startX, startY, data.title, styleH);
     this.title.setOrigin(0.5);
@@ -114,7 +115,6 @@ class StageScene extends BaseScene {
         gameScene.scene.restart();
         this.scene.stop();
       } else {
-
         this.scene.wake("gameBackgroundScene");
         this.scene.wake("uiScene");
 
@@ -125,10 +125,14 @@ class StageScene extends BaseScene {
 
     sceneEvents.on("pause-up", this.onPause, this);
     sceneEvents.on("wake-up", this.onWake, this);
+    sceneEvents.on("rotate", this.onRotate, this);
+    sceneEvents.on("unRotate", this.unRotate, this);
 
     this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
       sceneEvents.off("pause-up", this.onPause);
       sceneEvents.off("wake-up", this.onWake);
+      sceneEvents.off("rotate", this.onRotate);
+      sceneEvents.off("unRotate", this.unRotate);
     });
   }
 
@@ -138,6 +142,18 @@ class StageScene extends BaseScene {
 
   onWake() {
     this.scene.wake();
+  }
+
+  onRotate() {
+    console.log("onRotate");
+    this.scene.setVisible(false);
+    this.scene.setVisible(true, "rotateScene");
+  }
+
+  unRotate() {
+    console.log("unrotate");
+    this.scene.setVisible(true);
+    this.scene.setVisible(false, "rotateScene");
   }
 }
 

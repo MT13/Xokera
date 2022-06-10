@@ -1,6 +1,5 @@
 import Phaser from "phaser";
 import { BaseScene, BaseBackgroundScene } from "./BaseScene";
-import bgBoard from "../../assets/bg_board.png";
 import RedButton from "../objects/redButton";
 import GreenButton from "../objects/greenButton";
 import { sceneEvents } from "../events/EventCenter";
@@ -55,10 +54,14 @@ export class StageWinLoseScene extends BaseScene {
     this.scene.bringToTop("cornerButtonsScene");
     sceneEvents.on("pause-up", this.onPause, this);
     sceneEvents.on("wake-up", this.onWake, this);
+    sceneEvents.on("rotate", this.onRotate, this);
+    sceneEvents.on("unRotate", this.unRotate, this);
 
     this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
       sceneEvents.off("pause-up", this.onPause);
       sceneEvents.off("wake-up", this.onWake);
+      sceneEvents.off("rotate", this.onRotate);
+      sceneEvents.off("unRotate", this.unRotate);
     });
 
     let styleT, styleH;
@@ -172,8 +175,22 @@ export class StageWinLoseScene extends BaseScene {
   }
 
   onWake() {
+
     this.scene.wake();
     this.backgroundScene.scene.wake();
     this.scene.bringToTop();
+  }
+
+
+  onRotate() {
+    this.backgroundScene.scene.setVisible(false);
+    this.scene.setVisible(false);
+    this.scene.setVisible(true, "rotateScene");
+  }
+
+  unRotate() {
+    this.backgroundScene.scene.setVisible(true);
+    this.scene.setVisible(true);
+    this.scene.setVisible(false, "rotateScene");
   }
 }

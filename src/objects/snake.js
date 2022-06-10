@@ -23,7 +23,6 @@ export default class Snake {
     this.origX = origX;
     this.origY = origY;
     this.bodyHit = bodyHit;
-    console.log("bodyHit is " + this.bodyHit);
 
     let bodyImg, headImg;
 
@@ -71,7 +70,7 @@ export default class Snake {
     this.alive = true;
     this.updated = true;
     this.moveTime = 0;
-    this.moveDelay = 100;
+    this.moveDelay = 200;
   }
 
   update(time) {

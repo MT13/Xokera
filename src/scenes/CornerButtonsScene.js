@@ -16,7 +16,6 @@ export class CornerButtonsScene extends BaseScene {
 
   handleFullscreen() {
     this.scene.setVisible(false);
-
     sceneEvents.emit("pause-up");
     let pauseScene = this.scene.get("pauseScene");
     if (pauseScene.scene.isSleeping()) {
@@ -31,7 +30,6 @@ export class CornerButtonsScene extends BaseScene {
   create(data) {
     super.create();
 
-    this.scale.startFullscreen();
     this.aboutClicked = false;
 
     this.rulesX = TITLE_AREA_WIDTH - 125;
@@ -49,21 +47,19 @@ export class CornerButtonsScene extends BaseScene {
 
     let styleT;
 
-    // if (i18n.language === "ka") {
-      styleT = { ...styleText };
-      styleT.wordWrap = {
-        width: TITLE_AREA_WIDTH / 2,
-        useAdvancedWrap: true,
-      };
-      styleT.fontSize = "25px";
-    // }
+    styleT = { ...styleText };
+    styleT.wordWrap = {
+      width: TITLE_AREA_WIDTH / 2,
+      useAdvancedWrap: true,
+    };
+    styleT.fontSize = "25px";
 
     this.aboutRec = this.add
       .rectangle(
         this.rulesX,
         2 * this.rulesY,
         TITLE_AREA_WIDTH / 2 + 100,
-        TITLE_AREA_HEIGHT / 2 + 50,
+        TITLE_AREA_HEIGHT / 2 + 100,
         "0x000000"
       )
       .setOrigin(1, 0);
@@ -74,7 +70,7 @@ export class CornerButtonsScene extends BaseScene {
       .text(
         this.rulesX - 50,
         2 * this.rulesY + TITLE_AREA_HEIGHT / 4,
-        i18n.t("instruction text"),
+        i18n.t("about"),
         styleT
       )
       .setOrigin(1, 0.5);
@@ -90,7 +86,7 @@ export class CornerButtonsScene extends BaseScene {
     this.yesText = this.add
       .text(this.foodOffset, this.currentOffset, i18n.t("yes"), styleT)
       .setOrigin(0, 0.5);
-    this.foodOffset += 2 * this.yesText.width;
+    this.foodOffset += this.yesText.width + 25;
     this.noFruit = this.add
       .image(this.foodOffset, this.currentOffset, "no_food")
       .setOrigin(0, 0.5);
@@ -100,10 +96,21 @@ export class CornerButtonsScene extends BaseScene {
       .text(this.foodOffset, this.currentOffset, i18n.t("no"), styleT)
       .setOrigin(0, 0.5);
 
+    this.foodOffset += this.noText.width + 25;
+    this.arrows = this.add
+      .image(this.foodOffset, this.currentOffset, "arrowsBig")
+      .setOrigin(0, 0.5);
+    this.foodOffset += this.arrows.width;
+    this.arrowsText = this.add
+      .text(this.foodOffset, this.currentOffset, i18n.t("movement"), styleT)
+      .setOrigin(0, 0.5);
+
     this.yesFruit.setVisible(false);
     this.noFruit.setVisible(false);
     this.yesText.setVisible(false);
     this.noText.setVisible(false);
+    this.arrows.setVisible(false);
+    this.arrowsText.setVisible(false);
 
     rules.setInteractive();
     rules.on("pointerdown", () => {
@@ -114,6 +121,8 @@ export class CornerButtonsScene extends BaseScene {
         this.noFruit.setVisible(true);
         this.yesText.setVisible(true);
         this.noText.setVisible(true);
+        this.arrows.setVisible(true);
+        this.arrowsText.setVisible(true);
       } else {
         this.instr.setVisible(false);
         this.aboutRec.setVisible(false);
@@ -121,6 +130,8 @@ export class CornerButtonsScene extends BaseScene {
         this.noFruit.setVisible(false);
         this.yesText.setVisible(false);
         this.noText.setVisible(false);
+        this.arrows.setVisible(false);
+        this.arrowsText.setVisible(false);
       }
       this.aboutClicked = !this.aboutClicked;
     });

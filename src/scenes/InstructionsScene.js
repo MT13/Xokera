@@ -20,6 +20,7 @@ export class InstructionsBackgroundScene extends BaseBackgroundScene {
   preload() {}
 
   create() {
+    super.create();
     this.bg = this.add.image(0, 0, "bgInstr").setOrigin(0, 0);
     // this.scene.sendToBack();
     this.updateCamera();
@@ -40,7 +41,7 @@ class InstructionsScene extends BaseScene {
     super.create();
 
     let startX = TITLE_AREA_WIDTH / 2;
-    let startY = TITLE_AREA_HEIGHT / 3;
+    let startY = TITLE_AREA_HEIGHT / 4;
 
     this.backgroundScene = this.scene.add(
       "instructionsBackgroundScene",
@@ -64,14 +65,14 @@ class InstructionsScene extends BaseScene {
 
     this.scene.bringToTop();
     let styleT;
-    // if (i18n.language === "ka") {
+
     styleT = { ...styleText };
     styleT.fontSize = "25px";
     styleT.wordWrap = {
       width: TITLE_AREA_WIDTH / 2 + 50,
       useAdvancedWrap: true,
     };
-    // }
+
     // this.scene.add("cornerButtonsScene", CornerButtonsScene, true, {
     //   sceneKey: this.scene.key,
     //   bgKey: this.backgroundScene.scene.key,
@@ -83,9 +84,14 @@ class InstructionsScene extends BaseScene {
     sceneEvents.on("pause-up", this.onPause, this);
     sceneEvents.on("wake-up", this.onWake, this);
 
+    sceneEvents.on("rotate", this.onRotate, this);
+    sceneEvents.on("unRotate", this.unRotate, this);
+
     this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
       sceneEvents.off("pause-up", this.onPause);
       sceneEvents.off("wake-up", this.onWake);
+      sceneEvents.off("rotate", this.onRotate);
+      sceneEvents.off("unRotate", this.unRotate);
     });
 
     if (i18n.language === "ka")
@@ -96,7 +102,36 @@ class InstructionsScene extends BaseScene {
     let offset = startY + 150;
     this.instr = this.add.text(startX, offset, i18n.t("rules"), styleT);
     this.instr.setOrigin(0.5);
-    offset += 50 + this.instr.height;
+    offset += this.instr.height / 2 + 25;
+
+    this.yesFruit = this.add
+      .image(startX - this.instr.width / 2, offset, "yes_food_small")
+      .setOrigin(0, 0.5);
+    this.foodOffset = this.yesFruit.x + this.yesFruit.width;
+
+    this.yesText = this.add
+      .text(this.foodOffset, offset, i18n.t("yes"), styleT)
+      .setOrigin(0, 0.5);
+    this.foodOffset += this.yesText.width + 15;
+    this.noFruit = this.add
+      .image(this.foodOffset, offset, "no_food_small")
+      .setOrigin(0, 0.5);
+    this.foodOffset += this.noFruit.width;
+
+    this.noText = this.add
+      .text(this.foodOffset, offset, i18n.t("no"), styleT)
+      .setOrigin(0, 0.5);
+
+      this.foodOffset += this.noText.width + 15;
+      this.arrows = this.add
+        .image(this.foodOffset, offset, "arrows")
+        .setOrigin(0, 0.5);
+      this.foodOffset += this.arrows.width;
+      this.arrowsText = this.add
+        .text(this.foodOffset, offset, i18n.t("movement"), styleT)
+        .setOrigin(0, 0.5);
+
+    offset += 100;
 
     let button = new RedButton(
       this,
@@ -130,6 +165,21 @@ class InstructionsScene extends BaseScene {
     this.backgroundScene.scene.wake();
     this.scene.wake();
     this.scene.bringToTop();
+  }
+
+  onRotate() {
+    this.backgroundScene.scene.setVisible(false);
+    this.scene.setVisible(false);
+    console.log("sudy");
+    this.scene.setVisible(true, "rotateScene");
+  }
+
+  unRotate() {
+    console.log("tudy");
+
+    this.backgroundScene.scene.setVisible(true);
+    this.scene.setVisible(true);
+    this.scene.setVisible(false, "rotateScene");
   }
 }
 

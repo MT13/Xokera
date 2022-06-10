@@ -11,7 +11,14 @@ const resources = {
         "The online game “Cyber Snake” was developed by the Media Development Foundation’s team, while the idea to create an adapted version of the popular game belongs to the contestants of the “Most Media-literate School” competition from the 12th Public School of Gori. (Veriko Michitashvili, Mariam Gozalishvili, Keti Shugliashvili, Giorgi Michitashvili, Luka Shengelia).",
       instruction: "Instructions",
       "instruction text":
-        "The game consists of three parts, each of them containing 10 questions. In order to advance to the digital age (III), first, you have to pass through the Gutenberg Era – the realm of print media (I) and the Era of the Broadcasting Media (II). Each correct answer will earn you 10 points and increase the length of the snake. You only have a total of 5 lives. Each incorrect answer will cost you one life. In order to end up in the Digital Era, you would need at least one life and as many points as possible.",
+        "The game consists of three parts, each of them containing 10 questions. In order to advance to the digital age (III), first, you have to pass through the Gutenberg Era – the realm of print media (I) and the Era of the Broadcasting Media (II). Each correct answer will increase the length of the snake. You only have a total of 5 lives. Each incorrect answer will cost you one life. In order to end up in the Digital Era, you would need at least one life.",
+      about: `The game consists of three parts:
+
+      I - Gutenberg Era
+      II - Era of the Broadcasting Media
+      III - Digital Era
+      
+      Each of them containing 10 questions Each correct answer will increase the length of the snake. You only have a total of 5 lives. Each incorrect answer will cost you one life. In order to end up in the Digital Era, you would need at least one life and as many points as possible.`,
       questions: "Questions by: ",
       q_authors: "Media Development Foundation (MDF)",
       illustrator: "Illustrator: ",
@@ -24,7 +31,7 @@ const resources = {
       //rules page
 
       rules:
-        "Are you ready to travel in the depths of time and overcome the different stages of media development together with the Cyber Snake? Remember, you have to pass through two initial stages to advance to the Digital Age. Be cautious and look after your lives!",
+        "Are you ready to travel in the depths of time and overcome the different stages of media development together with the Cyber Snake? Remember, you have to pass through two initial stages to advance to the Digital Age. Be cautious and look after your lives! Use the keyboard arrows or the mouse to move the cyber snake.",
 
       //guttenberg era
 
@@ -93,7 +100,7 @@ const resources = {
       bh12: "In 1910, the Eiffel Tower survived destruction as the military began using it as a radio tower.",
       bh13: "The first color cartoon was released by Walt Disney in 1932.",
       bh14: "Maurice Leblanc's article, published in La Lumiere Electrique in 1880, formed the basis of television.",
-      bh15: "The guerrilla “Solidarity Movement” in Poland could not have been successful without video.",
+      bh15: "The guerrilla “Solidarity Movement” in Poland could not have been successful without radio.",
 
       //content questions
 
@@ -169,6 +176,7 @@ const resources = {
         "It is sad that you gave up after all! However, you can always start again!",
       body_hit:
         "Oops, you've bitten your own tail but no worries, you can still keep on playing.",
+      
 
       /// Buttons
       start: "start",
@@ -179,6 +187,7 @@ const resources = {
       give_up: "give up",
       yes: " - True",
       no: " - False",
+      movement: " - movement",
     },
   },
   ka: {
@@ -189,7 +198,14 @@ const resources = {
         "Cyber Snake-ის თამაში მედიის განვითარების ფონდის გუნდმა მოამზადა. პოპულარული თამაშის ადაპტირების იდეა კი “ყველაზე მედიაწიგნიერი სკოლის” კონკურსის მონაწილე გუნდს ეკუთვნის ქ.გორის მე-12 საჯარო სკოლიდან (ვერიკო მიჩიტაშვილი, მარიამ გოზალიშვილი, ქეთი შუღლიაშვილი, გიორგი მიჩიტაშვილი, ლუკა შენგელია).",
       instruction: "თამაშის წესები",
       "instruction text":
-        "მედიაწიგნიერი სნეიკი 3 ნაწილისგან შედგება. I საფეხურზე მოთამაშე ბეჭდური მედიის ეპოქაში, II საფეხურზე - სამაუწყებლო, ხოლო III-ზე ციფრული მედიის  ეპოქაში ხვდება. თითოეულ ნაწილში მოთამაშემ 10 შეკითხვას უნდა უპასუხოს.  სწორი პასუხი 10 ქულას უდრის, გველის სიგრძე კი იზრდება. არასწორი პასუხისას 5 სიცოცხლიდან ერთი იკარგება.  მოთამაშე უნდა ეცადოს, მაქსიმალურად მეტი ქულა დააგროვოს, თამაშის ბოლოს შედეგის სახით ნახავს, თუ რამდენი ქულა მოიპოვა.",
+        "თამაში 3 ნაწილისგან შედგება, თითოეული ეტაპი კი - 10 კითხვისგან. იმისთვის, რომ ციფრულ ეპოქაში (III) მოხვდე, ჯერ გუტენბერგის, ანუ ბეჭდური მედიის ეპოქა (I) უნდა გადალახო, შემდეგ კი -  სამაუწყებლო მედიის პერიოდი (II). გველის სიგრძე ყოველი სწორი პასუხის შემდეგ იზრდება. სულ 5 სიცოცხლე გაქვს. არასწორი პასუხისას 1 სიცოცხლე იკარგება. კიბერ ეპოქაში მოსახვედრად 1 სიცოცხლე მაინც უნდა შეინარჩუნო.",
+      about: `თამაში სამი ნაწილისგან შედგება:
+
+      I საფეხური - ბეჭდური მედიის ეპოქა;
+      II საფეხური - სამაუწყებლო მედიის ეპოქა;
+      III საფეხური - ციფრული მედიის ეპოქა.
+      
+      თითოეულ ნაწილში მოთამაშემ 10 შეკითხვას უნდა უპასუხოს. გველის სიგრძე ყოველი სწორი პასუხის შემდეგ იზრდება. სულ 5 სიცოცხლე გაქვს. არასწორი პასუხისას 1 სიცოცხლე იკარგება. კიბერ ეპოქაში მოსახვედრად 1 სიცოცხლე მაინც უნდა შეინარჩუნო.`,
       questions: "კითხვების ავტორები: ",
       q_authors: "მედიის განვითარების ფონდი",
       illustrator: "ილუსტრატორი: ",
@@ -201,7 +217,7 @@ const resources = {
 
       //rules page
       rules:
-        "მზად ხარ დროში იმოგზაურო და მედიის განვითარების სხვადასხვა ფაზა კიბერ ხოკერასთან ერთად  გადალახო? გახსოვდეს, ციფრულ ეპოქამდე მოსასვლელად 2 ეტაპი უნდა გაიარო. ყურადღებით იყავი და გაუფრთხილდი სიცოცხლეებს!",
+        "მზად ხარ დროში იმოგზაურო და მედიის განვითარების სხვადასხვა ფაზა კიბერ ხოკერასთან ერთად  გადალახო? გახსოვდეს, ციფრულ ეპოქამდე მოსასვლელად 2 ეტაპი უნდა გაიარო. ყურადღებით იყავი და გაუფრთხილდი სიცოცხლეებს, ხოკერა კი კლავიატურის ისრებით ან მაუსით უნდა მართო.",
 
       //guttenberg era
 
@@ -363,6 +379,7 @@ const resources = {
       give_up: "დანებება",
       yes: " - ჭეშმარიტია",
       no: " - მცდარია",
+      movement: " - მართვა",
     },
   },
 };

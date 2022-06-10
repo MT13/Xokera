@@ -27,6 +27,13 @@ export class PauseScene extends BaseScene {
     this.backgroundScene.scene.restart();
     this.scene.bringToTop();
 
+    sceneEvents.on("rotate", this.onRotate, this);
+    sceneEvents.on("unRotate", this.unRotate, this);
+    this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
+      sceneEvents.off("rotate", this.onRotate);
+      sceneEvents.off("unRotate", this.unRotate);
+    });
+
     let gbutton = new GreenButton(
       this,
       TITLE_AREA_WIDTH / 2,
@@ -45,5 +52,17 @@ export class PauseScene extends BaseScene {
 
       this.scene.sleep();
     });
+  }
+
+  onRotate() {
+    this.backgroundScene.scene.setVisible(false);
+    this.scene.setVisible(false);
+    this.scene.setVisible(true, "rotateScene");
+  }
+
+  unRotate() {
+    this.backgroundScene.scene.setVisible(true);
+    this.scene.setVisible(true);
+    this.scene.setVisible(false, "rotateScene");
   }
 }

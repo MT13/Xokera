@@ -49,7 +49,6 @@ class GameScene extends BaseScene {
     this.wrongSound = this.sound.add("audioWrong");
 
     this.bodyHit = this.sound.add("bodyHit");
-    console.log("gameScene: bodyhit is " + this.bodyHit);
   }
 
   create() {
@@ -61,6 +60,7 @@ class GameScene extends BaseScene {
       (TITLE_AREA_WIDTH - PLAY_AREA_WIDTH) / 2);
 
     this.stage = 0;
+    this.paused = false;
     this.initAudio();
 
     this.initStage();
@@ -73,6 +73,7 @@ class GameScene extends BaseScene {
       GameBackgroundScene,
       true
     );
+
     this.uiScene = this.scene.add("uiScene", UIScene, true, {
       playAreaStartX,
       playAreaStartY,
@@ -84,6 +85,8 @@ class GameScene extends BaseScene {
     this.scene.bringToTop("cornerButtonsScene");
     sceneEvents.on("pause-up", this.onPause, this);
     sceneEvents.on("wake-up", this.onWake, this);
+    sceneEvents.on("rotate", this.onRotate, this);
+    sceneEvents.on("unRotate", this.unRotate, this);
 
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       this.stage = 0;
@@ -91,6 +94,8 @@ class GameScene extends BaseScene {
       this.NoFood.destroy();
       sceneEvents.off("pause-up", this.onPause);
       sceneEvents.off("wake-up", this.onWake);
+      sceneEvents.off("rotate", this.onRotate);
+      sceneEvents.off("unRotate", this.unRotate);
       this.events.off(Phaser.Scenes.Events.WAKE);
     });
 
@@ -98,6 +103,11 @@ class GameScene extends BaseScene {
       this.setSleepFlag(false);
 
       this.initStage();
+    });
+
+    this.swipeInput = this.rexGestures.add.swipe({
+      velocityThreshold: 1000,
+      direction: "4dir",
     });
   }
 
@@ -185,6 +195,18 @@ class GameScene extends BaseScene {
   }
 
   update(time) {
+    if (this.swipeInput.isSwiped) {
+      if (this.swipeInput.left) {
+        this.snake.faceLeft();
+      } else if (this.swipeInput.right) {
+        this.snake.faceRight();
+      } else if (this.swipeInput.up) {
+        this.snake.faceUp();
+      } else if (this.swipeInput.down) {
+        this.snake.faceDown();
+      }
+    }
+
     if (this.cursors.left.isDown) {
       this.snake.faceLeft();
     } else if (this.cursors.right.isDown) {
@@ -206,7 +228,7 @@ class GameScene extends BaseScene {
       if (yesCollision || noCollision) {
         if ((yesCollision && this.answer) || (noCollision && !this.answer)) {
           this.correctSound.play();
-          if (this.curQuestion === 5) {
+          if (this.curQuestion === 9) {
             this.nextStage();
           } else {
             this.snake.grow();
@@ -221,6 +243,10 @@ class GameScene extends BaseScene {
           if (this.health === 0) {
             this.openLoseScene();
           }
+          if (this.curQuestion === 9) {
+            this.nextStage();
+          } else this.nextQuestion();
+
           sceneEvents.emit("health-changed", this.health);
         }
       }
@@ -369,7 +395,9 @@ class GameScene extends BaseScene {
     if (!this.getSleepFlag()) {
       this.uiScene.scene.pause();
       this.scene.pause();
+      this.paused = true;
       this.backgroundScene.scene.setVisible(false);
+
       this.uiScene.scene.setVisible(false);
       this.scene.setVisible(false);
     }
@@ -383,7 +411,24 @@ class GameScene extends BaseScene {
       this.scene.setVisible(true);
       this.uiScene.scene.setVisible(true);
       this.backgroundScene.scene.sendToBack();
+      this.paused = false;
     }
+  }
+
+  onRotate() {
+    this.backgroundScene.scene.setVisible(false);
+    this.scene.setVisible(false);
+    this.uiScene.scene.setVisible(false);
+    this.scene.setVisible(true, "rotateScene");
+  }
+
+  unRotate() {
+    if (!this.paused) {
+      this.backgroundScene.scene.setVisible(true);
+      this.scene.setVisible(true);
+      this.uiScene.scene.setVisible(true);
+    }
+    this.scene.setVisible(false, "rotateScene");
   }
 }
 
