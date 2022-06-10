@@ -1,7 +1,7 @@
 import i18n from "../../i18n";
 import { BaseBackgroundScene } from "./BaseScene";
 
-export class RotateScene extends BaseBackgroundScene {
+export class RotateScene extends Phaser.Scene{
   constructor() {
     super({ key: "rotateScene" });
   }
@@ -22,7 +22,13 @@ export class RotateScene extends BaseBackgroundScene {
     }
   }
 
+  resize() {
+    this.updateCamera()
+  }
+
   create() {
+    this.scale.on("resize", this.resize, this);
+
     const scaleWidth = this.scale.gameSize.width;
     const scaleHeight = this.scale.gameSize.height;
 
