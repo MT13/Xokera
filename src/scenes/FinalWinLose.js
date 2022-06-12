@@ -18,6 +18,7 @@ export class FinalBackgroundScene extends BaseBackgroundScene {
   preload() {}
 
   create(data) {
+    super.create();
     this.bg = this.add.image(0, 0, data.bgImage).setOrigin(0, 0);
     this.updateCamera();
   }

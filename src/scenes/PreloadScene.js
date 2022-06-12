@@ -84,41 +84,36 @@ export default class PreloadScene extends Phaser.Scene {
     super({ key: "preload" });
   }
 
-  init() {
-    sceneEvents.on("rotate", this.onRotate, this);
-    sceneEvents.on("unRotate", this.unRotate, this);
-    this.scale.on("resize", this.resize, this);
+  // init() {
+  //   sceneEvents.on("rotate", this.onRotate, this);
+  //   sceneEvents.on("unRotate", this.unRotate, this);
+  //   this.scale.on("resize", this.resize, this);
 
-    this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
-      sceneEvents.off("rotate", this.onRotate);
-      sceneEvents.off("unRotate", this.unRotate);
-    });
-  }
+  //   this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
+  //     sceneEvents.off("rotate", this.onRotate);
+  //     sceneEvents.off("unRotate", this.unRotate);
+  //   });
+  // }
 
   preload() {
-    const width = this.scale.gameSize.width;
-    const height = this.scale.gameSize.height;
+    // const width = this.scale.gameSize.width;
+    // const height = this.scale.gameSize.height;
 
-    console.log("dims: " + width + "x" + height);
-    if (width <= height) {
-      this.scene.setVisible(true, "rotateScene");
-      this.scene.setVisible(false);
-    } else {
-      this.scene.setVisible(false, "rotateScene");
-      this.scene.setVisible(true);
-    }
+    // console.log("dims: " + width + "x" + height);
+    // if (width <= height) {
+    //   this.scene.setVisible(true, "rotateScene");
+    //   this.scene.setVisible(false);
+    // } else {
+    //   this.scene.setVisible(false, "rotateScene");
+    //   this.scene.setVisible(true);
+    // }
+
+    this.scene.setVisible(false, "rotateScene");
 
     this.logo = this.add
       .image(this.centerX(), this.centerY() - 100, "firstXokeraWin")
       .setOrigin(0.5, 0.5);
     this.createProgressbar(this.centerX(), this.centerY());
-    console.log(
-      "preload  rotate is visible: " + this.scene.isVisible("rotateScene")
-    );
-
-    console.log(
-      "preload after rotate is visible: " + this.scene.isVisible("rotateScene")
-    );
 
     this.loadAssets();
   }
@@ -288,7 +283,9 @@ export default class PreloadScene extends Phaser.Scene {
     });
     border.strokeRectShape(borderRect);
 
-    this.progressbar = this.add.graphics();
+    let progressbar = this.add.graphics();
+
+    // this.progressbar = 
 
     /**
      * Updates the progress bar.
@@ -296,9 +293,9 @@ export default class PreloadScene extends Phaser.Scene {
      * @param {number} percentage
      */
     let updateProgressbar = function (percentage) {
-      this.progressbar.clear();
-      this.progressbar.fillStyle(0xffc627, 1);
-      this.progressbar.fillRect(xStart, yStart, percentage * width, height);
+      progressbar.clear();
+      progressbar.fillStyle(0xffc627, 1);
+      progressbar.fillRect(xStart, yStart, percentage * width, height);
     };
 
     this.load.on("progress", updateProgressbar);
@@ -307,14 +304,10 @@ export default class PreloadScene extends Phaser.Scene {
       "complete",
       function () {
         this.load.off("progress", updateProgressbar);
-        this.scene.start("title");
+        this.scene.start("titleScreen");
       },
       this
     );
-  }
-
-  create() {
-    this.scene.start("titleScreen");
   }
 
   onRotate() {
@@ -330,14 +323,37 @@ export default class PreloadScene extends Phaser.Scene {
     this.scene.setVisible(false, "rotateScene");
   }
 
-  resize(gameSize, baseSize, displaySize, resolution) {
-    var width = gameSize.width;
-    var height = gameSize.height;
+  // resize(gameSize, baseSize, displaySize, resolution) {
 
-    this.cameras.resize(width, height);
+  //   console.log('resizing')
+  //   super.resize(gameSize, baseSize, displaySize, resolution);
 
-    if (this.logo) this.logo.setPosition(this.centerX(), this.centerY() - 100);
-    // if (this.progressbar)
-      // this.progressbar.setPosition(this.centerX(), this.centerY());
-  }
+  //   const width = this.scale.gameSize.width;
+  //   const height = this.scale.gameSize.height;
+
+  //   if (width <= height) {
+  //     this.onRotate()
+  //   } else {
+  //     this.unRotate()
+  //   }
+    
+  // }
+
+  // resize(gameSize, baseSize, displaySize, resolution) {
+  //   console.log("DDD")
+  //   var width = gameSize.width;
+  //   var height = gameSize.height;
+
+  //   this.cameras.resize(width, height);
+
+  //   if (this.logo) this.logo.setPosition(this.centerX(), this.centerY() - 100);
+
+  //   if (width <= height) {
+  //     this.onRotate()
+  //   } else {
+  //     this.unRotate()
+  //   }
+  //   // if (this.progressbar)
+  //     // this.progressbar.setPosition(this.centerX(), this.centerY());
+  // }
 }

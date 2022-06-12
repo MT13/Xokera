@@ -22,6 +22,7 @@ import { sceneEvents } from "../events/EventCenter";
 //   preload() {}
 
 //   create() {
+//     super.create();
 //     // this.scene.sendToBack();
 //     this.updateCamera();
 //   }

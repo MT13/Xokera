@@ -24,6 +24,7 @@ export class StageBackgroundScene extends BaseBackgroundScene {
   preload() {}
 
   create() {
+    super.create();
     this.bg = this.add.image(0, 0, "bgBoard").setOrigin(0, 0).setAlpha(0.5);
     // this.scene.sendToBack();
     this.updateCamera();

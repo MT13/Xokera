@@ -28,6 +28,7 @@ export class GameBackgroundScene extends BaseBackgroundScene {
   preload() {}
 
   create() {
+    super.create();
     this.bg = this.add.image(0, 0, "bgBoard").setOrigin(0, 0);
     // this.scene.sendToBack();
     this.updateCamera();
