@@ -99,7 +99,6 @@ export default class PreloadScene extends Phaser.Scene {
     const width = this.scale.gameSize.width;
     const height = this.scale.gameSize.height;
 
-    console.log("dims: " + width + "x" + height);
     if (width <= height) {
       this.scene.setVisible(true, "rotateScene");
       this.scene.setVisible(false);
@@ -112,13 +111,8 @@ export default class PreloadScene extends Phaser.Scene {
       .image(this.centerX(), this.centerY() - 100, "firstXokeraWin")
       .setOrigin(0.5, 0.5);
     this.createProgressbar(this.centerX(), this.centerY());
-    console.log(
-      "preload  rotate is visible: " + this.scene.isVisible("rotateScene")
-    );
 
-    console.log(
-      "preload after rotate is visible: " + this.scene.isVisible("rotateScene")
-    );
+
 
     this.loadAssets();
   }
@@ -296,9 +290,9 @@ export default class PreloadScene extends Phaser.Scene {
      * @param {number} percentage
      */
     let updateProgressbar = function (percentage) {
-      this.progressbar.clear();
-      this.progressbar.fillStyle(0xffc627, 1);
-      this.progressbar.fillRect(xStart, yStart, percentage * width, height);
+      // this.progressbar.clear();
+      // this.progressbar.fillStyle(0xffc627, 1);
+      // this.progressbar.fillRect(xStart, yStart, percentage * width, height);
     };
 
     this.load.on("progress", updateProgressbar);
@@ -319,24 +313,22 @@ export default class PreloadScene extends Phaser.Scene {
 
   onRotate() {
     this.scene.setVisible(false);
-    console.log("prrr");
     this.scene.setVisible(true, "rotateScene");
   }
 
   unRotate() {
-    console.log("prru");
 
     this.scene.setVisible(true);
     this.scene.setVisible(false, "rotateScene");
   }
 
   resize(gameSize, baseSize, displaySize, resolution) {
-    var width = gameSize.width;
-    var height = gameSize.height;
+    // var width = gameSize.width;
+    // var height = gameSize.height;
 
-    this.cameras.resize(width, height);
+    // this.cameras.resize(width, height);
 
-    if (this.logo) this.logo.setPosition(this.centerX(), this.centerY() - 100);
+    // if (this.logo) this.logo.setPosition(this.centerX(), this.centerY() - 100);
     // if (this.progressbar)
       // this.progressbar.setPosition(this.centerX(), this.centerY());
   }

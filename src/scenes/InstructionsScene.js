@@ -170,12 +170,12 @@ class InstructionsScene extends BaseScene {
   onRotate() {
     this.backgroundScene.scene.setVisible(false);
     this.scene.setVisible(false);
-    console.log("sudy");
+
     this.scene.setVisible(true, "rotateScene");
   }
 
   unRotate() {
-    console.log("tudy");
+
 
     this.backgroundScene.scene.setVisible(true);
     this.scene.setVisible(true);

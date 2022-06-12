@@ -21,12 +21,13 @@ const MIN_SIZE_HEIGHT_SCREEN = 360;
 const SIZE_WIDTH_SCREEN = 10;
 const SIZE_HEIGHT_SCREEN = 10;
 
+let dpr = window.devicePixelRatio;
 const config = {
   scale: {
     type: Phaser.AUTO,
     mode: Phaser.Scale.RESIZE,
     parent: "game",
-    resolution: window.devicePixelRatio,
+    pixelArt: false,
     autoCenter: Phaser.Scale.CENTER_BOTH,
     width: SIZE_WIDTH_SCREEN,
     height: SIZE_HEIGHT_SCREEN,
@@ -59,6 +60,7 @@ const config = {
   },
 };
 
+console.log("dpr: " + dpr);
 let game = new Phaser.Game(config);
 
 let preloadScene = new PreloadScene();

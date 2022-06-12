@@ -51,7 +51,6 @@ class StageScene extends BaseScene {
   create(data) {
     super.create();
 
-    console.log("is visible " + this.scene.isVisible("rotateScene"));
 
     let startX = TITLE_AREA_WIDTH / 2;
     let startY;
@@ -145,13 +144,11 @@ class StageScene extends BaseScene {
   }
 
   onRotate() {
-    console.log("onRotate");
     this.scene.setVisible(false);
     this.scene.setVisible(true, "rotateScene");
   }
 
   unRotate() {
-    console.log("unrotate");
     this.scene.setVisible(true);
     this.scene.setVisible(false, "rotateScene");
   }

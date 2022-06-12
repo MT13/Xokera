@@ -175,14 +175,12 @@ export class TitleScreen extends BaseScene {
   }
 
   onRotate() {
-    console.log("ts: rotate");
     this.backgroundScene.scene.setVisible(false);
     this.scene.setVisible(false);
     this.scene.setVisible(true, "rotateScene");
   }
 
   unRotate() {
-    console.log("ts: unrotate");
 
     this.backgroundScene.scene.setVisible(true);
     this.scene.setVisible(true);
