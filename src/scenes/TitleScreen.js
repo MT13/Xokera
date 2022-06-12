@@ -172,6 +172,8 @@ export class TitleScreen extends BaseScene {
       this.scale.removeListener("resize", this.resize);
       this.scene.start("instructionsScene");
     });
+
+    this.backgroundScene.resize()
   }
 
   onRotate() {
