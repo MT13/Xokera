@@ -23,8 +23,10 @@ const SIZE_HEIGHT_SCREEN = 10;
 
 const config = {
   scale: {
+    type: Phaser.AUTO,
     mode: Phaser.Scale.RESIZE,
     parent: "game",
+    resolution: window.devicePixelRatio,
     autoCenter: Phaser.Scale.CENTER_BOTH,
     width: SIZE_WIDTH_SCREEN,
     height: SIZE_HEIGHT_SCREEN,
@@ -56,7 +58,6 @@ const config = {
     ],
   },
 };
-
 
 let game = new Phaser.Game(config);
 

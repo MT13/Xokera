@@ -1,0 +1,22 @@
+@font-face {
+  font-family: Roboto;
+  src: url("/Roboto_MtavruliBold.d1c3849a.woff2");
+
+}
+
+@font-face {
+  font-family: Firago;
+  src: url("/FiraGO-Regular.bbe51bda.woff2");
+}
+
+
+html,
+body {
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+  height: 100%;
+}
+
+
+/*# sourceMappingURL=/styles.8986bff4.css.map */

@@ -70,21 +70,56 @@ import winMusic from "../../assets/sounds/snek won.mp3";
 import backgroundMusic from "../../assets/sounds/snek.mp3";
 import bodyHit from "../../assets/sounds/bodyhit.mp3";
 
-import rotateEn from "../../assets/rotateEn.png";
-import rotateGeo from "../../assets/rotateGeo.png";
+import { sceneEvents } from "../events/EventCenter";
 
-import { CELL_HEIGHT, CELL_WIDTH } from "../constants/dimensions";
+import {
+  CELL_HEIGHT,
+  CELL_WIDTH,
+  TITLE_AREA_HEIGHT,
+  TITLE_AREA_WIDTH,
+} from "../constants/dimensions";
 
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
     super({ key: "preload" });
   }
 
+  init() {
+    sceneEvents.on("rotate", this.onRotate, this);
+    sceneEvents.on("unRotate", this.unRotate, this);
+    this.scale.on("resize", this.resize, this);
+
+    this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
+      sceneEvents.off("rotate", this.onRotate);
+      sceneEvents.off("unRotate", this.unRotate);
+    });
+  }
+
   preload() {
-    this.add
+    const width = this.scale.gameSize.width;
+    const height = this.scale.gameSize.height;
+
+    console.log("dims: " + width + "x" + height);
+    if (width <= height) {
+      this.scene.setVisible(true, "rotateScene");
+      this.scene.setVisible(false);
+    } else {
+      this.scene.setVisible(false, "rotateScene");
+      this.scene.setVisible(true);
+    }
+
+    this.logo = this.add
       .image(this.centerX(), this.centerY() - 100, "firstXokeraWin")
       .setOrigin(0.5, 0.5);
     this.createProgressbar(this.centerX(), this.centerY());
+    console.log(
+      "preload  rotate is visible: " + this.scene.isVisible("rotateScene")
+    );
+
+    console.log(
+      "preload after rotate is visible: " + this.scene.isVisible("rotateScene")
+    );
+
     this.loadAssets();
   }
 
@@ -219,16 +254,13 @@ export default class PreloadScene extends Phaser.Scene {
 
     this.load.svg("arrowsBig", arrows, {
       width: CELL_WIDTH * 3,
-      height: CELL_HEIGHT * 3/2,
+      height: (CELL_HEIGHT * 3) / 2,
     });
 
     this.load.svg("arrows", arrows, {
       width: CELL_WIDTH * 2,
       height: CELL_HEIGHT,
     });
-
-    this.load.image("rotateEn", rotateEn);
-    this.load.image("rotateGeo", rotateGeo);
   }
 
   createProgressbar(x, y) {
@@ -256,7 +288,7 @@ export default class PreloadScene extends Phaser.Scene {
     });
     border.strokeRectShape(borderRect);
 
-    let progressbar = this.add.graphics();
+    this.progressbar = this.add.graphics();
 
     /**
      * Updates the progress bar.
@@ -264,9 +296,9 @@ export default class PreloadScene extends Phaser.Scene {
      * @param {number} percentage
      */
     let updateProgressbar = function (percentage) {
-      progressbar.clear();
-      progressbar.fillStyle(0xffc627, 1);
-      progressbar.fillRect(xStart, yStart, percentage * width, height);
+      this.progressbar.clear();
+      this.progressbar.fillStyle(0xffc627, 1);
+      this.progressbar.fillRect(xStart, yStart, percentage * width, height);
     };
 
     this.load.on("progress", updateProgressbar);
@@ -283,5 +315,29 @@ export default class PreloadScene extends Phaser.Scene {
 
   create() {
     this.scene.start("titleScreen");
+  }
+
+  onRotate() {
+    this.scene.setVisible(false);
+    console.log("prrr");
+    this.scene.setVisible(true, "rotateScene");
+  }
+
+  unRotate() {
+    console.log("prru");
+
+    this.scene.setVisible(true);
+    this.scene.setVisible(false, "rotateScene");
+  }
+
+  resize(gameSize, baseSize, displaySize, resolution) {
+    var width = gameSize.width;
+    var height = gameSize.height;
+
+    this.cameras.resize(width, height);
+
+    if (this.logo) this.logo.setPosition(this.centerX(), this.centerY() - 100);
+    // if (this.progressbar)
+      // this.progressbar.setPosition(this.centerX(), this.centerY());
   }
 }

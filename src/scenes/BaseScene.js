@@ -96,8 +96,11 @@ export class BaseBackgroundScene extends Phaser.Scene {
     const height = this.scale.gameSize.height;
 
     if (width <= height) {
+      console.log("bs: rotate");
       sceneEvents.emit("rotate");
     } else {
+      console.log("bs: urotate");
+
       sceneEvents.emit("unRotate");
     }
   }
@@ -125,7 +128,6 @@ export class BaseBackgroundScene extends Phaser.Scene {
     if (width <= height) {
       sceneEvents.emit("rotate");
     } else {
-
       sceneEvents.emit("unRotate");
     }
   }

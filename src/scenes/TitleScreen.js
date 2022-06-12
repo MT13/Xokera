@@ -7,6 +7,7 @@ import RedButton from "../objects/redButton";
 import { TITLE_AREA_WIDTH } from "../constants/title";
 import { CELL_HEIGHT, CELL_WIDTH } from "../constants/dimensions";
 import { TitleBackgroundScene } from "./TitleBackgroundScene";
+import { sceneEvents } from "../events/EventCenter";
 
 export class TitleScreen extends BaseScene {
   constructor() {
@@ -28,8 +29,14 @@ export class TitleScreen extends BaseScene {
       TitleBackgroundScene,
       true
     );
-    this.scene.launch("rotateScene");
-    this.scene.setVisible(false, "rotateScene");
+
+    sceneEvents.on("rotate", this.onRotate, this);
+    sceneEvents.on("unRotate", this.unRotate, this);
+
+    this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
+      sceneEvents.off("rotate", this.onRotate);
+      sceneEvents.off("unRotate", this.unRotate);
+    });
 
     this.scene.bringToTop();
 
@@ -165,5 +172,20 @@ export class TitleScreen extends BaseScene {
       this.scale.removeListener("resize", this.resize);
       this.scene.start("instructionsScene");
     });
+  }
+
+  onRotate() {
+    console.log("ts: rotate");
+    this.backgroundScene.scene.setVisible(false);
+    this.scene.setVisible(false);
+    this.scene.setVisible(true, "rotateScene");
+  }
+
+  unRotate() {
+    console.log("ts: unrotate");
+
+    this.backgroundScene.scene.setVisible(true);
+    this.scene.setVisible(true);
+    this.scene.setVisible(false, "rotateScene");
   }
 }
