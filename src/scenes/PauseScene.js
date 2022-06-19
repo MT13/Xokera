@@ -42,7 +42,7 @@ export class PauseScene extends BaseScene {
     );
     this.add.existing(gbutton);
 
-    gbutton.on("pointerdown", () => {
+    gbutton.on("pointerup", () => {
       this.scale.startFullscreen();
       sceneEvents.emit("wake-up");
 

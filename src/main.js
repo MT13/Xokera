@@ -1,9 +1,6 @@
-import Phaser from "phaser";
 import GameScene from "./scenes/GameScene";
 import { TitleScreen, TitleBackgroundScene } from "./scenes/TitleScreen";
-import i18n from "../i18n";
-import RoundRectanglePlugin from "phaser3-rex-plugins/plugins/roundrectangle-plugin.js";
-import GesturesPlugin from "phaser3-rex-plugins/plugins/gestures-plugin.js";
+
 import InstructionsScene from "./scenes/InstructionsScene";
 import { StageWinLoseScene, WinStage } from "./scenes/StageWinLose";
 import StageScene from "./scenes/StageScene";
@@ -13,6 +10,9 @@ import { CornerButtonsScene } from "./scenes/CornerButtonsScene";
 import PreloadScene from "./scenes/PreloadScene";
 import BootScene from "./scenes/BootScene";
 import { RotateScene } from "./scenes/RotateScene";
+import RoundRectanglePlugin from "phaser3-rex-plugins/plugins/roundrectangle-plugin.js";
+import GesturesPlugin from "phaser3-rex-plugins/plugins/gestures-plugin.js";
+import Phaser from "phaser";
 
 const MAX_SIZE_WIDTH_SCREEN = 1920;
 const MAX_SIZE_HEIGHT_SCREEN = 1080;
@@ -21,13 +21,12 @@ const MIN_SIZE_HEIGHT_SCREEN = 360;
 const SIZE_WIDTH_SCREEN = 10;
 const SIZE_HEIGHT_SCREEN = 10;
 
-let dpr = window.devicePixelRatio;
 const config = {
   scale: {
     type: Phaser.AUTO,
     mode: Phaser.Scale.RESIZE,
     parent: "game",
-    pixelArt: false,
+
     autoCenter: Phaser.Scale.CENTER_BOTH,
     width: SIZE_WIDTH_SCREEN,
     height: SIZE_HEIGHT_SCREEN,
@@ -60,7 +59,6 @@ const config = {
   },
 };
 
-console.log("dpr: " + dpr);
 let game = new Phaser.Game(config);
 
 let preloadScene = new PreloadScene();

@@ -29,9 +29,9 @@ export class BaseScene extends Phaser.Scene {
     this.scale.on("resize", this.resize, this);
     this.updateCamera(this);
 
-    this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
-      this.scale.removeListener("resize", this.resize);
-    });
+    // this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
+    //   this.scale.removeListener("resize", this.resize);
+    // });
     this.events.once(Phaser.Scenes.Events.DESTROY, () => {
       this.scale.removeListener("resize", this.resize);
     });

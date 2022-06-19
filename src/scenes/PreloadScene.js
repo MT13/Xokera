@@ -308,6 +308,7 @@ export default class PreloadScene extends Phaser.Scene {
       },
       this
     );
+
   }
 
   onRotate() {

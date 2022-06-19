@@ -52,8 +52,11 @@ export class TitleScreen extends BaseScene {
       useAdvancedWrap: true,
     };
 
+    console.log("lang: " + i18n.language);
+
     styleH.color = "#FFC627";
     this.aboutH = this.add.text(0, currentOffset, i18n.t("about game"), styleH);
+    console.log("aboutH: " + this.aboutH.text);
 
     currentOffset *= 2;
     this.aboutT = this.add.text(0, currentOffset, i18n.t("annotation"), styleT);
@@ -165,15 +168,20 @@ export class TitleScreen extends BaseScene {
     this.add.existing(button);
 
     button.setInteractive();
-    button.on("pointerdown", () => {
+    button.on("pointerup", () => {
       this.scale.startFullscreen();
+
+      // if (!this.sys.game.device.os.desktop) {
+      //   this.scale.width = window.innerWidth;
+      //   this.scale.height = window.innerHeight;
+      // }
 
       this.scene.stop("titleBackgroundScene");
       this.scale.removeListener("resize", this.resize);
       this.scene.start("instructionsScene");
     });
 
-    this.backgroundScene.resize()
+    this.backgroundScene.resize();
   }
 
   onRotate() {
@@ -183,7 +191,6 @@ export class TitleScreen extends BaseScene {
   }
 
   unRotate() {
-
     this.backgroundScene.scene.setVisible(true);
     this.scene.setVisible(true);
     this.scene.setVisible(false, "rotateScene");

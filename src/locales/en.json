@@ -1,0 +1,169 @@
+
+{  
+
+      "about game": "About the Game",
+      "annotation":
+        "The online game “Cyber Snake” was developed by the Media Development Foundation’s team, while the idea to create an adapted version of the popular game belongs to the contestants of the “Most Media-literate School” competition from the 12th Public School of Gori. (Veriko Michitashvili, Mariam Gozalishvili, Keti Shugliashvili, Giorgi Michitashvili, Luka Shengelia).",
+      "instruction": "Instructions",
+      "instruction text":
+        "The game consists of three parts, each of them containing 10 questions. In order to advance to the digital age (III), first, you have to pass through the Gutenberg Era – the realm of print media (I) and the Era of the Broadcasting Media (II). Each correct answer will increase the length of the snake. You only have a total of 5 lives. Each incorrect answer will cost you one life. In order to end up in the Digital Era, you would need at least one life.",
+      "about": "The game consists of three parts:\n\nI - Gutenberg Era\nII - Era of the Broadcasting Media\nIII - Digital Era\nEach of them containing 10 questions Each correct answer will increase the length of the snake. You only have a total of 5 lives. Each incorrect answer will cost you one life. In order to end up in the Digital Era, you would need at least one life and as many points as possible.",
+      "questions": "Questions by: ",
+      "q_authors": "Media Development Foundation (MDF)",
+      "illustrator": "Illustrator: ",
+      "developer": "Developer: ",
+      "il name": "Zizi Nishnianidze",
+      "dev name": "Maria Tarielashvili",
+
+      "cyber_snake": "Cyber Snake",
+
+
+      "rules":
+        "Are you ready to travel in the depths of time and overcome the different stages of media development together with the Cyber Snake? Remember, you have to pass through two initial stages to advance to the Digital Age. Be cautious and look after your lives! Use the keyboard arrows or the mouse to move the cyber snake.",
+
+
+      "first_xokera": "Gutenberg Era",
+      "first_instr":
+        "Welcome to the Gutenberg Era! Remember the evolution of the print culture and what we should know about media content.",
+
+      "gh1": "Johannes Gutenberg was the first printer and publisher.",
+      "gh2": "“Acta Diurna” was the prototype of a newspaper read by the people in crowded places in Rome.",
+      "gh3": "The first-ever printed Bible is associated with the name of Gutenberg. ",
+      "gh4": "The word “newspaper” derives from the Russian word газета. ",
+      "gh5": "“Gazette” [Newspaper] is derived from the name of the Italian coin (Gazzetta).",
+      "gh6": "The oldest daily newspaper still in circulation today is the Wiener Zeitung. ",
+      "gh7": "In 1766, Sweden became the first country to lift censorship in the press. ",
+      "gh8": "The presidency of Richard Nixon was brought down by an investigation by journalists of the Washington Post. ",
+      "gh9": "The Oscar-winning film “All the President’s Men” depicts the true story behind the Watergate scandal.",
+      "gh10": "After high school, Ernest Hemingway worked as a reporter for The Kansas City Star.",
+      "gh11": "Harper Lee was awarded with the Pulitzer Prize in 1961 for “To Kill a Mockingbird.” ",
+      "gh12": "The so-called Pentagon papers were published by the Soviet newspaper Pravda. ",
+      "gh13": "Spielberg’s film “The Post” deals with the New York Times investigation into the Pentagon papers. ",
+      "gh14": "Foreigner Policy journalist Glenn Greenwald received the Pulitzer Prize for exposing Edward Snowden’s secret documents.",
+      "gh15": "The Soviet press covered the Chernobyl disaster only 10 days later. ",
+
+
+      "gc1": "News is information that has happened in the past. ",
+      "gc2": "When a dog bites a person, it is “news”.",
+      "gc3": "The “inverted pyramid” method was used to produce papyrus in ancient Egypt.",
+      "gc4": "The “inverted pyramid” is a news writing method in which the most important information is given in the introduction.",
+      "gc5": "Lead is the opening paragraph of the article.",
+      "gc6": "A newspaper is a periodical publication aimed at informing the reader.",
+      "gc7": "An interview is a one-person monologue.",
+      "gc8": "A primary source is newspaper information related to hydro resources.",
+      "gc9": "Op-ed is the opposite page of the editorial page, where mainly the opinions of external authors are published.",
+      "gc10": "“Opinion” is something that can be verified.",
+      "gc11": "The primary source is an eyewitness to the story who has direct contact with what happened.",
+      "gc12": "A paparazzi is a freelance photographer who pursues celebrities to get photographs of them.",
+      "gc13": "The Pulitzer Prize is awarded only to newspaper journalists.",
+      "gc14": "When a person bites a dog, it is “news”.",
+      "gc15": "Media has a “watchdogging” function.",
+
+      "win1_title": "Good job!",
+      "win1_text":
+        "The era of print media is over. The era of broadcast media awaits you!",
+
+
+      "second_xokera": "Broadcasting Era",
+      "second_instr":
+        "After the broadcast of moving black-and-white sound images became possible over long distances, revolutionary changes have taken place in the field of communication. Remember the transformation that occurred in the age of television and radio and be cautious of lives to advance to the digital age.",
+
+
+      "bh1": "The word “Radio” is derived from the Latin radius and translates to beam.",
+      "bh2": "The word “Television” derives from the Greek “tele” (τηλε - far) and the Latin “visio” (see).",
+      "bh3": "Harry Truman was the first president whose inauguration was broadcasted by television.",
+      "bh4": "Radio hooligans were people who destroyed radio lines during the Soviet era.",
+      "bh5": "The frequency of radio waves is measured in hertz and is associated with the name Heinrich Hertz.",
+      "bh6": "Al Pacino plays the producer of the CBS show “60 Minutes” in the movie “Insider”.",
+      "bh7": "In 1938, CBS radio has broadcasted credible information about the Martian invasion.",
+      "bh8": "The play, based on “The War of the Worlds”, was performed and broadcasted life on CBS Radio, which caused panic.",
+      "bh9": "In 1969, Moon Landing was broadcast live on television",
+      "bh10": "The first American TV show was called “The Queen’s Messenger”.",
+      "bh11": " The BBC license fee varies according to the color and black-and-white TV.",
+      "bh12": "In 1910, the Eiffel Tower survived destruction as the military began using it as a radio tower.",
+      "bh13": "The first color cartoon was released by Walt Disney in 1932.",
+      "bh14": "Maurice Leblanc's article, published in La Lumiere Electrique in 1880, formed the basis of television.",
+      "bh15": "The guerrilla “Solidarity Movement” in Poland could not have been successful without radio.",
+
+
+      "bc1": "Video Over (VO) is a short story consisting of the anchor’s text, cover footage and the respondent(s) comment.",
+      "bc2": "Primetime is the time of day when the least people watch TV.",
+      "bc3": "Vox Pop is a public opinion poll named in honor of the Pope.",
+      "bc4": "Vox Pop is derived from the Latin Vox Populi (“People’s Voice”) and was a popular interactive radio program in the 1930s.",
+      "bc5": "The broadcast network entails catching the audience in a trap.",
+      "bc6": "Bumper- a brief announcement, usually two to fifteen seconds in length that can contain a voice-over, placed between a pause in the program",
+      "bc7": "Hard Talk is an in-depth interview with hard-hitting questions and sensitive topics.",
+      "bc8": "Teleprompter - a device used to project a speaker’s script onto a transparent panel in front of a television camera lens.",
+      "bc9": "Montage - the technique of selecting, editing, and piecing together separate sections of film to form a continuous whole.",
+      "bc10": "Subtitle - captions displayed at the bottom of a cinema or television screen that translate or transcribe the dialogue or narrative.",
+      "bc11": "Freeze-frame - a single frame forming a motionless image from a film or videotape.",
+      "bc12": "Zooming entails online participation in broadcasting.",
+      "bc13": "Zooming – The use of variable focus lenses to capture close-up and distant views from a fixed position.",
+      "bc14": "Voice over - a piece of narration in a film or broadcast, not accompanied by an image of the speaker.",
+      "bc15": "A story is a sequence of facts and events captured in a few minutes, which is only published on social networks.",
+
+      "win2_title": "Congratulations!",
+      "win2_text":
+        "You have successfully overcome the broadcasting era and reached the cyber snake. In order to secure your victory, you have to adapt to the digital world as well!",
+      "third_xokera": "The Era of Digital Media",
+      "third_instr":
+        "Finally! You are in the Digital Age; however, navigating into the new media ecosystem is not that easy. In addition to knowledge of various online formats and platforms, the test will examine your cyber security skills.",
+
+
+      "dh1": "The Internet is a network that connects relatives around the world.",
+      "dh2": "The Internet is a network that connects computers around the world.",
+      "dh3": "“web” is an acronym for World Wide Web.",
+      "dh4": "An information bubble is a collection of abundant information in one space.",
+      "dh5": "The information bubble is a closed space where the algorithm determines the user’s information choice according to their interests.",
+      "dh6": "The term cyberspace was first coined by the American writer William Gibson in 1982.",
+      "dh7": "Cookies found on the internet are Bill Gates’s favourite snacks.",
+      "dh8": "Cookie is a temporary file that is automatically created while accessing a website, which stores personal information.",
+      "dh9": "Is “love12” a safe password for an email address?",
+      "dh10": "Should one use combinations of inconsistent numbers, different characters and words in the password?",
+      "dh11": "The extortionist virus seeks to steal Covid-19 statistics.",
+      "dh12": "The extortionist virus completely blocks the computer or individual files stored in it, and in exchange for access, requires payment in bitcoins.",
+      "dh13": " Phishing means hunting for goldfish.",
+      "dh14": "Phishing is a form of internet fraud.",
+      "dh15": " Bill Gates and Paul Allen are the creators of Microsoft.",
+
+      "dc1": "Vlog is a blog containing video content.",
+      "dc2": "Multimedia means concentrated media in the hands of a multimillionaire.",
+      "dc3": "Multimedia is a form of communication that combines various contents (text, audio, visual, etc.).",
+      "dc4": "A podcast is a thematic series of digital audio/video recordings that can be downloaded or listened to online.",
+      "dc5": " Blurb is a brief annotation of the story on the news website.",
+      "dc6": "RSS is a web format for publishing frequently updated information in a chronological order.",
+      "dc7": "Coordinated inauthentic behavior (CIB) is understood as coordinated efforts to manipulate public debate for a strategic goal where fake accounts are central to the operation.",
+      "dc8": "Video game company Nintendo originally produced card games.",
+      "dc9": "Is it possible to identify the vaccinated people via Bluetooth?",
+      "dc10": "Is it possible to steal personal data from a mobile phone via Bluetooth?",
+      "dc11": "The first-ever website info.cern.ch is still accessible.",
+      "dc12": "In case of no internet connection, you can entertain yourself by playing the game of running T-Rex in the Chrome browser.",
+      "dc13": "TikTok Duet is a famous music band.",
+      "dc14": "The newcomers to Google are called Nooglers.",
+      "dc15": "The New Media Ecosystem is a collaborative information environment for print, broadcast, digital and social media.",
+
+      "win3_title": "Great Work!",
+      "win3_text":
+        "You are equally familiar with traditional and contemporary media and have found the ability to safely navigate into the digital world!",
+      "final_win_text":
+        "Great Work! You are equally familiar with traditional and contemporary media and have found the ability to safely navigate into the digital world!",
+      "lose": "You are out of lives! But instead of giving up, you can try again!",
+
+      "victory": "Victory!",
+      "you_lost": "You lost!",
+      "give_up_text":
+        "It is sad that you gave up after all! However, you can always start again!",
+      "body_hit":
+        "Oops, you've bitten your own tail but no worries, you can still keep on playing.",
+      
+
+      "start": "start",
+      "next": "next",
+      "continue": "continue",
+      "stop": "stop",
+      "try_again": "try again",
+      "give_up": "give up",
+      "yes": " - True",
+      "no": " - False",
+      "movement": " - movement"
+    }

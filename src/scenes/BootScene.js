@@ -37,6 +37,7 @@ export default class BootScene extends Phaser.Scene {
   }
 
   create() {
+
     this.scene.launch("rotateScene");
 
     this.scene.start("preload");

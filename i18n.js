@@ -4,21 +4,14 @@ import LanguageDetector from "i18next-browser-languagedetector";
 const resources = {
   en: {
     translation: {
-      // title page
-
       "about game": "About the Game",
       annotation:
         "The online game “Cyber Snake” was developed by the Media Development Foundation’s team, while the idea to create an adapted version of the popular game belongs to the contestants of the “Most Media-literate School” competition from the 12th Public School of Gori. (Veriko Michitashvili, Mariam Gozalishvili, Keti Shugliashvili, Giorgi Michitashvili, Luka Shengelia).",
       instruction: "Instructions",
       "instruction text":
         "The game consists of three parts, each of them containing 10 questions. In order to advance to the digital age (III), first, you have to pass through the Gutenberg Era – the realm of print media (I) and the Era of the Broadcasting Media (II). Each correct answer will increase the length of the snake. You only have a total of 5 lives. Each incorrect answer will cost you one life. In order to end up in the Digital Era, you would need at least one life.",
-      about: `The game consists of three parts:
-
-      I - Gutenberg Era
-      II - Era of the Broadcasting Media
-      III - Digital Era
-      
-      Each of them containing 10 questions Each correct answer will increase the length of the snake. You only have a total of 5 lives. Each incorrect answer will cost you one life. In order to end up in the Digital Era, you would need at least one life and as many points as possible.`,
+      about:
+        "The game consists of three parts:\n\nI - Gutenberg Era\nII - Era of the Broadcasting Media\nIII - Digital Era\nEach of them containing 10 questions Each correct answer will increase the length of the snake. You only have a total of 5 lives. Each incorrect answer will cost you one life. In order to end up in the Digital Era, you would need at least one life and as many points as possible.",
       questions: "Questions by: ",
       q_authors: "Media Development Foundation (MDF)",
       illustrator: "Illustrator: ",
@@ -28,18 +21,13 @@ const resources = {
 
       cyber_snake: "Cyber Snake",
 
-      //rules page
-
       rules:
         "Are you ready to travel in the depths of time and overcome the different stages of media development together with the Cyber Snake? Remember, you have to pass through two initial stages to advance to the Digital Age. Be cautious and look after your lives! Use the keyboard arrows or the mouse to move the cyber snake.",
-
-      //guttenberg era
 
       first_xokera: "Gutenberg Era",
       first_instr:
         "Welcome to the Gutenberg Era! Remember the evolution of the print culture and what we should know about media content.",
 
-      //history questions
       gh1: "Johannes Gutenberg was the first printer and publisher.",
       gh2: "“Acta Diurna” was the prototype of a newspaper read by the people in crowded places in Rome.",
       gh3: "The first-ever printed Bible is associated with the name of Gutenberg. ",
@@ -55,8 +43,6 @@ const resources = {
       gh13: "Spielberg’s film “The Post” deals with the New York Times investigation into the Pentagon papers. ",
       gh14: "Foreigner Policy journalist Glenn Greenwald received the Pulitzer Prize for exposing Edward Snowden’s secret documents.",
       gh15: "The Soviet press covered the Chernobyl disaster only 10 days later. ",
-
-      //content questions
 
       gc1: "News is information that has happened in the past. ",
       gc2: "When a dog bites a person, it is “news”.",
@@ -78,13 +64,9 @@ const resources = {
       win1_text:
         "The era of print media is over. The era of broadcast media awaits you!",
 
-      //Broadcasting Era
-
       second_xokera: "Broadcasting Era",
       second_instr:
         "After the broadcast of moving black-and-white sound images became possible over long distances, revolutionary changes have taken place in the field of communication. Remember the transformation that occurred in the age of television and radio and be cautious of lives to advance to the digital age.",
-
-      //history questions
 
       bh1: "The word “Radio” is derived from the Latin radius and translates to beam.",
       bh2: "The word “Television” derives from the Greek “tele” (τηλε - far) and the Latin “visio” (see).",
@@ -101,8 +83,6 @@ const resources = {
       bh13: "The first color cartoon was released by Walt Disney in 1932.",
       bh14: "Maurice Leblanc's article, published in La Lumiere Electrique in 1880, formed the basis of television.",
       bh15: "The guerrilla “Solidarity Movement” in Poland could not have been successful without radio.",
-
-      //content questions
 
       bc1: "Video Over (VO) is a short story consisting of the anchor’s text, cover footage and the respondent(s) comment.",
       bc2: "Primetime is the time of day when the least people watch TV.",
@@ -123,12 +103,9 @@ const resources = {
       win2_title: "Congratulations!",
       win2_text:
         "You have successfully overcome the broadcasting era and reached the cyber snake. In order to secure your victory, you have to adapt to the digital world as well!",
-      //digital media era
       third_xokera: "The Era of Digital Media",
       third_instr:
         "Finally! You are in the Digital Age; however, navigating into the new media ecosystem is not that easy. In addition to knowledge of various online formats and platforms, the test will examine your cyber security skills.",
-
-      //history questions
 
       dh1: "The Internet is a network that connects relatives around the world.",
       dh2: "The Internet is a network that connects computers around the world.",
@@ -146,7 +123,6 @@ const resources = {
       dh14: "Phishing is a form of internet fraud.",
       dh15: " Bill Gates and Paul Allen are the creators of Microsoft.",
 
-      //content history
       dc1: "Vlog is a blog containing video content.",
       dc2: "Multimedia means concentrated media in the hands of a multimillionaire.",
       dc3: "Multimedia is a form of communication that combines various contents (text, audio, visual, etc.).",
@@ -176,9 +152,7 @@ const resources = {
         "It is sad that you gave up after all! However, you can always start again!",
       body_hit:
         "Oops, you've bitten your own tail but no worries, you can still keep on playing.",
-      
 
-      /// Buttons
       start: "start",
       next: "next",
       continue: "continue",
@@ -386,7 +360,7 @@ const resources = {
 
 const options = {
   order: ["htmlTag", "querystring", "navigator"],
-  lookupQuerystring: "lng",
+  lookupQuerystring: "lang",
 };
 
 i18n.use(LanguageDetector).init({

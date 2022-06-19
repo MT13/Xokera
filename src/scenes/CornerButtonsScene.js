@@ -43,6 +43,14 @@ export class CornerButtonsScene extends BaseScene {
       this.scene.sendToBack();
     });
 
+    sceneEvents.on("rotate", this.onRotate, this);
+    sceneEvents.on("unRotate", this.unRotate, this);
+
+    this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
+      sceneEvents.off("rotate", this.onRotate);
+      sceneEvents.off("unRotate", this.unRotate);
+    });
+
     this.scale.on("leavefullscreen", this.handleFullscreen, this);
 
     let styleT;
@@ -135,5 +143,31 @@ export class CornerButtonsScene extends BaseScene {
       }
       this.aboutClicked = !this.aboutClicked;
     });
+  }
+
+  onRotate() {
+    if (this.aboutClicked) {
+      this.instr.setVisible(false);
+      this.aboutRec.setVisible(false);
+      this.yesFruit.setVisible(false);
+      this.noFruit.setVisible(false);
+      this.yesText.setVisible(false);
+      this.noText.setVisible(false);
+      this.arrows.setVisible(false);
+      this.arrowsText.setVisible(false);
+    }
+  }
+
+  unRotate() {
+    if (this.aboutClicked) {
+      this.instr.setVisible(true);
+      this.aboutRec.setVisible(true);
+      this.yesFruit.setVisible(true);
+      this.noFruit.setVisible(true);
+      this.yesText.setVisible(true);
+      this.noText.setVisible(true);
+      this.arrows.setVisible(true);
+      this.arrowsText.setVisible(true);
+    }
   }
 }

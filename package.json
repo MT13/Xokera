@@ -12,12 +12,11 @@
   "dependencies": {
     "assets": "^3.0.1",
     "constants": "^0.0.2",
+    "i18next": "^21.8.10",
     "i18next-browser-languagedetector": "^6.1.4",
     "parcel-bundler": "^1.12.5",
     "phaser": "^3.55.2",
-    "phaser3-rex-plugins": "^1.1.68"
-  },
-  "devDependencies": {
-    "@azerion/phaser-i18next": "^1.0.3"
+    "phaser3-rex-plugins": "^1.1.68",
+    "tslib": "^2.4.0"
   }
 }
